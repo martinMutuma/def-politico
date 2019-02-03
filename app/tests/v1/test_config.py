@@ -24,10 +24,10 @@ class TestTestingConfig(unittest.TestCase):
     def setUp(self):
         self.app = create_app('testing')
 
-    def test_app_is_development(self):
+    def test_app_is_testing(self):
         """ Test function for testing environment """
 
-        self.assertEqual(self.app.config['DEBUG'], False)
+        self.assertEqual(self.app.config['DEBUG'], True)
         self.assertEqual(self.app.config['TESTING'], True)
 
     def tearDown(self):
@@ -40,7 +40,7 @@ class TestStagingConfig(unittest.TestCase):
     def setUp(self):
         self.app = create_app('staging')
 
-    def test_app_is_development(self):
+    def test_app_is_staging(self):
         """ Test function for staging environment """
 
         self.assertEqual(self.app.config['DEBUG'], True)
@@ -56,7 +56,7 @@ class TestProductionConfig(unittest.TestCase):
     def setUp(self):
         self.app = create_app('production')
 
-    def test_app_is_development(self):
+    def test_app_is_production(self):
         """ Test function for production environment """
 
         self.assertEqual(self.app.config['DEBUG'], False)
