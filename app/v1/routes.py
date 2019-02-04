@@ -8,4 +8,14 @@ bp = Blueprint('api', __name__, url_prefix='/api/v1')
 @bp.route('/parties', methods=('POST'))
 def create_party():
     if request.method == 'POST':
-        name = request.form
+        party_name = request.form['name']
+
+
+def validate_party(party):
+    """This function validates a party and rejects or accepts it"""
+    for key, value in party.items():
+        if not value:
+            return "Please provide a {} for the party".format(key)
+        if key == "name":
+            if len(value) < 3:
+                return "The party name provided is too short"
