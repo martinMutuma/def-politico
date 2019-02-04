@@ -12,6 +12,8 @@ party_list = []
 def create_party():
     try:
         data = request.get_json()
+        if not data:
+            return response("No data was provided", 400)
         name = data['name']
         hq_address = data['hq_address']
         logo_url = data['logo_url']
