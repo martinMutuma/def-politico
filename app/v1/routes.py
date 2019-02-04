@@ -10,15 +10,20 @@ party_list = []
 
 @bp.route('/parties', methods=['POST'])
 def create_party():
+    """ Create party end point """
+
+    data = request.get_json()
+
+    if not data:
+        response("No data was provided", 400)
+
     try:
-        data = request.get_json()
         name = data['name']
         hq_address = data['hq_address']
         logo_url = data['logo_url']
         slogan = data['slogan']
     except KeyError as e:
-        return response(
-            "Failed", "{} field is required".format(e.args[0]), 400)
+        return response("{} field is required".format(e.args[0]), 400)
 
     party = {
         "id": generate_id(party_list),
@@ -34,17 +39,19 @@ def create_party():
     party_list.append(party)
 
     # return list of parties to display added party
-    return response("OK", "Party created successfully", 201, party)
+    return response("Party created successfully", 201, party)
 
 
 def validate_party(party):
     """This function validates a party and rejects or accepts it"""
     for key, value in party.items():
         if not value:
-            return "Please provide a {} for the party".format(key)
+            return response(
+                "Please provide a {} for the party".format(key), 400)
         if key == "name":
             if len(value) < 3:
-                return "The party name provided is too short"
+                return response(
+                    "The party name provided is too short", 400)
 
 
 def generate_id(list):
@@ -53,10 +60,10 @@ def generate_id(list):
     return len(list) + 1
 
 
-def response(status, message, code, data=None):
+def response(message, code, data=None):
     """ Creates a basic reposnse """
     response = {
-        "status": status,
+        "status": code,
         "message": message,
     }
     if data:
