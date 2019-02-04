@@ -10,10 +10,14 @@ party_list = []
 
 @bp.route('/parties', methods=['POST'])
 def create_party():
+    """ Create party end point """
+
+    data = request.get_json()
+
+    if not data:
+        response("No data was provided", 400)
+
     try:
-        data = request.get_json()
-        if not data:
-            return response("No data was provided", 400)
         name = data['name']
         hq_address = data['hq_address']
         logo_url = data['logo_url']
@@ -42,10 +46,12 @@ def validate_party(party):
     """This function validates a party and rejects or accepts it"""
     for key, value in party.items():
         if not value:
-            return "Please provide a {} for the party".format(key)
+            return response(
+                "Please provide a {} for the party".format(key), 400)
         if key == "name":
             if len(value) < 3:
-                return "The party name provided is too short"
+                return response(
+                    "The party name provided is too short", 400)
 
 
 def generate_id(list):

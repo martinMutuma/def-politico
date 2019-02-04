@@ -25,12 +25,16 @@ class TestParties(Base):
         self.assertEqual(data['message'], 'Party created successfully')
         self.assertEqual(res.status_code, 201)
 
-    def test_create_party_no_data(self):
-        """ Tests that a party was created successfully """
+    def test_create_party_missing_fields(self):
+        """ Tests when some fields are missing e.g name """
 
-        res = self.client.post('/api/v1/parties', json=self.new_party)
+        res = self.client.post('/api/v1/parties', json={
+            "slogan": "Pamoja tujengane",
+            "hq_address": "Nairobe",
+            "logo_url": "url"
+        })
         data = res.get_json()
 
-        self.assertEqual(data['status'], 201)
-        self.assertEqual(data['message'], 'Party created successfully')
-        self.assertEqual(res.status_code, 201)
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'name field is required')
+        self.assertEqual(res.status_code, 400)
