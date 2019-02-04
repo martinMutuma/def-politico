@@ -17,8 +17,7 @@ def create_party():
         logo_url = data['logo_url']
         slogan = data['slogan']
     except KeyError as e:
-        return response(
-            "Failed", "{} field is required".format(e.args[0]), 400)
+        return response("{} field is required".format(e.args[0]), 400)
 
     party = {
         "id": generate_id(party_list),
@@ -34,7 +33,7 @@ def create_party():
     party_list.append(party)
 
     # return list of parties to display added party
-    return response("OK", "Party created successfully", 201, party)
+    return response("Party created successfully", 201, party)
 
 
 def validate_party(party):
@@ -53,10 +52,10 @@ def generate_id(list):
     return len(list) + 1
 
 
-def response(status, message, code, data=None):
+def response(message, code, data=None):
     """ Creates a basic reposnse """
     response = {
-        "status": status,
+        "status": code,
         "message": message,
     }
     if data:
