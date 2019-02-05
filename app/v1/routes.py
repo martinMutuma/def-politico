@@ -48,6 +48,20 @@ def create_party():
         return response('Request was sent successfully', 200, party_list)
 
 
+@bp.route('/parties/<int:id>', methods=['GET'])
+def get_party(id):
+    if not id:
+        return response('Please provide an ID', 400)
+
+    filtered = filter(lambda party: party['id'] == id, party_list)
+    filtered = list(filtered)
+
+    if len(filtered) == 0:
+        return response('Party not found', 404)
+
+    return response('Request sent successfully', 200, filtered)
+
+
 def validate_party(party):
     """This function validates a party and rejects or accepts it"""
     for key, value in party.items():
