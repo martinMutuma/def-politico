@@ -1,5 +1,5 @@
 from .base_test import Base
-from app.v1.routes import party_list
+from app.v1.routes import party_list, office_list
 
 
 class TestParties(Base):
@@ -16,9 +16,11 @@ class TestParties(Base):
             "logo_url": "url"
         }
 
+    # clear all lists after tests
     def tearDown(self):
         super().tearDown()
         party_list.clear()
+        office_list.clear()
 
     # tests for POST parties
     def test_create_party(self):

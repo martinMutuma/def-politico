@@ -6,6 +6,7 @@ from flask import make_response
 bp = Blueprint('api', __name__, url_prefix='/api/v1')
 
 party_list = []
+office_list = []
 
 
 @bp.route('/parties', methods=['POST', 'GET'])
@@ -34,12 +35,12 @@ def create_party():
             "slogan": slogan
         }
 
-        validate_party(party)
+        validate_object(party, party_list, 'Party')
 
         # append new party to list
         party_list.append(party)
 
-        # return list of parties to display added party
+        # return added party
         return response("Party created successfully", 201, [party])
 
     elif request.method == 'GET':
@@ -68,16 +69,56 @@ def get_party(id):
             '{} deleted successfully'.format(party['name']), 200, [party])
 
 
-def validate_party(party):
-    """This function validates a party and rejects or accepts it"""
-    for key, value in party.items():
+@bp.route('/offices', methods=['POST', 'GET'])
+def create_office():
+    if request.method == 'POST':
+        """ Create office end point """
+
+        data = request.get_json()
+
+        if not data:
+            return response("No data was provided", 400)
+
+        try:
+            typ = data['type']
+            name = data['name']
+        except KeyError as e:
+            return response("{} field is required".format(e.args[0]), 400)
+
+        office = {
+            "id": generate_id(office_list),
+            "name": name,
+            "type": typ
+        }
+
+        validate_object(office, office_list, 'Office')
+
+        # append new office to list
+        office_list.append(office)
+
+        # return added office
+        return response("Office created successfully", 201, [office])
+
+    elif request.method == 'GET':
+        """ Get all offices end point """
+
+        return response('Request was sent successfully', 200, office_list)
+
+
+def validate_object(item, collection, name):
+    """This function validates an object and rejects or accepts it"""
+    for key, value in item.items():
         if not value:
             return response(
-                "Please provide a {} for the party".format(key), 400)
+                "Please provide a {} for the {}".format(key, name), 400)
         if key == "name":
             if len(value) < 3:
                 return response(
-                    "The party name provided is too short", 400)
+                    "The {} name provided is too short".format(name), 400)
+        for i in range(len(collection)):
+            if collection[i]['id'] == id:
+                return response(
+                    "{} already exists".format(name), 400)
 
 
 def generate_id(list):
