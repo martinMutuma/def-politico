@@ -16,6 +16,7 @@ class TestParties(Base):
             "logo_url": "url"
         }
 
+    # clear all lists after tests
     def tearDown(self):
         super().tearDown()
         party_list.clear()
