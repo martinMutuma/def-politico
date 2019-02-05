@@ -1,4 +1,5 @@
 from .base_test import Base
+from app.v1.routes import party_list
 
 
 class TestParties(Base):
@@ -14,6 +15,10 @@ class TestParties(Base):
             "hq_address": "Nairobe",
             "logo_url": "url"
         }
+
+    def tearDown(self):
+        super().tearDown()
+        party_list.clear()
 
     # tests for POST parties
     def test_create_party(self):
@@ -63,7 +68,7 @@ class TestParties(Base):
 
         self.assertEqual(data['status'], 200)
         self.assertEqual(data['message'], 'Request was sent successfully')
-        self.assertEqual(len(data['data']), 4)
+        self.assertEqual(len(data['data']), 3)
         self.assertEqual(res.status_code, 200)
 
     def test_get_all_parties_no_data(self):
@@ -74,7 +79,7 @@ class TestParties(Base):
 
         self.assertEqual(data['status'], 200)
         self.assertEqual(data['message'], 'Request was sent successfully')
-        self.assertEqual(len(data['data']), 4)
+        self.assertEqual(len(data['data']), 0)
         self.assertEqual(res.status_code, 200)
 
     # tests for GET single party
@@ -96,6 +101,32 @@ class TestParties(Base):
         """ Tests request made with id that does not exist """
 
         res = self.client.get('/api/v1/parties/14')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 404)
+        self.assertEqual(data['message'], 'Party not found')
+        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(res.status_code, 404)
+
+    # tests for DELETE party
+    def test_delete_party(self):
+        """ Tests when DELETE reuest made to /parties/<int:id> """
+
+        self.client.post('/api/v1/parties', json=self.new_party)
+
+        res = self.client.delete('/api/v1/parties/1')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['message'], 'NARC deleted successfully')
+        self.assertEqual(len(data['data']), 1)
+        self.assertEqual(data['data'][0]['id'], 1)
+        self.assertEqual(res.status_code, 200)
+
+    def test_delete_party_id_not_found(self):
+        """ Tests DELETE request made with id that does not exist """
+
+        res = self.client.delete('/api/v1/parties/14')
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
