@@ -63,7 +63,7 @@ class TestParties(Base):
 
         self.assertEquals(data['status'], 200)
         self.assertEquals(data['message'], 'Request was sent successfully')
-        self.assertEquals(len(data['data']), 3)
+        self.assertEquals(len(data['data']), 4)
         self.assertEquals(res.status_code, 200)
 
     def test_get_all_parties_no_data(self):
@@ -74,5 +74,5 @@ class TestParties(Base):
 
         self.assertEquals(data['status'], 200)
         self.assertEquals(data['message'], 'Request was sent successfully')
-        self.assertEquals(len(data['data']), 0)
+        self.assertEquals(len(data['data']), 4)
         self.assertEquals(res.status_code, 200)
