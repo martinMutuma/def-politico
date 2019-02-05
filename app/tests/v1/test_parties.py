@@ -15,6 +15,7 @@ class TestParties(Base):
             "logo_url": "url"
         }
 
+    # tests for POST parties
     def test_create_party(self):
         """ Tests that a party was created successfully """
 
@@ -48,3 +49,30 @@ class TestParties(Base):
         self.assertEqual(data['status'], 400)
         self.assertEqual(data['message'], 'No data was provided')
         self.assertEqual(res.status_code, 400)
+
+    # tests for GET parties
+    def test_get_all_parties(self):
+        """ Tests when get request made to api/v1/parties """
+
+        res = self.client.post('/api/v1/parties', json=self.new_party)
+        res = self.client.post('/api/v1/parties', json=self.new_party)
+        res = self.client.post('/api/v1/parties', json=self.new_party)
+
+        res = self.client.get('/api/v1/parties')
+        data = res.get_json()
+
+        self.assertEquals(data['status'], 200)
+        self.assertEquals(data['message'], 'Request was sent successfully')
+        self.assertEquals(len(data['data']), 3)
+        self.assertEquals(res.status_code, 200)
+
+    def test_get_all_parties_no_data(self):
+        """ Tests when get request made to api/v1/parties """
+
+        res = self.client.get('/api/v1/parties')
+        data = res.get_json()
+
+        self.assertEquals(data['status'], 200)
+        self.assertEquals(data['message'], 'Request was sent successfully')
+        self.assertEquals(len(data['data']), 0)
+        self.assertEquals(res.status_code, 200)
