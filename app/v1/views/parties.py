@@ -66,4 +66,3 @@ def get_party(id):
                 break
         return response(
             '{} deleted successfully'.format(party['name']), 200, [party])
-
