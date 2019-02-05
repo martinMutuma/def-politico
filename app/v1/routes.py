@@ -8,38 +8,44 @@ bp = Blueprint('api', __name__, url_prefix='/api/v1')
 party_list = []
 
 
-@bp.route('/parties', methods=['POST'])
+@bp.route('/parties', methods=['POST', 'GET'])
 def create_party():
-    """ Create party end point """
+    if request.method == 'POST':
+        """ Create party end point """
 
-    data = request.get_json()
+        data = request.get_json()
 
-    if not data:
-        response("No data was provided", 400)
+        if not data:
+            response("No data was provided", 400)
 
-    try:
-        name = data['name']
-        hq_address = data['hq_address']
-        logo_url = data['logo_url']
-        slogan = data['slogan']
-    except KeyError as e:
-        return response("{} field is required".format(e.args[0]), 400)
+        try:
+            name = data['name']
+            hq_address = data['hq_address']
+            logo_url = data['logo_url']
+            slogan = data['slogan']
+        except KeyError as e:
+            return response("{} field is required".format(e.args[0]), 400)
 
-    party = {
-        "id": generate_id(party_list),
-        "name": name,
-        "hq_address": hq_address,
-        "logo_url": logo_url,
-        "slogan": slogan
-    }
+        party = {
+            "id": generate_id(party_list),
+            "name": name,
+            "hq_address": hq_address,
+            "logo_url": logo_url,
+            "slogan": slogan
+        }
 
-    validate_party(party)
+        validate_party(party)
 
-    # append new party to list
-    party_list.append(party)
+        # append new party to list
+        party_list.append(party)
 
-    # return list of parties to display added party
-    return response("Party created successfully", 201, party)
+        # return list of parties to display added party
+        return response("Party created successfully", 201, party)
+
+    elif request.method == 'GET':
+        """ Get all parties end point """
+
+        return response('Request was sent successfully', 200, party_list)
 
 
 def validate_party(party):
@@ -65,7 +71,6 @@ def response(message, code, data=None):
     response = {
         "status": code,
         "message": message,
+        "data": data
     }
-    if data:
-        response["data"] = data
     return make_response(jsonify(response), code)
