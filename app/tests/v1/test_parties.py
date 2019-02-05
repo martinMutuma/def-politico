@@ -61,10 +61,10 @@ class TestParties(Base):
         res = self.client.get('/api/v1/parties')
         data = res.get_json()
 
-        self.assertEquals(data['status'], 200)
-        self.assertEquals(data['message'], 'Request was sent successfully')
-        self.assertEquals(len(data['data']), 4)
-        self.assertEquals(res.status_code, 200)
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['message'], 'Request was sent successfully')
+        self.assertEqual(len(data['data']), 4)
+        self.assertEqual(res.status_code, 200)
 
     def test_get_all_parties_no_data(self):
         """ Tests when get request made to api/v1/parties """
@@ -72,7 +72,33 @@ class TestParties(Base):
         res = self.client.get('/api/v1/parties')
         data = res.get_json()
 
-        self.assertEquals(data['status'], 200)
-        self.assertEquals(data['message'], 'Request was sent successfully')
-        self.assertEquals(len(data['data']), 4)
-        self.assertEquals(res.status_code, 200)
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['message'], 'Request was sent successfully')
+        self.assertEqual(len(data['data']), 4)
+        self.assertEqual(res.status_code, 200)
+
+    # tests for GET single party
+    def test_get_sigle_party(self):
+        """ Tests when get reuest made to /parties/<int:id> """
+
+        self.client.post('/api/v1/parties', json=self.new_party)
+
+        res = self.client.get('/api/v1/parties/1')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['message'], 'Request sent successfully')
+        self.assertEqual(len(data['data']), 1)
+        self.assertEqual(data['data'][0]['id'], 1)
+        self.assertEqual(res.status_code, 200)
+
+    def test_get_single_party_id_not_found(self):
+        """ Tests request made with id that does not exist """
+
+        res = self.client.get('/api/v1/parties/14')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 404)
+        self.assertEqual(data['message'], 'Party not found')
+        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(res.status_code, 404)

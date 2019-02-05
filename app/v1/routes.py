@@ -55,7 +55,7 @@ def get_party(id):
     filtered = list(filtered)
 
     if len(filtered) == 0:
-        return response('Party not found', 404)
+        return response('Party not found', 404, [])
 
     return response('Request sent successfully', 200, filtered)
 
