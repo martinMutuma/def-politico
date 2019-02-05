@@ -10,7 +10,7 @@ class TestParties(Base):
         super().setUp()
 
         self.new_office = {
-            "name": "NARC",
+            "name": "Governor",
             "type": "federal"
         }
 
@@ -78,3 +78,55 @@ class TestParties(Base):
         self.assertEqual(data['message'], 'Request was sent successfully')
         self.assertEqual(len(data['data']), 0)
         self.assertEqual(res.status_code, 200)
+
+    # tests for GET single office
+    def test_get_sigle_office(self):
+        """ Tests when get reuest made to /offices/<int:id> """
+
+        self.client.post('/api/v1/offices', json=self.new_office)
+
+        res = self.client.get('/api/v1/offices/1')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['message'], 'Request sent successfully')
+        self.assertEqual(len(data['data']), 1)
+        self.assertEqual(data['data'][0]['id'], 1)
+        self.assertEqual(res.status_code, 200)
+
+    def test_get_single_office_id_not_found(self):
+        """ Tests request made with id that does not exist """
+
+        res = self.client.get('/api/v1/offices/14')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 404)
+        self.assertEqual(data['message'], 'Office not found')
+        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(res.status_code, 404)
+
+    # tests for DELETE office
+    def test_delete_office(self):
+        """ Tests when DELETE reuest made to /offices/<int:id> """
+
+        self.client.post('/api/v1/offices', json=self.new_office)
+
+        res = self.client.delete('/api/v1/offices/1')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['message'], 'Governor deleted successfully')
+        self.assertEqual(len(data['data']), 1)
+        self.assertEqual(data['data'][0]['id'], 1)
+        self.assertEqual(res.status_code, 200)
+
+    def test_delete_office_id_not_found(self):
+        """ Tests DELETE request made with id that does not exist """
+
+        res = self.client.delete('/api/v1/offices/14')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 404)
+        self.assertEqual(data['message'], 'Office not found')
+        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(res.status_code, 404)
