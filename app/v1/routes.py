@@ -16,7 +16,7 @@ def create_party():
         data = request.get_json()
 
         if not data:
-            response("No data was provided", 400)
+            return response("No data was provided", 400)
 
         try:
             name = data['name']
