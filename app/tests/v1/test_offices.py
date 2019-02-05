@@ -2,7 +2,7 @@ from .base_test import Base
 from app.v1.views.offices import office_list
 
 
-class TestParties(Base):
+class TestOffices(Base):
     """ Tests for all office endpoints """
 
     def setUp(self):

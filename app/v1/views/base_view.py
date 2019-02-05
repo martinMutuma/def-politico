@@ -34,3 +34,9 @@ def response(message, code, data=None):
         "data": data
     }
     return make_response(jsonify(response), code)
+
+
+def exists(id, items):
+    filtered = filter(lambda item: item['id'] == id, items)
+    filtered = list(filtered)
+    return len(filtered) > 0
