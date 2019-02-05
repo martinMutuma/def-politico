@@ -81,8 +81,9 @@ class TestParties(Base):
     def test_get_sigle_party(self):
         """ Tests when get reuest made to /parties/<int:id> """
 
-        res = self.client.post('/api/v1/parties', json=self.new_party)
-        res = self.client.get('/api/vi/parties/1')
+        self.client.post('/api/v1/parties', json=self.new_party)
+
+        res = self.client.get('/api/v1/parties/1')
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
@@ -94,7 +95,7 @@ class TestParties(Base):
     def test_get_single_party_id_not_found(self):
         """ Tests request made with id that does not exist """
 
-        res = self.client.get('/api/vi/parties/1')
+        res = self.client.get('/api/v1/parties/14')
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
