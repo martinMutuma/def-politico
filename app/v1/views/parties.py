@@ -66,3 +66,26 @@ def get_party(id):
                 break
         return response(
             '{} deleted successfully'.format(party['name']), 200, [party])
+
+
+@bp.route('/parties/<int:id>/<string:name>', methods=['PATCH'])
+def edit_party(id, name):
+
+    filtered = filter(lambda party: party['id'] == id, party_list)
+    filtered = list(filtered)
+
+    if len(filtered) == 0:
+        return response('Party not found', 404, [])
+    if not name:
+        return response('Name not provided', 400, [])
+    if len(name) < 4:
+        return response('The name provided is too short', 400, [])
+
+    for i in range(len(party_list)):
+        if party_list[i]['id'] == id:
+            party = party_list.pop(i)
+            party['name'] = name
+            party_list[i] = party
+            break
+    return response(
+        '{} updated successfully'.format(party['name']), 200, [party])
