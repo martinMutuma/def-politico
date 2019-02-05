@@ -1,5 +1,5 @@
 from .base_test import Base
-from app.v1.routes import party_list
+from app.v1.views.parties import party_list
 
 
 class TestParties(Base):
