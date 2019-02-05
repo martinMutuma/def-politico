@@ -38,3 +38,13 @@ class TestParties(Base):
         self.assertEqual(data['status'], 400)
         self.assertEqual(data['message'], 'name field is required')
         self.assertEqual(res.status_code, 400)
+
+    def test_create_party_no_data(self):
+        """ Tests when no data is provided """
+
+        res = self.client.post('/api/v1/parties')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'No data was provided')
+        self.assertEqual(res.status_code, 400)
