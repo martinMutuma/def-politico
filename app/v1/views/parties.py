@@ -76,14 +76,13 @@ def edit_party(id, name):
 
     if len(filtered) == 0:
         return response('Party not found', 404, [])
-    if not name:
-        return response('Name not provided', 400, [])
+
     if len(name) < 4:
         return response('The name provided is too short', 400, [])
 
     for i in range(len(party_list)):
         if party_list[i]['id'] == id:
-            party = party_list.pop(i)
+            party = party_list[i]
             party['name'] = name
             party_list[i] = party
             break

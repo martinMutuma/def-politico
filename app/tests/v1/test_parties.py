@@ -134,3 +134,30 @@ class TestParties(Base):
         self.assertEqual(data['message'], 'Party not found')
         self.assertEqual(len(data['data']), 0)
         self.assertEqual(res.status_code, 404)
+
+    # tests for PATCH party
+    def test_patch_party(self):
+        """ Tests when PATCH reuest made to /parties/<int:id>/name """
+
+        self.client.post('/api/v1/parties', json=self.new_party)
+
+        res = self.client.patch('/api/v1/parties/1/Rainbow')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['message'], 'Rainbow updated successfully')
+        self.assertEqual(len(data['data']), 1)
+        self.assertEqual(data['data'][0]['id'], 1)
+        self.assertEqual(data['data'][0]['name'], 'Rainbow')
+        self.assertEqual(res.status_code, 200)
+
+    def test_patch_party_id_not_found(self):
+        """ Tests PATCH request made with id that does not exist """
+
+        res = self.client.patch('/api/v1/parties/14/Rainbow')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 404)
+        self.assertEqual(data['message'], 'Party not found')
+        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(res.status_code, 404)
