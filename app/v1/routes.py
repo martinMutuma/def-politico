@@ -48,7 +48,7 @@ def create_party():
         return response('Request was sent successfully', 200, party_list)
 
 
-@bp.route('/parties/<int:id>', methods=['GET'])
+@bp.route('/parties/<int:id>', methods=['GET', 'DELETE'])
 def get_party(id):
 
     filtered = filter(lambda party: party['id'] == id, party_list)
@@ -57,7 +57,15 @@ def get_party(id):
     if len(filtered) == 0:
         return response('Party not found', 404, [])
 
-    return response('Request sent successfully', 200, filtered)
+    if request.method == 'GET':
+        return response('Request sent successfully', 200, filtered)
+    else:
+        for i in range(len(party_list)):
+            if party_list[i]['id'] == id:
+                party = party_list.pop(i)
+                break
+        return response(
+            '{} deleted successfully'.format(party['name']), 200, [party])
 
 
 def validate_party(party):
