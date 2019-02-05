@@ -1,5 +1,5 @@
 from .base_test import Base
-from app.v1.routes import office_list
+from app.v1.views.offices import office_list
 
 
 class TestParties(Base):
