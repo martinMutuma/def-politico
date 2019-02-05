@@ -40,12 +40,24 @@ def create_party():
         party_list.append(party)
 
         # return list of parties to display added party
-        return response("Party created successfully", 201, party)
+        return response("Party created successfully", 201, [party])
 
     elif request.method == 'GET':
         """ Get all parties end point """
 
         return response('Request was sent successfully', 200, party_list)
+
+
+@bp.route('/parties/<int:id>', methods=['GET'])
+def get_party(id):
+
+    filtered = filter(lambda party: party['id'] == id, party_list)
+    filtered = list(filtered)
+
+    if len(filtered) == 0:
+        return response('Party not found', 404)
+
+    return response('Request sent successfully', 200, filtered)
 
 
 def validate_party(party):
