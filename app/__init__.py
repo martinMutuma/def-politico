@@ -3,7 +3,7 @@ import os
 from flask import Flask
 from instance.config import app_config
 from .v1.views.base_view import bp
-from .v1.views import offices, parties
+from .v1.views import offices, parties, candidates, votes, users
 
 
 def create_app(config_name):

@@ -54,7 +54,7 @@ def vote():
         return response('Request was sent successfully', 200, votes_list)
 
 
-@bp.route('/votes/users/<int:id>', methods=['GET'])
+@bp.route('/votes/user/<int:id>', methods=['GET'])
 def get_user_votes(id):
     """ Gets all votes a user has cast """
 
@@ -65,7 +65,7 @@ def get_user_votes(id):
         'Request sent successfully', 200, len(filtered), filtered)
 
 
-@bp.route('/votes/candidates/<int:id>', methods=['GET'])
+@bp.route('/votes/candidate/<int:id>', methods=['GET'])
 def get_candidate_votes(id):
     """ Gets all votes for a specific candidate """
 
