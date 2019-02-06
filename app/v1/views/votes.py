@@ -41,6 +41,8 @@ def vote():
             return response('Selected Office does not exist', 404)
         if not exists(candidate, users_list):
             return response('Selected User does not exist', 404)
+        if voted_for(created_by, office):
+            return response('You can only vote once per office', 400)
 
         # append new vote to list
         votes_list.append(vote)
@@ -85,6 +87,12 @@ def get_office_votes(id):
 
     return vote_response(
         'Request sent successfully', 200, len(filtered), filtered)
+
+
+def voted_for(uid, office):
+    filtered = filter(lambda item: item['createdBy'] == uid and item['office'] == office, votes_list)
+    filtered = list(filtered)
+    return len(filtered) > 0
 
 
 def vote_response(message, code, count, data=None):
