@@ -9,6 +9,10 @@ from .v1.views import offices, parties, candidates, votes, users
 def create_app(config_name):
     """ create app with specified configs """
 
+    is_prod = os.environ.get('IS_HEROKU', None)
+    if is_prod:
+        config_name = 'development'
+
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
