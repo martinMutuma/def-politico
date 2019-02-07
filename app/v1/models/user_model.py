@@ -1,5 +1,5 @@
-from app.v1.views.base_view import generate_id, exists, validate_ints, validate_bool
-from app.v1.views.base_view import validate_strings
+from app.v1.utils.validator import generate_id, exists, validate_ints, validate_bool
+from app.v1.utils.validator import validate_strings
 from .base_model import BaseModel
 
 

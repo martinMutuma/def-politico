@@ -5,16 +5,21 @@ from app.v1.models.candidate_model import Candidate
 from app.v1.models.party_model import Party
 
 
-class Database():
+class Database:
     """ The database model """
+    USERS = 'users'
+    PARTIES = 'parties'
+    OFFICES = 'offices'
+    CANDIDATES = 'candidates'
+    VOTES = 'votes'
 
     def __init__(self):
         self.tables = {
-            "users": User.users,
-            "parties": Party.parties,
-            "offices": Office.offices,
-            "candidates": Candidate.candidates,
-            "votes": Vote.votes
+            self.USERS: User.users,
+            self.PARTIES: Party.parties,
+            self.OFFICES: Office.offices,
+            self.CANDIDATES: Candidate.candidates,
+            self.VOTES: Vote.votes
         }
 
     def get_table(self, table_name):

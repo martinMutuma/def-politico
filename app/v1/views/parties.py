@@ -5,7 +5,7 @@ from flask import make_response
 from app.v1.models.db import Database
 from app.v1.models.party_model import Party
 from app.v1.utils.validator import response, exists
-from app import bp
+from app.v1.blueprints import bp
 
 
 party_list = Party.parties

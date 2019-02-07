@@ -1,5 +1,5 @@
 from .base_test import Base
-from app.v1.views.votes import votes_list
+from app.v1.models.db import Database
 
 
 class TestVotes(Base):
@@ -8,6 +8,8 @@ class TestVotes(Base):
     def setUp(self):
         """ setup objects required for these tests """
         super().setUp()
+
+        self.votes_list = Database().get_table(Database.VOTES)
 
         self.new_vote = {
             "createdBy": 1,
@@ -46,7 +48,6 @@ class TestVotes(Base):
     # clear all lists after tests
     def tearDown(self):
         super().tearDown()
-        votes_list.clear()
 
     # tests for POST votes
     def test_create_vote(self):

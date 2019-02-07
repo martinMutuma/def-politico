@@ -4,7 +4,7 @@ from flask import jsonify
 from flask import make_response
 from app.v1.utils.validator import response, exists
 from app.v1.models.user_model import User
-from app import bp
+from app.v1.blueprints import bp
 
 
 users_list = User.users

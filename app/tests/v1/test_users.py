@@ -1,5 +1,5 @@
 from .base_test import Base
-from app.v1.views.users import users_list
+from app.v1.models.db import Database
 
 
 class TestUsers(Base):
@@ -8,6 +8,8 @@ class TestUsers(Base):
     def setUp(self):
         """ setup objects required for these tests """
         super().setUp()
+
+        self.users_list = Database().get_table(Database.USERS)
 
         self.new_user = {
             "firstname": "James",
@@ -22,7 +24,6 @@ class TestUsers(Base):
     # clear all lists after tests
     def tearDown(self):
         super().tearDown()
-        users_list.clear()
 
     # tests for POST register
     def test_register_user(self):

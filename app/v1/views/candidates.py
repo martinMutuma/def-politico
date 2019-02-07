@@ -7,7 +7,7 @@ from app.v1.models.party_model import Party
 from app.v1.models.office_model import Office
 from app.v1.models.user_model import User
 from app.v1.models.candidate_model import Candidate
-from app import bp
+from app.v1.blueprints import bp
 
 
 candidate_list = Candidate.candidates
@@ -39,11 +39,11 @@ def post_candidate():
         if not exists('id', candidate, User.users):
             return response('Selected User does not exist', 404)
 
-        if not candidate.validate_object():
-            return response(candidate.error_message, candidate.error_code)
+        if not item.validate_object():
+            return response(item.error_message, item.error_code)
 
         # append new candidate to list
-        candidate.save()
+        item.save()
 
         # return added candidate
         return response(

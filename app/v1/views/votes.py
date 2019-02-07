@@ -6,7 +6,7 @@ from app.v1.models.office_model import Office
 from app.v1.models.user_model import User
 from app.v1.models.vote_model import Vote
 from app.v1.utils.validator import response, exists
-from app import bp
+from app.v1.blueprints import bp
 
 
 votes_list = Vote.votes
@@ -31,10 +31,13 @@ def vote():
 
         vote = Vote(created_by, office, candidate)
 
+        if not vote.validate_object():
+            return response(vote.error_message, vote.error_code)
+
         if not exists('id', office, Office.offices):
             return response('Selected Office does not exist', 404)
         if not exists('id', candidate, User.users):
-            return response('id', 'Selected User does not exist', 404)
+            return response('Selected User does not exist', 404)
 
         # append new vote to list
         vote.save()

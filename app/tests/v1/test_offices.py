@@ -1,5 +1,5 @@
 from .base_test import Base
-from app.v1.views.offices import office_list
+from app.v1.models.db import Database
 
 
 class TestOffices(Base):
@@ -9,6 +9,8 @@ class TestOffices(Base):
         """ setup objects required for these tests """
         super().setUp()
 
+        self.office_list = Database().get_table(Database.OFFICES)
+
         self.new_office = {
             "name": "Governor",
             "type": "federal"
@@ -17,7 +19,6 @@ class TestOffices(Base):
     # clear all lists after tests
     def tearDown(self):
         super().tearDown()
-        office_list.clear()
 
     # tests for POST offices
     def test_create_office(self):
@@ -29,6 +30,17 @@ class TestOffices(Base):
         self.assertEqual(data['status'], 201)
         self.assertEqual(data['message'], 'Office created successfully')
         self.assertEqual(res.status_code, 201)
+
+    def test_create_office_same_name(self):
+        """ Tests when same name is given twice """
+
+        self.client.post('/api/v1/offices', json=self.new_office)
+        res = self.client.post('/api/v1/offices', json=self.new_office)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'Office already exists')
+        self.assertEqual(res.status_code, 400)
 
     def test_create_office_missing_fields(self):
         """ Tests when some fields are missing e.g name """
@@ -57,7 +69,9 @@ class TestOffices(Base):
         """ Tests when get request made to api/v1/offices """
 
         res = self.client.post('/api/v1/offices', json=self.new_office)
+        self.new_office['name'] = 'Other name'
         res = self.client.post('/api/v1/offices', json=self.new_office)
+        self.new_office['name'] = 'Other Other name'
         res = self.client.post('/api/v1/offices', json=self.new_office)
 
         res = self.client.get('/api/v1/offices')

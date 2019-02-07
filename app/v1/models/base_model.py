@@ -1,4 +1,4 @@
-from app.v1.views.base_view import generate_id, exists, validate_ints
+from app.v1.utils.validator import generate_id, exists, validate_ints
 
 
 class BaseModel():

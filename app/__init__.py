@@ -3,17 +3,15 @@ import os
 from flask import Flask, jsonify, Blueprint
 from instance.config import app_config
 from .v1.views import offices, parties, candidates, votes, users
-
-
-bp = Blueprint('api', __name__, url_prefix='/api/v1')
+from .v1.blueprints import bp
 
 
 def create_app(config_name):
     """ create app with specified configs """
 
-    # is_prod = os.environ.get('IS_HEROKU', None)
-    # if is_prod:
-    config_name = 'development'
+    is_prod = os.environ.get('IS_HEROKU', None)
+    if is_prod:
+        config_name = 'development'
 
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_name])
