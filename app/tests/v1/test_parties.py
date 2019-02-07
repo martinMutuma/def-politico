@@ -1,5 +1,5 @@
 from .base_test import Base
-from app.v1.views.parties import party_list
+from app.v1.models.db import Database
 
 
 class TestParties(Base):
@@ -8,6 +8,8 @@ class TestParties(Base):
     def setUp(self):
         """ setup objects required for these tests """
         super().setUp()
+
+        self.party_list = Database().get_table(Database.PARTIES)
 
         self.new_party = {
             "name": "NARC",
@@ -19,7 +21,6 @@ class TestParties(Base):
     # clear all lists after tests
     def tearDown(self):
         super().tearDown()
-        party_list.clear()
 
     # tests for POST parties
     def test_create_party(self):
@@ -56,12 +57,25 @@ class TestParties(Base):
         self.assertEqual(data['message'], 'No data was provided')
         self.assertEqual(res.status_code, 400)
 
+    def test_create_party_same_name(self):
+        """ Tests when no data is provided """
+
+        res = self.client.post('/api/v1/parties', json=self.new_party)
+        res = self.client.post('/api/v1/parties', json=self.new_party)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'Party already exists')
+        self.assertEqual(res.status_code, 400)
+
     # tests for GET parties
     def test_get_all_parties(self):
         """ Tests when get request made to api/v1/parties """
 
         res = self.client.post('/api/v1/parties', json=self.new_party)
+        self.new_party['name'] = 'Other name'
         res = self.client.post('/api/v1/parties', json=self.new_party)
+        self.new_party['name'] = 'Other Other name'
         res = self.client.post('/api/v1/parties', json=self.new_party)
 
         res = self.client.get('/api/v1/parties')

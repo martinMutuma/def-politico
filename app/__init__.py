@@ -1,9 +1,9 @@
 '''Creating app'''
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Blueprint
 from instance.config import app_config
-from .v1.views.base_view import bp
 from .v1.views import offices, parties, candidates, votes, users
+from .v1.blueprints import bp
 
 
 def create_app(config_name):

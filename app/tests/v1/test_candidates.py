@@ -1,5 +1,5 @@
 from .base_test import Base
-from app.v1.views.candidates import candidate_list
+from app.v1.models.db import Database
 
 
 class TestCandidate(Base):
@@ -8,6 +8,8 @@ class TestCandidate(Base):
     def setUp(self):
         """ setup objects required for these tests """
         super().setUp()
+
+        self.candidate_list = Database().get_table(Database.CANDIDATES)
 
         self.new_candidate = {
             "party": 1,
@@ -36,11 +38,16 @@ class TestCandidate(Base):
         self.client.post('/api/v1/offices', json=self.new_office)
         self.client.post('/api/v1/parties', json=self.new_party)
         self.client.post('/api/v1/register', json=self.new_user)
+        self.new_user['email'] = 'some@mail.com'
+        self.client.post('/api/v1/register', json=self.new_user)
+        self.new_user['email'] = 'some2@mail.com'
+        self.client.post('/api/v1/register', json=self.new_user)
+        self.new_user['email'] = 'some3@mail.com'
+        self.client.post('/api/v1/register', json=self.new_user)
 
     # clear all lists after tests
     def tearDown(self):
         super().tearDown()
-        candidate_list.clear()
 
     # tests for POST candidates
     def test_create_candidate(self):
@@ -52,6 +59,17 @@ class TestCandidate(Base):
         self.assertEqual(data['status'], 201)
         self.assertEqual(data['message'], 'Candidate created successfully')
         self.assertEqual(res.status_code, 201)
+
+    def test_create_candidate_twice(self):
+        """ Tests when attempt to create candidate twice """
+
+        self.client.post('/api/v1/candidates', json=self.new_candidate)
+        res = self.client.post('/api/v1/candidates', json=self.new_candidate)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'Candidate already exists')
+        self.assertEqual(res.status_code, 400)
 
     def test_create_candidate_missing_fields(self):
         """ Tests when some fields are missing e.g name """
@@ -123,7 +141,9 @@ class TestCandidate(Base):
         """ Tests when get request made to api/v1/candidates """
 
         res = self.client.post('/api/v1/candidates', json=self.new_candidate)
+        self.new_candidate['candidate'] = 2
         res = self.client.post('/api/v1/candidates', json=self.new_candidate)
+        self.new_candidate['candidate'] = 3
         res = self.client.post('/api/v1/candidates', json=self.new_candidate)
 
         res = self.client.get('/api/v1/candidates')

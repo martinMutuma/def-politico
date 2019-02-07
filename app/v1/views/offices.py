@@ -2,10 +2,12 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 from flask import make_response
-from .base_view import response, generate_id, validate_object, bp
+from app.v1.utils.validator import response, exists
+from app.v1.models.office_model import Office
+from app.v1.blueprints import bp
 
 
-office_list = []
+office_list = Office.offices
 
 
 @bp.route('/offices', methods=['POST', 'GET'])
@@ -24,19 +26,16 @@ def create_office():
         except KeyError as e:
             return response("{} field is required".format(e.args[0]), 400)
 
-        office = {
-            "id": generate_id(office_list),
-            "name": name,
-            "type": typ
-        }
+        office = Office(name, typ)
 
-        validate_object(office, office_list, 'Office')
+        if not office.validate_object():
+            return response(office.error_message, office.error_code)
 
         # append new office to list
-        office_list.append(office)
+        office.save()
 
         # return added office
-        return response("Office created successfully", 201, [office])
+        return response("Office created successfully", 201, [office.as_json()])
 
     elif request.method == 'GET':
         """ Get all offices end point """
@@ -47,18 +46,16 @@ def create_office():
 @bp.route('/offices/<int:id>', methods=['GET', 'DELETE'])
 def get_office(id):
 
-    filtered = filter(lambda office: office['id'] == id, office_list)
-    filtered = list(filtered)
+    model = Office()
+    data = model.find_by_id(id)
 
-    if len(filtered) == 0:
-        return response('Office not found', 404, [])
+    if not data:
+        return response('Office not found', 404)
 
     if request.method == 'GET':
-        return response('Request sent successfully', 200, filtered)
+        return response('Request sent successfully', 200, [data])
     else:
-        for i in range(len(office_list)):
-            if office_list[i]['id'] == id:
-                office = office_list.pop(i)
-                break
+        office = model.from_json(data)
+        office.delete()
         return response(
-            '{} deleted successfully'.format(office['name']), 200, [office])
+            '{} deleted successfully'.format(office.name), 200, [data])

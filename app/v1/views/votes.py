@@ -2,14 +2,14 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 from flask import make_response
-from .base_view import response, generate_id, validate_object, bp, exists
-from .parties import party_list
-from .offices import office_list
-from .users import users_list
-from datetime import datetime
+from app.v1.models.office_model import Office
+from app.v1.models.user_model import User
+from app.v1.models.vote_model import Vote
+from app.v1.utils.validator import response, exists
+from app.v1.blueprints import bp
 
 
-votes_list = []
+votes_list = Vote.votes
 
 
 @bp.route('/votes', methods=['POST', 'GET'])
@@ -29,26 +29,21 @@ def vote():
         except KeyError as e:
             return response("{} field is required".format(e.args[0]), 400)
 
-        vote = {
-            "id": generate_id(votes_list),
-            "office": office,
-            "createdBy": created_by,
-            "candidate": candidate,
-            "createdOn": datetime.now()
-        }
+        vote = Vote(created_by, office, candidate)
 
-        if not exists(office, office_list):
+        if not vote.validate_object():
+            return response(vote.error_message, vote.error_code)
+
+        if not exists('id', office, Office.offices):
             return response('Selected Office does not exist', 404)
-        if not exists(candidate, users_list):
+        if not exists('id', candidate, User.users):
             return response('Selected User does not exist', 404)
-        if voted_for(created_by, office):
-            return response('You can only vote once per office', 400)
 
         # append new vote to list
-        votes_list.append(vote)
+        vote.save()
 
         # return added vote
-        return response("Vote created successfully", 201, [vote])
+        return response("Vote created successfully", 201, [vote.as_json()])
 
     elif request.method == 'GET':
         """ Get all votes end point """
@@ -60,8 +55,7 @@ def vote():
 def get_user_votes(id):
     """ Gets all votes a user has cast """
 
-    filtered = filter(lambda c: c['createdBy'] == id, votes_list)
-    filtered = list(filtered)
+    filtered = [vote for vote in votes_list if vote['createdBy'] == id]
 
     return vote_response(
         'Request sent successfully', 200, len(filtered), filtered)
@@ -71,8 +65,7 @@ def get_user_votes(id):
 def get_candidate_votes(id):
     """ Gets all votes for a specific candidate """
 
-    filtered = filter(lambda c: c['candidate'] == id, votes_list)
-    filtered = list(filtered)
+    filtered = [vote for vote in votes_list if vote['candidate'] == id]
 
     return vote_response(
         'Request sent successfully', 200, len(filtered), filtered)
@@ -82,17 +75,10 @@ def get_candidate_votes(id):
 def get_office_votes(id):
     """ Gets all votes for a specific office """
 
-    filtered = filter(lambda c: c['office'] == id, votes_list)
-    filtered = list(filtered)
+    filtered = [vote for vote in votes_list if vote['office'] == id]
 
     return vote_response(
         'Request sent successfully', 200, len(filtered), filtered)
-
-
-def voted_for(uid, office):
-    filtered = filter(lambda item: item['createdBy'] == uid and item['office'] == office, votes_list)
-    filtered = list(filtered)
-    return len(filtered) > 0
 
 
 def vote_response(message, code, count, data=None):
