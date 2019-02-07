@@ -3,9 +3,11 @@ from flask import request
 from flask import jsonify
 from flask import make_response
 from .base_view import response, generate_id, validate_object, bp
+from app.v1.models.db import Database
+from app.v1.models.party_model import Party
 
 
-party_list = []
+party_list = Database('parties').get_items()
 
 
 @bp.route('/parties', methods=['POST', 'GET'])
@@ -26,21 +28,16 @@ def create_party():
         except KeyError as e:
             return response("{} field is required".format(e.args[0]), 400)
 
-        party = {
-            "id": generate_id(party_list),
-            "name": name,
-            "hq_address": hq_address,
-            "logo_url": logo_url,
-            "slogan": slogan
-        }
+        party = Party(name, hq_address, logo_url, slogan)
 
-        validate_object(party, party_list, 'Party')
+        if not party.validate_object():
+            return response(party.error_message, party.error_code)
 
         # append new party to list
-        party_list.append(party)
+        party.save()
 
         # return added party
-        return response("Party created successfully", 201, [party])
+        return response("Party created successfully", 201, [party.as_json()])
 
     elif request.method == 'GET':
         """ Get all parties end point """

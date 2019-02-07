@@ -26,7 +26,7 @@ def generate_id(list):
     return len(list) + 1
 
 
-def response(message, code, data=None):
+def response(message, code, data=[]):
     """ Creates a basic reposnse """
     response = {
         "status": code,
@@ -36,7 +36,25 @@ def response(message, code, data=None):
     return make_response(jsonify(response), code)
 
 
-def exists(id, items):
-    filtered = filter(lambda item: item['id'] == id, items)
+def exists(key, value, collection):
+    filtered = filter(lambda item: item[key] == value, collection)
     filtered = list(filtered)
     return len(filtered) > 0
+
+
+def validate_strings(*args):
+    """ validates that inputs are strings only """
+
+    for value in args:
+        if not isinstance(value, str):
+            return False
+    return True
+
+
+def validate_ints(*args):
+    """ validates that inputs are ints only """
+
+    for value in args:
+        if not isinstance(value, int):
+            return False
+    return True
