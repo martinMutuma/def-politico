@@ -51,6 +51,15 @@ def validate_strings(*args):
     return True
 
 
+def validate_bool(*args):
+    """ validates that inputs are boolean only """
+
+    for value in args:
+        if not isinstance(value, bool):
+            return False
+    return True
+
+
 def validate_ints(*args):
     """ validates that inputs are ints only """
 

@@ -3,9 +3,10 @@ from flask import request
 from flask import jsonify
 from flask import make_response
 from .base_view import response, generate_id, validate_object, bp
+from app.v1.models.user_model import User
 
 
-users_list = []
+users_list = User.users
 
 
 @bp.route('/register', methods=['POST'])
@@ -28,34 +29,25 @@ def register_user():
     except KeyError as e:
         return response("{} field is required".format(e.args[0]), 400)
 
-    user = {
-        "id": generate_id(users_list),
-        "firstname": first_name,
-        "lastname": last_name,
-        "othername": other_name,
-        "email": email,
-        "phoneNumber": phone_number,
-        "passportUrl": passport_url,
-        "isAdmin": is_admin
-    }
+    user = User(first_name, last_name, other_name, email, phone_number, passport_url, is_admin)
 
-    validate_object(user, users_list, 'User')
+    if not user.validate_object():
+            return response(user.error_message, user.error_code)
 
     # append new user to list
-    users_list.append(user)
+    user.save()
 
     # return registered user
-    return response("User registered successfully", 201, [user])
+    return response("User registered successfully", 201, [user.as_json()])
 
 
 @bp.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
 
-    filtered = filter(lambda user: user['id'] == id, users_list)
-    filtered = list(filtered)
+    model = User()
+    data = model.find_by_id(id)
 
-    if len(filtered) == 0:
-        return response('User not found', 404, [])
+    if not data:
+        return response('User not found', 404)
 
-    if request.method == 'GET':
-        return response('Request sent successfully', 200, filtered)
+    return response('Request sent successfully', 200, [data])

@@ -7,7 +7,7 @@ from app.v1.models.db import Database
 from app.v1.models.party_model import Party
 
 
-party_list = Database('parties').get_items()
+party_list = Party.parties
 
 
 @bp.route('/parties', methods=['POST', 'GET'])
@@ -48,40 +48,37 @@ def create_party():
 @bp.route('/parties/<int:id>', methods=['GET', 'DELETE'])
 def get_party(id):
 
-    filtered = filter(lambda party: party['id'] == id, party_list)
-    filtered = list(filtered)
+    model = Party()
+    data = model.find_by_id(id)
 
-    if len(filtered) == 0:
-        return response('Party not found', 404, [])
+    if not data:
+        return response('Party not found', 404)
 
     if request.method == 'GET':
-        return response('Request sent successfully', 200, filtered)
+        return response('Request sent successfully', 200, [data])
     else:
-        for i in range(len(party_list)):
-            if party_list[i]['id'] == id:
-                party = party_list.pop(i)
-                break
+        party = model.from_json(data)
+        party.delete()
         return response(
-            '{} deleted successfully'.format(party['name']), 200, [party])
+            '{} deleted successfully'.format(party.name), 200, [data])
 
 
 @bp.route('/parties/<int:id>/<string:name>', methods=['PATCH'])
 def edit_party(id, name):
 
-    filtered = filter(lambda party: party['id'] == id, party_list)
-    filtered = list(filtered)
+    model = Party()
+    data = model.find_by_id(id)
 
-    if len(filtered) == 0:
-        return response('Party not found', 404, [])
+    if not data:
+        return response('Party not found', 404)
 
-    if len(name) < 4:
-        return response('The name provided is too short', 400, [])
+    party = model.from_json(data)
+    party.name = name
 
-    for i in range(len(party_list)):
-        if party_list[i]['id'] == id:
-            party = party_list[i]
-            party['name'] = name
-            party_list[i] = party
-            break
+    if not party.validate_object():
+        return response(party.error_message, party.error_code)
+
+    party.edit(name)
+
     return response(
-        '{} updated successfully'.format(party['name']), 200, [party])
+        '{} updated successfully'.format(party.name), 200, [data])

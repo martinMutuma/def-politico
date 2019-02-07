@@ -1,51 +1,46 @@
 from app.v1.views.base_view import generate_id, exists, validate_ints
 from app.v1.views.base_view import validate_strings
-from .db import Database
 from .base_model import BaseModel
 
 
-class Party(BaseModel):
-    """ model for political party """
+class Office(BaseModel):
+    """ model for political office """
 
-    parties = []
+    offices = []
 
-    def __init__(self, name=None, hq_address=None, logo_url=None, slogan=None):
-        super().__init__('Party', self.parties)
+    def __init__(self, name=None, type=None):
+        super().__init__('Office', self.offices)
 
         self.name = name
-        self.hq_address = hq_address
-        self.logo_url = logo_url
-        self.slogan = slogan
+        self.type = type
 
     def as_json(self):
         # get the object as a json
         return {
             "id": self.id,
             "name": self.name,
-            "hq_address": self.hq_address,
-            "logo_url": self.logo_url,
-            "slogan": self.slogan
+            "type": self.type
         }
 
     def from_json(self, json):
-        self.__init__(json['name'], json['hq_address'], json['logo_url'], json['slogan'])
+        self.__init__(json['name'], json['type'])
         self.id = json['id']
         return self
 
     def edit(self, new_name):
-        """ Edit party name """
+        """ Edit office name """
         self.name = new_name
-        for i in range(len(self.parties)):
-            if self.parties[i]['id'] == self.id:
-                party = self.parties[i]
-                party['name'] = new_name
-                self.parties[i] = party
+        for i in range(len(self.table)):
+            if self.table[i]['id'] == self.id:
+                office = self.table[i]
+                office['name'] = new_name
+                self.table[i] = office
                 break
 
     def validate_object(self):
         """ validates the object """
 
-        if not validate_strings(self.name, self.hq_address, self.logo_url, self.slogan):
+        if not validate_strings(self.name, self.type):
             self.error_message = "Integer types are not allowed for some fields"
             self.error_code = 400
             return False
@@ -55,7 +50,7 @@ class Party(BaseModel):
             self.error_code = 400
             return False
 
-        if exists('name', self.name, self.parties):
+        if exists('name', self.name, self.table):
             self.error_message = "{} already exists".format(self.object_name)
             self.error_code = 400
             return False
