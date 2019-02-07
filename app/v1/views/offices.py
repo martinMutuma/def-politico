@@ -2,8 +2,9 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 from flask import make_response
-from .base_view import response, generate_id, validate_object, bp
+from app.v1.utils.validator import response, exists
 from app.v1.models.office_model import Office
+from app import bp
 
 
 office_list = Office.offices

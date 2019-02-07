@@ -1,6 +1,7 @@
 from app.v1.views.base_view import generate_id, exists, validate_ints
 from app.v1.views.base_view import validate_strings
 from .base_model import BaseModel
+from datetime import datetime
 
 
 class Vote(BaseModel):
@@ -14,6 +15,7 @@ class Vote(BaseModel):
         self.created_by = created_by
         self.office = office
         self.candidate = candidate
+        self.created_on = datetime.now()
 
     def as_json(self):
         # get the object as a json
@@ -21,12 +23,14 @@ class Vote(BaseModel):
             "id": self.id,
             "createdBy": self.created_by,
             "office": self.office,
-            "candidate": self.candidate
+            "candidate": self.candidate,
+            "createdOn": self.created_on
         }
 
     def from_json(self, json):
         self.__init__(json['createdBy'], json['office'], json['candidate'])
         self.id = json['id']
+        self.created_on = json['createdOn']
         return self
 
     def validate_object(self):

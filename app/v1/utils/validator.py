@@ -1,23 +1,4 @@
-from flask import make_response, jsonify, Blueprint
-
-
-bp = Blueprint('api', __name__, url_prefix='/api/v1')
-
-
-def validate_object(item, collection, name):
-    """This function validates an object and rejects or accepts it"""
-    for key, value in item.items():
-        if not value:
-            return response(
-                "Please provide a {} for the {}".format(key, name), 400)
-        if key == "name":
-            if len(value) < 3:
-                return response(
-                    "The {} name provided is too short".format(name), 400)
-        for i in range(len(collection)):
-            if collection[i]['id'] == id:
-                return response(
-                    "{} already exists".format(name), 400)
+from flask import make_response, jsonify
 
 
 def generate_id(list):
@@ -37,8 +18,9 @@ def response(message, code, data=[]):
 
 
 def exists(key, value, collection):
-    filtered = filter(lambda item: item[key] == value, collection)
-    filtered = list(filtered)
+    """ Checks if list contains certain item based on certain key """
+
+    filtered = [item for item in collection if item[key] == value]
     return len(filtered) > 0
 
 

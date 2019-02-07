@@ -2,11 +2,12 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 from flask import make_response
-from .base_view import response, generate_id, validate_object, bp, exists
+from app.v1.utils.validator import response, exists
 from app.v1.models.party_model import Party
 from app.v1.models.office_model import Office
 from app.v1.models.user_model import User
 from app.v1.models.candidate_model import Candidate
+from app import bp
 
 
 candidate_list = Candidate.candidates

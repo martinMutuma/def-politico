@@ -1,24 +1,29 @@
-""" The database of the entire app """
+from app.v1.models.office_model import Office
+from app.v1.models.user_model import User
+from app.v1.models.vote_model import Vote
+from app.v1.models.candidate_model import Candidate
+from app.v1.models.party_model import Party
 
 
 class Database():
     """ The database model """
 
-    def __init__(self, table):
-        self.table = table
-
+    def __init__(self):
         self.tables = {
-            "users": [],
-            "parties": [],
-            "offices": [],
-            "candidates": [],
-            "votes": []
+            "users": User.users,
+            "parties": Party.parties,
+            "offices": Office.offices,
+            "candidates": Candidate.candidates,
+            "votes": Vote.votes
         }
 
-    def get_items(self):
-        return self.tables[self.table]
+    def get_table(self, table_name):
+        return self.tables[table_name]
 
-    def clear(self):
-        # clears the entire database
-        for key in self.tables.items:
-            self.tables[key] = []
+    def clear(self, table_name=None):
+        # clears the entire database or single table
+        if table_name:
+            self.tables[table_name] = []
+        else:
+            for key in self.tables.items:
+                self.tables[key] = []
