@@ -2,8 +2,6 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 from flask import make_response
-from app.v1.models.office_model import Office
-from app.v1.models.user_model import User
 from app.v1.models.vote_model import Vote
 from app.v1.utils.validator import response, exists
 from app.v1.blueprints import bp
@@ -14,41 +12,48 @@ votes_list = Vote.votes
 
 @bp.route('/votes', methods=['POST', 'GET'])
 def vote():
+
+    message = 'Request was sent successfully'
+    status = 200
+    response_data = []
+    
     if request.method == 'POST':
         """ Create vote end point """
 
         data = request.get_json()
 
-        if not data:
-            return response("No data was provided", 400)
+        if data:
+            try:
+                created_by = data['createdBy']
+                office = data['office']
+                candidate = data['candidate']
 
-        try:
-            created_by = data['createdBy']
-            office = data['office']
-            candidate = data['candidate']
-        except KeyError as e:
-            return response("{} field is required".format(e.args[0]), 400)
+                vote = Vote(created_by, office, candidate)
 
-        vote = Vote(created_by, office, candidate)
+                if vote.validate_object():
+                    # append new vote to list
+                    vote.save()
 
-        if not vote.validate_object():
-            return response(vote.error_message, vote.error_code)
+                    # return added vote
+                    message = "Vote created successfully"
+                    response_data = [vote.as_json()]
+                    status = 201
+                else:
+                    message = vote.error_message
+                    status = vote.error_code
 
-        if not exists('id', office, Office.offices):
-            return response('Selected Office does not exist', 404)
-        if not exists('id', candidate, User.users):
-            return response('Selected User does not exist', 404)
-
-        # append new vote to list
-        vote.save()
-
-        # return added vote
-        return response("Vote created successfully", 201, [vote.as_json()])
+            except KeyError as e:
+                message = "{} field is required".format(e.args[0])
+                status = 400
+        else:
+            message = "No data was provided"
+            status = 400
 
     elif request.method == 'GET':
         """ Get all votes end point """
+        response_data = votes_list
 
-        return response('Request was sent successfully', 200, votes_list)
+    return response(message, status, response_data)
 
 
 @bp.route('/votes/user/<int:id>', methods=['GET'])

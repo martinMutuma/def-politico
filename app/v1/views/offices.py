@@ -12,35 +12,48 @@ office_list = Office.offices
 
 @bp.route('/offices', methods=['POST', 'GET'])
 def create_office():
+
+    message = 'Request was sent successfully'
+    status = 200
+    response_data = []
+
     if request.method == 'POST':
         """ Create office end point """
 
         data = request.get_json()
 
-        if not data:
-            return response("No data was provided", 400)
+        if data:
 
-        try:
-            typ = data['type']
-            name = data['name']
-        except KeyError as e:
-            return response("{} field is required".format(e.args[0]), 400)
+            try:
+                typ = data['type']
+                name = data['name']
 
-        office = Office(name, typ)
+                office = Office(name, typ)
 
-        if not office.validate_object():
-            return response(office.error_message, office.error_code)
+                if office.validate_object():
+                    # append new office to list
+                    office.save()
 
-        # append new office to list
-        office.save()
+                    # return added office
+                    message = "Office created successfully"
+                    status = 201
+                    response_data = [office.as_json()]
+                else:
+                    message = office.error_message
+                    status = office.error_code
 
-        # return added office
-        return response("Office created successfully", 201, [office.as_json()])
+            except KeyError as e:
+                message = "{} field is required".format(e.args[0])
+                status = 400
+        else:
+            message = "No data was provided"
+            status = 400
 
     elif request.method == 'GET':
         """ Get all offices end point """
+        response_data = office_list
 
-        return response('Request was sent successfully', 200, office_list)
+    return response(message, status, response_data)
 
 
 @bp.route('/offices/<int:id>', methods=['GET', 'DELETE'])
