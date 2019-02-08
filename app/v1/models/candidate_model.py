@@ -1,6 +1,9 @@
 from app.v1.utils.validator import generate_id, exists, validate_ints
 from app.v1.utils.validator import validate_strings
 from .base_model import BaseModel
+from .office_model import Office
+from .party_model import Party
+from .user_model import User
 
 
 class Candidate(BaseModel):
@@ -40,6 +43,21 @@ class Candidate(BaseModel):
         if exists('candidate', self.candidate, self.table):
             self.error_message = "{} already exists".format(self.object_name)
             self.error_code = 400
+            return False
+
+        if not exists('id', self.office, Office.offices):
+            self.error_message = 'Selected Office does not exist'
+            self.error_code = 404
+            return False
+
+        if not exists('id', self.party, Party.parties):
+            self.error_message = 'Selected Party does not exist'
+            self.error_code = 404
+            return False
+
+        if not exists('id', self.candidate, User.users):
+            self.error_message = 'Selected User does not exist'
+            self.error_code = 404
             return False
 
         return super().validate_object()

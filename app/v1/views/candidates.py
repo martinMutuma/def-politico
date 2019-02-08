@@ -15,44 +15,46 @@ candidate_list = Candidate.candidates
 
 @bp.route('/candidates', methods=['POST', 'GET'])
 def post_candidate():
+    message = 'Request was sent successfully'
+    status = 200
+    response_data = []
     if request.method == 'POST':
         """ Create candidate end point """
 
         data = request.get_json()
 
-        if not data:
-            return response("No data was provided", 400)
+        if data:
+            try:
+                office = data['office']
+                party = data['party']
+                candidate = data['candidate']
 
-        try:
-            office = data['office']
-            party = data['party']
-            candidate = data['candidate']
-        except KeyError as e:
-            return response("{} field is required".format(e.args[0]), 400)
+                item = Candidate(party, office, candidate)
 
-        item = Candidate(party, office, candidate)
+                if item.validate_object():
+                    # append new candidate to list
+                    item.save()
 
-        if not exists('id', office, Office.offices):
-            return response('Selected Office does not exist', 404)
-        if not exists('id', party, Party.parties):
-            return response('Selected Party does not exist', 404)
-        if not exists('id', candidate, User.users):
-            return response('Selected User does not exist', 404)
+                    # return added candidate
+                    message = "Candidate created successfully"
+                    response_data = [item.as_json()]
+                    status = 201
+                else:
+                    message = item.error_message
+                    status = item.error_code
 
-        if not item.validate_object():
-            return response(item.error_message, item.error_code)
-
-        # append new candidate to list
-        item.save()
-
-        # return added candidate
-        return response(
-            "Candidate created successfully", 201, [item.as_json()])
+            except KeyError as e:
+                message = "{} field is required".format(e.args[0])
+                status = 400
+        else:
+            message = "No data was provided"
+            status = 400
 
     elif request.method == 'GET':
         """ Get all candidates end point """
+        response_data = candidate_list
 
-        return response('Request was sent successfully', 200, candidate_list)
+    return response(message, status, response_data)
 
 
 @bp.route('/candidates/<int:id>', methods=['GET'])
