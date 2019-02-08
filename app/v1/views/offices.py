@@ -18,10 +18,7 @@ def create_office():
         data = request.get_json()
 
         if not data:
-<<<<<<< HEAD
-=======
             return response("No data was provided", 400)
->>>>>>> parent of 5a54a71... [Chore #163807309] refactored parties.py
 
         try:
             typ = data['type']
@@ -37,16 +34,8 @@ def create_office():
         # append new office to list
         office.save()
 
-<<<<<<< HEAD
-            except KeyError as e:
-                message = "{} field is required".format(e.args[0])
-                status = 400
-        else:
-            
-=======
         # return added office
         return response("Office created successfully", 201, [office.as_json()])
->>>>>>> parent of 5a54a71... [Chore #163807309] refactored parties.py
 
     elif request.method == 'GET':
         """ Get all offices end point """

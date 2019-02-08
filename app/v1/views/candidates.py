@@ -15,12 +15,7 @@ candidate_list = Candidate.candidates
 
 @bp.route('/candidates', methods=['POST', 'GET'])
 def post_candidate():
-<<<<<<< HEAD
-=======
-    message = 'Request was sent successfully'
-    status = 200
-    response_data = []
->>>>>>> parent of 5a54a71... [Chore #163807309] refactored parties.py
+    
     if request.method == 'POST':
         """ Create candidate end point """
 
