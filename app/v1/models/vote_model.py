@@ -2,6 +2,8 @@ from app.v1.utils.validator import generate_id, exists, validate_ints
 from app.v1.utils.validator import validate_strings
 from .base_model import BaseModel
 from datetime import datetime
+from app.v1.models.office_model import Office
+from app.v1.models.user_model import User
 
 
 class Vote(BaseModel):
@@ -46,6 +48,16 @@ class Vote(BaseModel):
         if len(filtered) > 0:
             self.error_message = "You can only vote once per office"
             self.error_code = 400
+            return False
+
+        if not exists('id', self.office, Office.offices):
+            self.error_message = 'Selected Office does not exist'
+            self.error_code = 404
+            return False
+
+        if not exists('id', self.candidate, User.users):
+            self.error_message = 'Selected User does not exist'
+            self.error_code = 404
             return False
 
         return super().validate_object()

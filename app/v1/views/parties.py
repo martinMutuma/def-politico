@@ -13,37 +13,50 @@ party_list = Party.parties
 
 @bp.route('/parties', methods=['POST', 'GET'])
 def create_party():
+
+    message = 'Request was sent successfully'
+    status = 200
+    response_data = []
+
     if request.method == 'POST':
         """ Create party end point """
 
         data = request.get_json()
 
-        if not data:
-            return response("No data was provided", 400)
+        if data:
 
-        try:
-            name = data['name']
-            hq_address = data['hq_address']
-            logo_url = data['logo_url']
-            slogan = data['slogan']
-        except KeyError as e:
-            return response("{} field is required".format(e.args[0]), 400)
+            try:
+                name = data['name']
+                hq_address = data['hq_address']
+                logo_url = data['logo_url']
+                slogan = data['slogan']
 
-        party = Party(name, hq_address, logo_url, slogan)
+                party = Party(name, hq_address, logo_url, slogan)
 
-        if not party.validate_object():
-            return response(party.error_message, party.error_code)
+                if party.validate_object():
+                    # append new party to list
+                    party.save()
 
-        # append new party to list
-        party.save()
+                    # return added party
+                    message = "Party created successfully"
+                    status = 201
+                    response_data = [party.as_json()]
+                else:
+                    message = party.error_message
+                    status = party.error_code
 
-        # return added party
-        return response("Party created successfully", 201, [party.as_json()])
+            except KeyError as e:
+                message = "{} field is required".format(e.args[0])
+                status = 400
+        else:
+            message = "No data was provided"
+            status = 400
 
     elif request.method == 'GET':
         """ Get all parties end point """
+        response_data = party_list
 
-        return response('Request was sent successfully', 200, party_list)
+    return response(message, status, response_data)
 
 
 @bp.route('/parties/<int:id>', methods=['GET', 'DELETE'])

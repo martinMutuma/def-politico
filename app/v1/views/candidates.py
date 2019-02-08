@@ -15,9 +15,11 @@ candidate_list = Candidate.candidates
 
 @bp.route('/candidates', methods=['POST', 'GET'])
 def post_candidate():
+
     message = 'Request was sent successfully'
     status = 200
     response_data = []
+
     if request.method == 'POST':
         """ Create candidate end point """
 
