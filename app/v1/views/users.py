@@ -39,7 +39,7 @@ def register_user():
     user.save()
 
     # return registered user
-    return response("User registered successfully", 201, [user.as_json()])
+    return response("Success", 201, [user.as_json()])
 
 
 @bp.route('/users/<int:id>', methods=['GET'])
@@ -51,4 +51,4 @@ def get_user(id):
     if not data:
         return response('User not found', 404)
 
-    return response('Request sent successfully', 200, [data])
+    return response('Success', 200, [data])

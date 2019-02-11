@@ -43,12 +43,12 @@ def vote():
         vote.save()
 
         # return added vote
-        return response("Vote created successfully", 201, [vote.as_json()])
+        return response("Success", 201, [vote.as_json()])
 
     elif request.method == 'GET':
         """ Get all votes end point """
 
-        return response('Request was sent successfully', 200, votes_list)
+        return response('Success', 200, votes_list)
 
 
 @bp.route('/votes/user/<int:id>', methods=['GET'])
@@ -58,7 +58,7 @@ def get_user_votes(id):
     filtered = [vote for vote in votes_list if vote['createdBy'] == id]
 
     return vote_response(
-        'Request sent successfully', 200, len(filtered), filtered)
+        'Success', 200, len(filtered), filtered)
 
 
 @bp.route('/votes/candidate/<int:id>', methods=['GET'])
@@ -68,7 +68,7 @@ def get_candidate_votes(id):
     filtered = [vote for vote in votes_list if vote['candidate'] == id]
 
     return vote_response(
-        'Request sent successfully', 200, len(filtered), filtered)
+        'Success', 200, len(filtered), filtered)
 
 
 @bp.route('/votes/office/<int:id>', methods=['GET'])
@@ -78,7 +78,7 @@ def get_office_votes(id):
     filtered = [vote for vote in votes_list if vote['office'] == id]
 
     return vote_response(
-        'Request sent successfully', 200, len(filtered), filtered)
+        'Success', 200, len(filtered), filtered)
 
 
 def vote_response(message, code, count, data=None):
