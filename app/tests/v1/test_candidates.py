@@ -1,5 +1,4 @@
 from .base_test import Base
-from app.v1.models.db import Database
 
 
 class TestCandidate(Base):
@@ -8,8 +7,6 @@ class TestCandidate(Base):
     def setUp(self):
         """ setup objects required for these tests """
         super().setUp()
-
-        self.candidate_list = Database().get_table(Database.CANDIDATES)
 
         self.new_candidate = {
             "party": 1,
@@ -47,6 +44,7 @@ class TestCandidate(Base):
 
     # clear all lists after tests
     def tearDown(self):
+        self.new_candidate['candidate'] = 1
         super().tearDown()
 
     # tests for POST candidates
@@ -135,6 +133,17 @@ class TestCandidate(Base):
         self.assertEqual(data['status'], 404)
         self.assertEqual(data['message'], 'Selected User does not exist')
         self.assertEqual(res.status_code, 404)
+
+    def test_create_canidate_string_candidate(self):
+        """ Tests when string is provided for candidate """
+
+        self.new_candidate['candidate'] = 'jack'
+        res = self.client.post('/api/v1/candidates', json=self.new_candidate)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'String types are not allowed for all fields')
+        self.assertEqual(res.status_code, 400)
 
     # tests for GET candidates
     def test_get_all_candidates(self):

@@ -1,5 +1,4 @@
 from .base_test import Base
-from app.v1.models.db import Database
 
 
 class TestUsers(Base):
@@ -8,8 +7,6 @@ class TestUsers(Base):
     def setUp(self):
         """ setup objects required for these tests """
         super().setUp()
-
-        self.users_list = Database().get_table(Database.USERS)
 
         self.new_user = {
             "firstname": "James",
@@ -23,6 +20,7 @@ class TestUsers(Base):
 
     # clear all lists after tests
     def tearDown(self):
+        self.new_user['firstname'] = 'James'
         super().tearDown()
 
     # tests for POST register
@@ -35,6 +33,17 @@ class TestUsers(Base):
         self.assertEqual(data['status'], 201)
         self.assertEqual(data['message'], 'Success')
         self.assertEqual(res.status_code, 201)
+    
+    def test_register_user_duplicate(self):
+        """ Tests that a user is not created twice with same email """
+
+        res = self.client.post('/api/v1/register', json=self.new_user)
+        res = self.client.post('/api/v1/register', json=self.new_user)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'A User with that email already exists')
+        self.assertEqual(res.status_code, 400)
 
     def test_register_user_missing_fields(self):
         """ Tests when some fields are missing e.g firstname """
@@ -56,6 +65,28 @@ class TestUsers(Base):
 
         self.assertEqual(data['status'], 400)
         self.assertEqual(data['message'], 'No data was provided')
+        self.assertEqual(res.status_code, 400)
+
+    def test_register_user_int_name(self):
+        """ Tests when integer is provided for firstname """
+
+        self.new_user['firstname'] = 3
+        res = self.client.post('/api/v1/register', json=self.new_user)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'Integer types are not allowed for some fields')
+        self.assertEqual(res.status_code, 400)
+
+    def test_register_user_string_bool(self):
+        """ Tests when bool is not provided for isAdmin """
+
+        self.new_user['isAdmin'] = "true"
+        res = self.client.post('/api/v1/register', json=self.new_user)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'isAdmin is supposed to be a boolean value')
         self.assertEqual(res.status_code, 400)
 
     # tests for GET single office

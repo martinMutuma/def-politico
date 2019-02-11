@@ -12,7 +12,7 @@ class BaseModel():
         self.id = generate_id(table)
 
     def as_json(self):
-        return {}
+        pass
 
     def save(self):
         """ save the object to table """
@@ -27,12 +27,6 @@ class BaseModel():
     def validate_object(self):
         """This function validates an object and rejects or accepts it"""
 
-        item = self.as_json()
-        for key, value in item.items():
-            if not value:
-                self.error_message = "Please provide a {} for the {}".format(key, self.object_name)
-                self.error_code = 400
-                return False
         return True
 
     def find_by_id(self, id):

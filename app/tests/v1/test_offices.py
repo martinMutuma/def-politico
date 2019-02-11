@@ -1,5 +1,4 @@
 from .base_test import Base
-from app.v1.models.db import Database
 
 
 class TestOffices(Base):
@@ -9,8 +8,6 @@ class TestOffices(Base):
         """ setup objects required for these tests """
         super().setUp()
 
-        self.office_list = Database().get_table(Database.OFFICES)
-
         self.new_office = {
             "name": "Governor",
             "type": "federal"
@@ -18,6 +15,7 @@ class TestOffices(Base):
 
     # clear all lists after tests
     def tearDown(self):
+        self.new_office['name'] = 'Governor'
         super().tearDown()
 
     # tests for POST offices
@@ -62,6 +60,28 @@ class TestOffices(Base):
 
         self.assertEqual(data['status'], 400)
         self.assertEqual(data['message'], 'No data was provided')
+        self.assertEqual(res.status_code, 400)
+
+    def test_create_office_int_name(self):
+        """ Tests when integer is provided for name """
+
+        self.new_office['name'] = 3
+        res = self.client.post('/api/v1/offices', json=self.new_office)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'Integer types are not allowed for some fields')
+        self.assertEqual(res.status_code, 400)
+
+    def test_create_office_short_name(self):
+        """ Tests when short name is provided """
+
+        self.new_office['name'] = 'of'
+        res = self.client.post('/api/v1/offices', json=self.new_office)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'The Office name provided is too short')
         self.assertEqual(res.status_code, 400)
 
     # tests for GET offices

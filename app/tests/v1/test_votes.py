@@ -1,5 +1,4 @@
 from .base_test import Base
-from app.v1.models.db import Database
 
 
 class TestVotes(Base):
@@ -8,8 +7,6 @@ class TestVotes(Base):
     def setUp(self):
         """ setup objects required for these tests """
         super().setUp()
-
-        self.votes_list = Database().get_table(Database.VOTES)
 
         self.new_vote = {
             "createdBy": 1,
@@ -47,6 +44,7 @@ class TestVotes(Base):
 
     # clear all lists after tests
     def tearDown(self):
+        self.new_vote['candidate'] = 1
         super().tearDown()
 
     # tests for POST votes
@@ -120,6 +118,17 @@ class TestVotes(Base):
 
         self.assertEqual(data['status'], 400)
         self.assertEqual(data['message'], 'You can only vote once per office')
+        self.assertEqual(res.status_code, 400)
+
+    def test_create_vote_string_candidate(self):
+        """ Tests when string is provided for candidate """
+
+        self.new_vote['candidate'] = 'jack'
+        res = self.client.post('/api/v1/votes', json=self.new_vote)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'String types are not allowed for all fields')
         self.assertEqual(res.status_code, 400)
 
     # tests for GET votes

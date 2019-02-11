@@ -1,6 +1,5 @@
 from app import create_app
 import unittest
-from app.v1.models.db import Database
 from app.v1.models.party_model import Party
 from app.v1.models.office_model import Office
 from app.v1.models.user_model import User
