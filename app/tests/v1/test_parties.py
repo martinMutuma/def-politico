@@ -1,5 +1,4 @@
 from .base_test import Base
-from app.v1.models.db import Database
 
 
 class TestParties(Base):
@@ -8,8 +7,6 @@ class TestParties(Base):
     def setUp(self):
         """ setup objects required for these tests """
         super().setUp()
-
-        self.party_list = Database().get_table(Database.PARTIES)
 
         self.new_party = {
             "name": "NARC",
@@ -20,6 +17,7 @@ class TestParties(Base):
 
     # clear all lists after tests
     def tearDown(self):
+        self.new_party['name'] = "NARC"
         super().tearDown()
 
     # tests for POST parties
@@ -66,6 +64,28 @@ class TestParties(Base):
 
         self.assertEqual(data['status'], 400)
         self.assertEqual(data['message'], 'Party already exists')
+        self.assertEqual(res.status_code, 400)
+
+    def test_create_party_int_name(self):
+        """ Tests when integer is provided for name """
+
+        self.new_party['name'] = 3
+        res = self.client.post('/api/v1/parties', json=self.new_party)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'Integer types are not allowed for some fields')
+        self.assertEqual(res.status_code, 400)
+
+    def test_create_party_short_name(self):
+        """ Tests when short name is provided """
+
+        self.new_party['name'] = 'pa'
+        res = self.client.post('/api/v1/parties', json=self.new_party)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['message'], 'The Party name provided is too short')
         self.assertEqual(res.status_code, 400)
 
     # tests for GET parties

@@ -27,16 +27,6 @@ class Office(BaseModel):
         self.id = json['id']
         return self
 
-    def edit(self, new_name):
-        """ Edit office name """
-        self.name = new_name
-        for i in range(len(self.table)):
-            if self.table[i]['id'] == self.id:
-                office = self.table[i]
-                office['name'] = new_name
-                self.table[i] = office
-                break
-
     def validate_object(self):
         """ validates the object """
 
