@@ -15,7 +15,7 @@ candidate_list = Candidate.candidates
 
 @bp.route('/candidates', methods=['POST', 'GET'])
 def post_candidate():
-    message = 'Request was sent successfully'
+    message = 'Success'
     status = 200
     response_data = []
     if request.method == 'POST':
@@ -36,7 +36,7 @@ def post_candidate():
                     item.save()
 
                     # return added candidate
-                    message = "Candidate created successfully"
+                    message = "Success"
                     response_data = [item.as_json()]
                     status = 201
                 else:
@@ -66,4 +66,4 @@ def get_candidate(id):
     if not data:
         return response('Candidate not found', 404)
 
-    return response('Request sent successfully', 200, [data])
+    return response('Success', 200, [data])

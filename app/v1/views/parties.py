@@ -38,12 +38,12 @@ def create_party():
         party.save()
 
         # return added party
-        return response("Party created successfully", 201, [party.as_json()])
+        return response("Success", 201, [party.as_json()])
 
     elif request.method == 'GET':
         """ Get all parties end point """
 
-        return response('Request was sent successfully', 200, party_list)
+        return response('Success', 200, party_list)
 
 
 @bp.route('/parties/<int:id>', methods=['GET', 'DELETE'])
@@ -56,12 +56,11 @@ def get_party(id):
         return response('Party not found', 404)
 
     if request.method == 'GET':
-        return response('Request sent successfully', 200, [data])
+        return response('Success', 200, [data])
     else:
         party = model.from_json(data)
         party.delete()
-        return response(
-            '{} deleted successfully'.format(party.name), 200, [data])
+        return response('Success', 200, [data])
 
 
 @bp.route('/parties/<int:id>/<string:name>', methods=['PATCH'])
@@ -82,4 +81,4 @@ def edit_party(id, name):
     party.edit(name)
 
     return response(
-        '{} updated successfully'.format(party.name), 200, [data])
+        'Success', 200, [data])

@@ -35,12 +35,12 @@ def create_office():
         office.save()
 
         # return added office
-        return response("Office created successfully", 201, [office.as_json()])
+        return response("Success", 201, [office.as_json()])
 
     elif request.method == 'GET':
         """ Get all offices end point """
 
-        return response('Request was sent successfully', 200, office_list)
+        return response('Success', 200, office_list)
 
 
 @bp.route('/offices/<int:id>', methods=['GET', 'DELETE'])
@@ -53,9 +53,9 @@ def get_office(id):
         return response('Office not found', 404)
 
     if request.method == 'GET':
-        return response('Request sent successfully', 200, [data])
+        return response('Success', 200, [data])
     else:
         office = model.from_json(data)
         office.delete()
         return response(
-            '{} deleted successfully'.format(office.name), 200, [data])
+            'Success', 200, [data])

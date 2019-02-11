@@ -30,7 +30,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 201)
-        self.assertEqual(data['message'], 'Party created successfully')
+        self.assertEqual(data['message'], 'Success')
         self.assertEqual(res.status_code, 201)
 
     def test_create_party_missing_fields(self):
@@ -82,7 +82,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Request was sent successfully')
+        self.assertEqual(data['message'], 'Success')
         self.assertEqual(len(data['data']), 3)
         self.assertEqual(res.status_code, 200)
 
@@ -93,7 +93,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Request was sent successfully')
+        self.assertEqual(data['message'], 'Success')
         self.assertEqual(len(data['data']), 0)
         self.assertEqual(res.status_code, 200)
 
@@ -107,7 +107,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Request sent successfully')
+        self.assertEqual(data['message'], 'Success')
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(data['data'][0]['id'], 1)
         self.assertEqual(res.status_code, 200)
@@ -133,7 +133,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'NARC deleted successfully')
+        self.assertEqual(data['message'], 'Success')
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(data['data'][0]['id'], 1)
         self.assertEqual(res.status_code, 200)
@@ -159,7 +159,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Rainbow updated successfully')
+        self.assertEqual(data['message'], 'Success')
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(data['data'][0]['id'], 1)
         self.assertEqual(data['data'][0]['name'], 'Rainbow')
