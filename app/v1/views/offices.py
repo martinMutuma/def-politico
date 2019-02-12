@@ -24,8 +24,7 @@ def create_office():
             typ = data['type']
             name = data['name']
         except KeyError as e:
-            return response_error("{} field is \
-                required".format(e.args[0]), 400)
+            return response_error("{} field is required".format(e.args[0]), 400)
 
         office = Office(name, typ)
 

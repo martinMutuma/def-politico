@@ -42,7 +42,7 @@ class TestUsers(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'A User with that email already exists')
+        self.assertEqual(data['error'], 'A User with that email already exists')
         self.assertEqual(res.status_code, 400)
 
     def test_register_user_missing_fields(self):
@@ -54,7 +54,7 @@ class TestUsers(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'firstname field is required')
+        self.assertEqual(data['error'], 'firstname field is required')
         self.assertEqual(res.status_code, 400)
 
     def test_register_user_no_data(self):
@@ -64,7 +64,7 @@ class TestUsers(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'No data was provided')
+        self.assertEqual(data['error'], 'No data was provided')
         self.assertEqual(res.status_code, 400)
 
     def test_register_user_int_name(self):
@@ -75,7 +75,7 @@ class TestUsers(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'Integer types are not allowed for some fields')
+        self.assertEqual(data['error'], 'Integer types are not allowed for some fields')
         self.assertEqual(res.status_code, 400)
 
     def test_register_user_string_bool(self):
@@ -86,7 +86,7 @@ class TestUsers(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'isAdmin is supposed to be a boolean value')
+        self.assertEqual(data['error'], 'isAdmin is supposed to be a boolean value')
         self.assertEqual(res.status_code, 400)
 
     # tests for GET single office
@@ -111,6 +111,5 @@ class TestUsers(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'User not found')
-        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(data['error'], 'User not found')
         self.assertEqual(res.status_code, 404)

@@ -27,8 +27,7 @@ def vote():
             office = data['office']
             candidate = data['candidate']
         except KeyError as e:
-            return response_error("{} field is \
-                required".format(e.args[0]), 400)
+            return response_error("{} field is required".format(e.args[0]), 400)
 
         vote = Vote(created_by, office, candidate)
 

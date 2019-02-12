@@ -26,8 +26,7 @@ def create_party():
             logo_url = data['logo_url']
             slogan = data['slogan']
         except KeyError as e:
-            return response_error("{} field is \
-                required".format(e.args[0]), 400)
+            return response_error("{} field is required".format(e.args[0]), 400)
 
         party = Party(name, hq_address, logo_url, slogan)
 

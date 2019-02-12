@@ -33,7 +33,7 @@ def register_user():
     user = User(first_name, last_name, other_name, email, phone_number, passport_url, is_admin)
 
     if not user.validate_object():
-            return response(user.error_message, user.error_code)
+            return response_error(user.error_message, user.error_code)
 
     # append new user to list
     user.save()

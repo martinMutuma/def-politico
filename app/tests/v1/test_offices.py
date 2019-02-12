@@ -37,7 +37,7 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'Office already exists')
+        self.assertEqual(data['error'], 'Office already exists')
         self.assertEqual(res.status_code, 400)
 
     def test_create_office_missing_fields(self):
@@ -49,7 +49,7 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'name field is required')
+        self.assertEqual(data['error'], 'name field is required')
         self.assertEqual(res.status_code, 400)
 
     def test_create_office_no_data(self):
@@ -59,7 +59,7 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'No data was provided')
+        self.assertEqual(data['error'], 'No data was provided')
         self.assertEqual(res.status_code, 400)
 
     def test_create_office_int_name(self):
@@ -70,7 +70,7 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'Integer types are not allowed for some fields')
+        self.assertEqual(data['error'], 'Integer types are not allowed for some fields')
         self.assertEqual(res.status_code, 400)
 
     def test_create_office_short_name(self):
@@ -81,7 +81,7 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'The Office name provided is too short')
+        self.assertEqual(data['error'], 'The Office name provided is too short')
         self.assertEqual(res.status_code, 400)
 
     # tests for GET offices
@@ -135,8 +135,7 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'Office not found')
-        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(data['error'], 'Office not found')
         self.assertEqual(res.status_code, 404)
 
     # tests for DELETE office
@@ -161,6 +160,5 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'Office not found')
-        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(data['error'], 'Office not found')
         self.assertEqual(res.status_code, 404)

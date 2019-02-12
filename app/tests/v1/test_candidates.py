@@ -66,7 +66,7 @@ class TestCandidate(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'Candidate already exists')
+        self.assertEqual(data['error'], 'Candidate already exists')
         self.assertEqual(res.status_code, 400)
 
     def test_create_candidate_missing_fields(self):
@@ -79,7 +79,7 @@ class TestCandidate(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'party field is required')
+        self.assertEqual(data['error'], 'party field is required')
         self.assertEqual(res.status_code, 400)
 
     def test_create_candidate_no_data(self):
@@ -89,7 +89,7 @@ class TestCandidate(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'No data was provided')
+        self.assertEqual(data['error'], 'No data was provided')
         self.assertEqual(res.status_code, 400)
 
     def test_create_candidate_party_not_exist(self):
@@ -103,7 +103,7 @@ class TestCandidate(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'Selected Party does not exist')
+        self.assertEqual(data['error'], 'Selected Party does not exist')
         self.assertEqual(res.status_code, 404)
 
     def test_create_candidate_office_not_exist(self):
@@ -117,7 +117,7 @@ class TestCandidate(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'Selected Office does not exist')
+        self.assertEqual(data['error'], 'Selected Office does not exist')
         self.assertEqual(res.status_code, 404)
 
     def test_create_candidate_candidate_not_exist(self):
@@ -131,7 +131,7 @@ class TestCandidate(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'Selected User does not exist')
+        self.assertEqual(data['error'], 'Selected User does not exist')
         self.assertEqual(res.status_code, 404)
 
     def test_create_canidate_string_candidate(self):
@@ -142,7 +142,7 @@ class TestCandidate(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'String types are not allowed for all fields')
+        self.assertEqual(data['error'], 'String types are not allowed for all fields')
         self.assertEqual(res.status_code, 400)
 
     # tests for GET candidates
@@ -196,6 +196,5 @@ class TestCandidate(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'Candidate not found')
-        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(data['error'], 'Candidate not found')
         self.assertEqual(res.status_code, 404)
