@@ -3,7 +3,7 @@ from flask import request
 from flask import jsonify
 from flask import make_response
 from app.v1.models.party_model import Party
-from app.v1.utils.validator import response, exists
+from app.v1.utils.validator import response, exists, response_error
 from app.v1.blueprints import bp
 
 
@@ -18,7 +18,7 @@ def create_party():
         data = request.get_json()
 
         if not data:
-            return response("No data was provided", 400)
+            return response_error("No data was provided", 400)
 
         try:
             name = data['name']
@@ -26,12 +26,13 @@ def create_party():
             logo_url = data['logo_url']
             slogan = data['slogan']
         except KeyError as e:
-            return response("{} field is required".format(e.args[0]), 400)
+            return response_error("{} field is \
+                required".format(e.args[0]), 400)
 
         party = Party(name, hq_address, logo_url, slogan)
 
         if not party.validate_object():
-            return response(party.error_message, party.error_code)
+            return response_error(party.error_message, party.error_code)
 
         # append new party to list
         party.save()
@@ -52,7 +53,7 @@ def get_party(id):
     data = model.find_by_id(id)
 
     if not data:
-        return response('Party not found', 404)
+        return response_error('Party not found', 404)
 
     if request.method == 'GET':
         return response('Success', 200, [data])
@@ -69,13 +70,13 @@ def edit_party(id, name):
     data = model.find_by_id(id)
 
     if not data:
-        return response('Party not found', 404)
+        return response_error('Party not found', 404)
 
     party = model.from_json(data)
     party.name = name
 
     if not party.validate_object():
-        return response(party.error_message, party.error_code)
+        return response_error(party.error_message, party.error_code)
 
     party.edit(name)
 

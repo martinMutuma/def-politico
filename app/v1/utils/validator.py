@@ -9,10 +9,21 @@ def generate_id(list):
 
 def response(message, code, data=[]):
     """ Creates a basic reposnse """
+
     response = {
         "status": code,
         "message": message,
         "data": data
+    }
+    return make_response(jsonify(response), code)
+
+
+def response_error(message, code):
+    """ Creates a basic error reposnse """
+
+    response = {
+        "status": code,
+        "error": message
     }
     return make_response(jsonify(response), code)
 

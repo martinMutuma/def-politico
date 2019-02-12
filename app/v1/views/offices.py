@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 from flask import make_response
-from app.v1.utils.validator import response, exists
+from app.v1.utils.validator import response, exists, response_error
 from app.v1.models.office_model import Office
 from app.v1.blueprints import bp
 
@@ -18,18 +18,19 @@ def create_office():
         data = request.get_json()
 
         if not data:
-            return response("No data was provided", 400)
+            return response_error("No data was provided", 400)
 
         try:
             typ = data['type']
             name = data['name']
         except KeyError as e:
-            return response("{} field is required".format(e.args[0]), 400)
+            return response_error("{} field is \
+                required".format(e.args[0]), 400)
 
         office = Office(name, typ)
 
         if not office.validate_object():
-            return response(office.error_message, office.error_code)
+            return response_error(office.error_message, office.error_code)
 
         # append new office to list
         office.save()
@@ -50,7 +51,7 @@ def get_office(id):
     data = model.find_by_id(id)
 
     if not data:
-        return response('Office not found', 404)
+        return response_error('Office not found', 404)
 
     if request.method == 'GET':
         return response('Success', 200, [data])
