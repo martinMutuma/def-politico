@@ -68,7 +68,7 @@ class TestVotes(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'office field is required')
+        self.assertEqual(data['error'], 'office field is required')
         self.assertEqual(res.status_code, 400)
 
     def test_create_vote_no_data(self):
@@ -78,7 +78,7 @@ class TestVotes(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'No data was provided')
+        self.assertEqual(data['error'], 'No data was provided')
         self.assertEqual(res.status_code, 400)
 
     def test_create_vote_office_not_exist(self):
@@ -92,7 +92,7 @@ class TestVotes(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'Selected Office does not exist')
+        self.assertEqual(data['error'], 'Selected Office does not exist')
         self.assertEqual(res.status_code, 404)
 
     def test_create_vote_user_not_exist(self):
@@ -106,7 +106,7 @@ class TestVotes(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'Selected User does not exist')
+        self.assertEqual(data['error'], 'Selected User does not exist')
         self.assertEqual(res.status_code, 404)
 
     def test_create_vote_twice(self):
@@ -117,7 +117,7 @@ class TestVotes(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'You can only vote once per office')
+        self.assertEqual(data['error'], 'You can only vote once per office')
         self.assertEqual(res.status_code, 400)
 
     def test_create_vote_string_candidate(self):
@@ -128,7 +128,7 @@ class TestVotes(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'String types are not allowed for all fields')
+        self.assertEqual(data['error'], 'String types are not allowed for all fields')
         self.assertEqual(res.status_code, 400)
 
     # tests for GET votes

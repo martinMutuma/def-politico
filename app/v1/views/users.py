@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 from flask import make_response
-from app.v1.utils.validator import response, exists
+from app.v1.utils.validator import response, exists, response_error
 from app.v1.models.user_model import User
 from app.v1.blueprints import bp
 
@@ -17,7 +17,7 @@ def register_user():
     data = request.get_json()
 
     if not data:
-        return response("No data was provided", 400)
+        return response_error("No data was provided", 400)
 
     try:
         first_name = data['firstname']
@@ -28,12 +28,12 @@ def register_user():
         passport_url = data['passportUrl']
         is_admin = data['isAdmin']
     except KeyError as e:
-        return response("{} field is required".format(e.args[0]), 400)
+        return response_error("{} field is required".format(e.args[0]), 400)
 
     user = User(first_name, last_name, other_name, email, phone_number, passport_url, is_admin)
 
     if not user.validate_object():
-            return response(user.error_message, user.error_code)
+            return response_error(user.error_message, user.error_code)
 
     # append new user to list
     user.save()
@@ -49,6 +49,6 @@ def get_user(id):
     data = model.find_by_id(id)
 
     if not data:
-        return response('User not found', 404)
+        return response_error('User not found', 404)
 
     return response('Success', 200, [data])

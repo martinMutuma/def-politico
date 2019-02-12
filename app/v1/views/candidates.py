@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 from flask import make_response
-from app.v1.utils.validator import response, exists
+from app.v1.utils.validator import response, exists, response_error
 from app.v1.models.party_model import Party
 from app.v1.models.office_model import Office
 from app.v1.models.user_model import User
@@ -18,6 +18,7 @@ def post_candidate():
     message = 'Success'
     status = 200
     response_data = []
+    error = True
     if request.method == 'POST':
         """ Create candidate end point """
 
@@ -39,6 +40,7 @@ def post_candidate():
                     message = "Success"
                     response_data = [item.as_json()]
                     status = 201
+                    error = False
                 else:
                     message = item.error_message
                     status = item.error_code
@@ -53,8 +55,12 @@ def post_candidate():
     elif request.method == 'GET':
         """ Get all candidates end point """
         response_data = candidate_list
+        error = False
 
-    return response(message, status, response_data)
+    if error:
+        return response_error(message, status)
+    else:
+        return response(message, status, response_data)
 
 
 @bp.route('/candidates/<int:id>', methods=['GET'])
@@ -64,6 +70,6 @@ def get_candidate(id):
     data = model.find_by_id(id)
 
     if not data:
-        return response('Candidate not found', 404)
+        return response_error('Candidate not found', 404)
 
     return response('Success', 200, [data])

@@ -5,7 +5,7 @@ from flask import make_response
 from app.v1.models.office_model import Office
 from app.v1.models.user_model import User
 from app.v1.models.vote_model import Vote
-from app.v1.utils.validator import response, exists
+from app.v1.utils.validator import response, exists, response_error
 from app.v1.blueprints import bp
 
 
@@ -20,24 +20,24 @@ def vote():
         data = request.get_json()
 
         if not data:
-            return response("No data was provided", 400)
+            return response_error("No data was provided", 400)
 
         try:
             created_by = data['createdBy']
             office = data['office']
             candidate = data['candidate']
         except KeyError as e:
-            return response("{} field is required".format(e.args[0]), 400)
+            return response_error("{} field is required".format(e.args[0]), 400)
 
         vote = Vote(created_by, office, candidate)
 
         if not vote.validate_object():
-            return response(vote.error_message, vote.error_code)
+            return response_error(vote.error_message, vote.error_code)
 
         if not exists('id', office, Office.offices):
-            return response('Selected Office does not exist', 404)
+            return response_error('Selected Office does not exist', 404)
         if not exists('id', candidate, User.users):
-            return response('Selected User does not exist', 404)
+            return response_error('Selected User does not exist', 404)
 
         # append new vote to list
         vote.save()

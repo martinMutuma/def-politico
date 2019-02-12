@@ -42,7 +42,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'name field is required')
+        self.assertEqual(data['error'], 'name field is required')
         self.assertEqual(res.status_code, 400)
 
     def test_create_party_no_data(self):
@@ -52,7 +52,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'No data was provided')
+        self.assertEqual(data['error'], 'No data was provided')
         self.assertEqual(res.status_code, 400)
 
     def test_create_party_same_name(self):
@@ -63,7 +63,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'Party already exists')
+        self.assertEqual(data['error'], 'Party already exists')
         self.assertEqual(res.status_code, 400)
 
     def test_create_party_int_name(self):
@@ -74,7 +74,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'Integer types are not allowed for some fields')
+        self.assertEqual(data['error'], 'Integer types are not allowed for some fields')
         self.assertEqual(res.status_code, 400)
 
     def test_create_party_short_name(self):
@@ -85,7 +85,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['message'], 'The Party name provided is too short')
+        self.assertEqual(data['error'], 'The Party name provided is too short')
         self.assertEqual(res.status_code, 400)
 
     # tests for GET parties
@@ -139,8 +139,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'Party not found')
-        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(data['error'], 'Party not found')
         self.assertEqual(res.status_code, 404)
 
     # tests for DELETE party
@@ -165,8 +164,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'Party not found')
-        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(data['error'], 'Party not found')
         self.assertEqual(res.status_code, 404)
 
     # tests for PATCH party
@@ -192,6 +190,5 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['message'], 'Party not found')
-        self.assertEqual(len(data['data']), 0)
+        self.assertEqual(data['error'], 'Party not found')
         self.assertEqual(res.status_code, 404)
