@@ -28,3 +28,4 @@ class Base(unittest.TestCase):
         db = Database('testing')
         db.init_connection()
         db.truncate()
+        db.drop_db()
