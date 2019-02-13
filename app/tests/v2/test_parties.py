@@ -23,7 +23,8 @@ class TestParties(Base):
     def test_create_party(self):
         """ Tests that a party was created successfully """
 
-        res = self.client.post('/api/v2/parties', json=self.new_party)
+        res = self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 201)
@@ -37,7 +38,7 @@ class TestParties(Base):
             "slogan": "Pamoja tujengane",
             "hq_address": "Nairobe",
             "logo_url": "url"
-        })
+        }, headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
@@ -47,7 +48,7 @@ class TestParties(Base):
     def test_create_party_no_data(self):
         """ Tests when no data is provided """
 
-        res = self.client.post('/api/v2/parties')
+        res = self.client.post('/api/v2/parties', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
@@ -57,8 +58,10 @@ class TestParties(Base):
     def test_create_party_same_name(self):
         """ Tests when no data is provided """
 
-        res = self.client.post('/api/v2/parties', json=self.new_party)
-        res = self.client.post('/api/v2/parties', json=self.new_party)
+        res = self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
+        res = self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 409)
@@ -69,7 +72,8 @@ class TestParties(Base):
         """ Tests when integer is provided for name """
 
         self.new_party['name'] = 3
-        res = self.client.post('/api/v2/parties', json=self.new_party)
+        res = self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
@@ -80,7 +84,8 @@ class TestParties(Base):
         """ Tests when short name is provided """
 
         self.new_party['name'] = 'pa'
-        res = self.client.post('/api/v2/parties', json=self.new_party)
+        res = self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
@@ -91,13 +96,16 @@ class TestParties(Base):
     def test_get_all_parties(self):
         """ Tests when get request made to api/v2/parties """
 
-        res = self.client.post('/api/v2/parties', json=self.new_party)
+        res = self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
         self.new_party['name'] = 'Other name'
-        res = self.client.post('/api/v2/parties', json=self.new_party)
+        res = self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
         self.new_party['name'] = 'Other Other name'
-        res = self.client.post('/api/v2/parties', json=self.new_party)
+        res = self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
 
-        res = self.client.get('/api/v2/parties')
+        res = self.client.get('/api/v2/parties', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
@@ -108,7 +116,7 @@ class TestParties(Base):
     def test_get_all_parties_no_data(self):
         """ Tests when get request made to api/v2/parties """
 
-        res = self.client.get('/api/v2/parties')
+        res = self.client.get('/api/v2/parties', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
@@ -120,9 +128,11 @@ class TestParties(Base):
     def test_get_sigle_party(self):
         """ Tests when get reuest made to /parties/<int:id> """
 
-        self.client.post('/api/v2/parties', json=self.new_party)
+        self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
 
-        res = self.client.get('/api/v2/parties/1')
+        res = self.client.get(
+            '/api/v2/parties/1', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
@@ -134,7 +144,7 @@ class TestParties(Base):
     def test_get_single_party_id_not_found(self):
         """ Tests request made with id that does not exist """
 
-        res = self.client.get('/api/v2/parties/14')
+        res = self.client.get('/api/v2/parties/14', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
@@ -145,9 +155,10 @@ class TestParties(Base):
     def test_delete_party(self):
         """ Tests when DELETE reuest made to /parties/<int:id> """
 
-        self.client.post('/api/v2/parties', json=self.new_party)
+        self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
 
-        res = self.client.delete('/api/v2/parties/1')
+        res = self.client.delete('/api/v2/parties/1', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
@@ -159,7 +170,7 @@ class TestParties(Base):
     def test_delete_party_id_not_found(self):
         """ Tests DELETE request made with id that does not exist """
 
-        res = self.client.delete('/api/v2/parties/14')
+        res = self.client.delete('/api/v2/parties/14', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
@@ -172,7 +183,8 @@ class TestParties(Base):
 
         self.client.post('/api/v2/parties', json=self.new_party)
 
-        res = self.client.patch('/api/v2/parties/1/Rainbow')
+        res = self.client.patch(
+            '/api/v2/parties/1/Rainbow', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
@@ -185,7 +197,8 @@ class TestParties(Base):
     def test_patch_party_id_not_found(self):
         """ Tests PATCH request made with id that does not exist """
 
-        res = self.client.patch('/api/v2/parties/14/Rainbow')
+        res = self.client.patch(
+            '/api/v2/parties/14/Rainbow', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
