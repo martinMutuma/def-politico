@@ -16,8 +16,7 @@ before_script:
   - psql -c "CREATE USER politico WITH PASSWORD 'politica';" -U postgres
 
 env:
-  - DATABASE_URL="dbname='politico_db' host='127.0.0.1' port='5432' user='politico' password='politica'"
-  - DATABASE_TEST_URL="dbname='politico_test_db' host='127.0.0.1' port='5432' user='politico' password='politica'"
+  - DATABASE_URL="dbname='politico_db' host='127.0.0.1' port='5432' user='politico' password='politica'" DATABASE_TEST_URL="dbname='politico_test_db' host='127.0.0.1' port='5432' user='politico' password='politica'"
 
 script:
   - pytest --cov=app/v1
