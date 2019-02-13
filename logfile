@@ -1,0 +1,1195 @@
+2019-02-13 08:26:07.470 EAT [2884] LOG:  listening on IPv6 address "::1", port 5432
+2019-02-13 08:26:07.470 EAT [2884] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2019-02-13 08:26:07.471 EAT [2884] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2019-02-13 08:26:07.483 EAT [2885] LOG:  database system was shut down at 2019-02-13 08:20:48 EAT
+2019-02-13 08:26:07.486 EAT [2884] LOG:  database system is ready to accept connections
+2019-02-13 08:30:30.083 EAT [2909] ERROR:  syntax error at or near "CREATE" at character 29
+2019-02-13 08:30:30.083 EAT [2909] STATEMENT:  CREATE DATABASE politico_db
+	CREATE DATABASE politico_db
+	CREATE DATABASE politico_db;
+2019-02-13 08:31:06.857 EAT [2909] ERROR:  syntax error at or near "create" at character 29
+2019-02-13 08:31:06.857 EAT [2909] STATEMENT:  create database politico_db
+	create database politico_db;
+2019-02-13 08:36:11.407 EAT [2909] ERROR:  syntax error at or near "superuser" at character 8
+2019-02-13 08:36:11.407 EAT [2909] STATEMENT:  create superuser politico with login password 'politica';
+2019-02-13 08:40:14.411 EAT [2909] ERROR:  syntax error at or near "priileges" at character 11
+2019-02-13 08:40:14.411 EAT [2909] STATEMENT:  grant all priileges on database politico_db to politico
+	;
+2019-02-13 08:41:54.534 EAT [3070] WARNING:  no privileges were granted for "politico_db"
+2019-02-13 08:48:37.258 EAT [3070] ERROR:  permission denied to create database
+2019-02-13 08:48:37.258 EAT [3070] STATEMENT:  create database politico_test_db;
+2019-02-13 10:37:17.503 EAT [7968] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.503 EAT [7968] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.553 EAT [7969] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.553 EAT [7969] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.588 EAT [7970] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.588 EAT [7970] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.623 EAT [7971] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.623 EAT [7971] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.656 EAT [7972] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.656 EAT [7972] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.691 EAT [7973] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.691 EAT [7973] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.726 EAT [7974] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.726 EAT [7974] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.765 EAT [7975] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.765 EAT [7975] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.801 EAT [7976] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.801 EAT [7976] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.838 EAT [7977] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.838 EAT [7977] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.873 EAT [7978] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.873 EAT [7978] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.908 EAT [7979] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.908 EAT [7979] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:17.972 EAT [7980] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:17.972 EAT [7980] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.001 EAT [7981] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.001 EAT [7981] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.033 EAT [7982] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.033 EAT [7982] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.061 EAT [7983] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.061 EAT [7983] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.091 EAT [7984] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.091 EAT [7984] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.122 EAT [7985] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.122 EAT [7985] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.151 EAT [7986] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.151 EAT [7986] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.184 EAT [7987] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.184 EAT [7987] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.213 EAT [7988] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.213 EAT [7988] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.243 EAT [7989] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.243 EAT [7989] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.274 EAT [7990] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.274 EAT [7990] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.306 EAT [7991] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.306 EAT [7991] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.338 EAT [7992] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.338 EAT [7992] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.371 EAT [7993] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.371 EAT [7993] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.403 EAT [7994] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.403 EAT [7994] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.435 EAT [7995] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.435 EAT [7995] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.468 EAT [7996] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.468 EAT [7996] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.501 EAT [7999] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.501 EAT [7999] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.539 EAT [8002] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.539 EAT [8002] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.576 EAT [8005] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.576 EAT [8005] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.608 EAT [8006] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.608 EAT [8006] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.640 EAT [8007] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.640 EAT [8007] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.679 EAT [8008] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.679 EAT [8008] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.712 EAT [8009] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.712 EAT [8009] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.742 EAT [8010] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.742 EAT [8010] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.785 EAT [8011] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.785 EAT [8011] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.817 EAT [8012] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.817 EAT [8012] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.852 EAT [8013] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.852 EAT [8013] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.884 EAT [8014] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.884 EAT [8014] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.921 EAT [8019] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.921 EAT [8019] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.958 EAT [8020] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.958 EAT [8020] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:18.989 EAT [8021] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:18.989 EAT [8021] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.020 EAT [8022] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.020 EAT [8022] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.053 EAT [8023] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.053 EAT [8023] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.088 EAT [8024] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.088 EAT [8024] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.119 EAT [8025] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.119 EAT [8025] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.151 EAT [8026] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.151 EAT [8026] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.182 EAT [8027] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.182 EAT [8027] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.218 EAT [8028] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.218 EAT [8028] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.253 EAT [8029] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.253 EAT [8029] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.293 EAT [8030] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.293 EAT [8030] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.327 EAT [8031] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.327 EAT [8031] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.360 EAT [8032] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.360 EAT [8032] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.395 EAT [8033] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.395 EAT [8033] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.430 EAT [8034] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.430 EAT [8034] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.463 EAT [8035] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.463 EAT [8035] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.500 EAT [8036] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.500 EAT [8036] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.538 EAT [8037] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.538 EAT [8037] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.572 EAT [8038] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.572 EAT [8038] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:37:19.607 EAT [8039] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:37:19.607 EAT [8039] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:38:29.837 EAT [8081] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:38:29.837 EAT [8081] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:38:30.077 EAT [8083] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:38:30.077 EAT [8083] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:39:24.030 EAT [8104] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:39:24.030 EAT [8104] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:39:26.458 EAT [8110] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:39:26.458 EAT [8110] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:39:48.124 EAT [8125] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:39:48.124 EAT [8125] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:40:28.981 EAT [8158] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:40:28.981 EAT [8158] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(candidate) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:41:38.098 EAT [8186] ERROR:  number of referencing and referenced columns for foreign key disagree
+2019-02-13 10:41:38.098 EAT [8186] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(candidate,office) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:43:51.920 EAT [8218] ERROR:  there is no unique constraint matching given keys for referenced table "candidates"
+2019-02-13 10:43:51.920 EAT [8218] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS votes(
+	        id SERIAL NOT NULL,
+	        createdby INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        createdOn  TIMESTAMP WITHOUT TIME ZONE         DEFAULT (NOW() AT TIME ZONE 'utc'),
+	        PRIMARY KEY (createdby, office),
+	        FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES candidates(candidate) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:43:56.267 EAT [8230] ERROR:  syntax error at or near "FOREIGN" at character 265
+2019-02-13 10:43:56.267 EAT [8230] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS candidates(
+	        id SERIAL NOT NULL,
+	        party INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        PRIMARY KEY (candidate, office),
+	        UNI
+	        FOREIGN KEY (party) REFERENCES parties(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES users(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:43:58.615 EAT [8242] ERROR:  syntax error at or near ")" at character 260
+2019-02-13 10:43:58.615 EAT [8242] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS candidates(
+	        id SERIAL NOT NULL,
+	        party INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        PRIMARY KEY (candidate, office),
+	        UNIQUE()
+	        FOREIGN KEY (party) REFERENCES parties(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES users(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:44:00.963 EAT [8248] ERROR:  syntax error at or near ")" at character 260
+2019-02-13 10:44:00.963 EAT [8248] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS candidates(
+	        id SERIAL NOT NULL,
+	        party INTEGER NOT NULL DEFAULT 0,
+	        office INTEGER NOT NULL DEFAULT 0,
+	        candidate INTEGER NOT NULL DEFAULT 0,
+	        PRIMARY KEY (candidate, office),
+	        UNIQUE(),
+	        FOREIGN KEY (party) REFERENCES parties(id) ON DELETE CASCADE,
+	        FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
+	        FOREIGN KEY (candidate) REFERENCES users(id) ON DELETE CASCADE
+	    )
+	    
+2019-02-13 10:44:16.485 EAT [8260] ERROR:  null value in column "phonenumber" violates not-null constraint
+2019-02-13 10:44:16.485 EAT [8260] DETAIL:  Failing row contains (1, Bedan, Kimani, null, bedank6@gmail.com, null, pbkdf2:sha256:50000$AB2NrMI3$fd00f864f90c014e30b49e178b00c658e86..., t).
+2019-02-13 10:44:16.485 EAT [8260] STATEMENT:  INSERT INTO users (firstname, lastname, email,                 password, admin) VALUES ('Bedan', 'Kimani',                 'bedank6@gmail.com', 'pbkdf2:sha256:50000$AB2NrMI3$fd00f864f90c014e30b49e178b00c658e8620921df7300cb1cdda2caf878e932', True)            
+2019-02-13 10:44:42.006 EAT [8280] ERROR:  syntax error at or near "(" at character 167
+2019-02-13 10:44:42.006 EAT [8280] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS offices(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        name VARCHAR(250) NOT NULL,
+	        type VARCHAR(250) NOT NULL
+	        UNIQUE(candidate),
+	    )
+	    
+2019-02-13 10:44:45.354 EAT [8293] ERROR:  syntax error at or near "(" at character 167
+2019-02-13 10:44:45.354 EAT [8293] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS offices(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        name VARCHAR(250) NOT NULL,
+	        type VARCHAR(250) NOT NULL
+	        UNIQUE(name)
+	    )
+	    
+2019-02-13 10:44:48.718 EAT [8303] ERROR:  syntax error at or near "(" at character 247
+2019-02-13 10:44:48.718 EAT [8303] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS parties(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        name VARCHAR(250) NOT NULL,
+	        hq_address VARCHAR(250) NOT NULL,
+	        logo_url VARCHAR(250) NULL,
+	        slogan VARCHAR(250) NOT NULL
+	        UNIQUE(candidate),
+	    )
+	    
+2019-02-13 10:44:50.039 EAT [8309] ERROR:  syntax error at or near ")" at character 265
+2019-02-13 10:44:50.039 EAT [8309] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS parties(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        name VARCHAR(250) NOT NULL,
+	        hq_address VARCHAR(250) NOT NULL,
+	        logo_url VARCHAR(250) NULL,
+	        slogan VARCHAR(250) NOT NULL,
+	        UNIQUE(candidate),
+	    )
+	    
+2019-02-13 10:44:52.366 EAT [8315] ERROR:  syntax error at or near ")" at character 260
+2019-02-13 10:44:52.366 EAT [8315] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS parties(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        name VARCHAR(250) NOT NULL,
+	        hq_address VARCHAR(250) NOT NULL,
+	        logo_url VARCHAR(250) NULL,
+	        slogan VARCHAR(250) NOT NULL,
+	        UNIQUE(name),
+	    )
+	    
+2019-02-13 10:44:56.721 EAT [8326] ERROR:  syntax error at or near "(" at character 377
+2019-02-13 10:44:56.721 EAT [8326] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS users(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        firstname VARCHAR(250) NOT NULL,
+	        lastname VARCHAR(250) NOT NULL,
+	        othername VARCHAR(250) NULL,
+	        email VARCHAR(250) NOT NULL,
+	        phonenumber VARCHAR(250) NOT NULL,
+	        password VARCHAR(250) NOT NULL,
+	        admin BOOLEAN NOT NULL DEFAULT FALSE
+	        UNIQUE(candidate),
+	    )
+	    
+2019-02-13 10:44:59.058 EAT [8337] ERROR:  syntax error at or near "(" at character 377
+2019-02-13 10:44:59.058 EAT [8337] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS users(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        firstname VARCHAR(250) NOT NULL,
+	        lastname VARCHAR(250) NOT NULL,
+	        othername VARCHAR(250) NULL,
+	        email VARCHAR(250) NOT NULL,
+	        phonenumber VARCHAR(250) NOT NULL,
+	        password VARCHAR(250) NOT NULL,
+	        admin BOOLEAN NOT NULL DEFAULT FALSE
+	        UNIQUE(candidate)
+	    )
+	    
+2019-02-13 10:45:04.497 EAT [8350] ERROR:  syntax error at or near "(" at character 368
+2019-02-13 10:45:04.497 EAT [8350] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS users(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        firstname VARCHAR(250) NOT NULL,
+	        lastname VARCHAR(250) NOT NULL,
+	        othername VARCHAR(250) NULL,
+	        email VARCHAR(250) NOT NULL,
+	        phonenumber VARCHAR(250),
+	        password VARCHAR(250) NOT NULL,
+	        admin BOOLEAN NOT NULL DEFAULT FALSE
+	        UNIQUE(email)
+	    )
+	    
+2019-02-13 10:45:13.955 EAT [8363] ERROR:  syntax error at or near ")" at character 260
+2019-02-13 10:45:13.955 EAT [8363] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS parties(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        name VARCHAR(250) NOT NULL,
+	        hq_address VARCHAR(250) NOT NULL,
+	        logo_url VARCHAR(250) NULL,
+	        slogan VARCHAR(250) NOT NULL,
+	        UNIQUE(name),
+	    )
+	    
+2019-02-13 10:45:26.543 EAT [8376] ERROR:  syntax error at or near ")" at character 260
+2019-02-13 10:45:26.543 EAT [8376] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS parties(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        name VARCHAR(250) NOT NULL,
+	        hq_address VARCHAR(250) NOT NULL,
+	        logo_url VARCHAR(250) NULL,
+	        slogan VARCHAR(250) NOT NULL,
+	        UNIQUE(name),
+	    )
+	    
+2019-02-13 10:45:39.166 EAT [8388] ERROR:  syntax error at or near ")" at character 260
+2019-02-13 10:45:39.166 EAT [8388] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS parties(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        name VARCHAR(250) NOT NULL,
+	        hq_address VARCHAR(250) NOT NULL,
+	        logo_url VARCHAR(250) NULL,
+	        slogan VARCHAR(250) NOT NULL,
+	        UNIQUE(name),
+	    )
+	    
+2019-02-13 10:45:39.404 EAT [8390] ERROR:  syntax error at or near ")" at character 260
+2019-02-13 10:45:39.404 EAT [8390] STATEMENT:  
+	    CREATE TABLE IF NOT EXISTS parties(
+	        id SERIAL PRIMARY KEY NOT NULL,
+	        name VARCHAR(250) NOT NULL,
+	        hq_address VARCHAR(250) NOT NULL,
+	        logo_url VARCHAR(250) NULL,
+	        slogan VARCHAR(250) NOT NULL,
+	        UNIQUE(name),
+	    )
+	    
+2019-02-13 10:46:12.203 EAT [8402] ERROR:  null value in column "phonenumber" violates not-null constraint
+2019-02-13 10:46:12.203 EAT [8402] DETAIL:  Failing row contains (2, Bedan, Kimani, null, bedank6@gmail.com, null, pbkdf2:sha256:50000$1Hppn9br$103b8d371bcabdfda3ef877a84afbf4449c..., t).
+2019-02-13 10:46:12.203 EAT [8402] STATEMENT:  INSERT INTO users (firstname, lastname, email,                 password, admin) VALUES ('Bedan', 'Kimani',                 'bedank6@gmail.com', 'pbkdf2:sha256:50000$1Hppn9br$103b8d371bcabdfda3ef877a84afbf4449c0eea50f17098986858442b2916f0f', True)            
+2019-02-13 10:46:37.754 EAT [8414] ERROR:  null value in column "phonenumber" violates not-null constraint
+2019-02-13 10:46:37.754 EAT [8414] DETAIL:  Failing row contains (3, Bedan, Kimani, null, bedank6@gmail.com, null, pbkdf2:sha256:50000$ZFIU8poR$0b2a0d52d3e45892e938f4ca832f1c93f4e..., t).
+2019-02-13 10:46:37.754 EAT [8414] STATEMENT:  INSERT INTO users (firstname, lastname, email,                 password, admin) VALUES ('Bedan', 'Kimani',                 'bedank6@gmail.com', 'pbkdf2:sha256:50000$ZFIU8poR$0b2a0d52d3e45892e938f4ca832f1c93f4e45ceb4bbc606d21a7eb157bbcab21', True)            
+2019-02-13 10:47:11.431 EAT [8430] ERROR:  INSERT has more target columns than expressions at character 87
+2019-02-13 10:47:11.431 EAT [8430] STATEMENT:  INSERT INTO users (firstname, lastname, phonenumber, email,                 password, admin) VALUES ('Bedan', 'Kimani',                 'bedank6@gmail.com', 'pbkdf2:sha256:50000$9nOPvVVP$7401fe9f4e934177d71c04ba1ccc68e2bfc19832e31ad09dd5ef152d5a7393d8', True)            
+2019-02-13 10:47:20.848 EAT [8441] ERROR:  syntax error at or near "bedank6" at character 140
+2019-02-13 10:47:20.848 EAT [8441] STATEMENT:  INSERT INTO users (firstname, lastname, phonenumber, email,                 password, admin) VALUES ('Bedan', 'Kimani', '                 'bedank6@gmail.com', 'pbkdf2:sha256:50000$Pa9lUgIF$e88e41d6d41bdea55fb0a4d7753508ccebaf92ac5bf508107ad7fdc4deae3ff7', True)            
+2019-02-13 10:47:25.194 EAT [8452] ERROR:  syntax error at or near "'bedank6@gmail.com'" at character 150
+2019-02-13 10:47:25.194 EAT [8452] STATEMENT:  INSERT INTO users (firstname, lastname, phonenumber, email,                 password, admin) VALUES ('Bedan', 'Kimani', '0712068754'                 'bedank6@gmail.com', 'pbkdf2:sha256:50000$BFux8hUy$6395d5be1f37b59968b31eccc73f4137404f6ac6fbac8326a1d3b5092f6b6884', True)            
+2019-02-13 10:48:53.606 EAT [8476] LOG:  unexpected EOF on client connection with an open transaction
