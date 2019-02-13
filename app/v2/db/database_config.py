@@ -54,8 +54,8 @@ class Database:
         user = cur.fetchone()
 
         if not user:
-            cur.execute("INSERT INTO users (firstname, lastname, email, \
-                password, admin) VALUES ('Bedan', 'Kimani', \
+            cur.execute("INSERT INTO users (firstname, lastname, phonenumber, email, \
+                password, admin) VALUES ('Bedan', 'Kimani', '0712068754', \
                 'bedank6@gmail.com', '{}', True)\
             ".format(generate_password_hash('jivunie')))
             conn.commit()
@@ -105,9 +105,10 @@ table_queries = [
         lastname VARCHAR(250) NOT NULL,
         othername VARCHAR(250) NULL,
         email VARCHAR(250) NOT NULL,
-        phonenumber VARCHAR(250) NOT NULL,
+        phonenumber VARCHAR(250) NULL,
         password VARCHAR(250) NOT NULL,
-        admin BOOLEAN NOT NULL DEFAULT FALSE
+        admin BOOLEAN NOT NULL DEFAULT FALSE,
+        UNIQUE(email)
     )
     """,
     """
@@ -116,14 +117,16 @@ table_queries = [
         name VARCHAR(250) NOT NULL,
         hq_address VARCHAR(250) NOT NULL,
         logo_url VARCHAR(250) NULL,
-        slogan VARCHAR(250) NOT NULL
+        slogan VARCHAR(250) NOT NULL,
+        UNIQUE(name)
     )
     """,
     """
     CREATE TABLE IF NOT EXISTS offices(
         id SERIAL PRIMARY KEY NOT NULL,
         name VARCHAR(250) NOT NULL,
-        type VARCHAR(250) NOT NULL
+        type VARCHAR(250) NOT NULL,
+        UNIQUE(name)
     )
     """,
     """
@@ -133,6 +136,7 @@ table_queries = [
         office INTEGER NOT NULL DEFAULT 0,
         candidate INTEGER NOT NULL DEFAULT 0,
         PRIMARY KEY (candidate, office),
+        UNIQUE(candidate),
         FOREIGN KEY (party) REFERENCES parties(id) ON DELETE CASCADE,
         FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
         FOREIGN KEY (candidate) REFERENCES users(id) ON DELETE CASCADE
@@ -149,7 +153,7 @@ table_queries = [
         PRIMARY KEY (createdby, office),
         FOREIGN KEY (createdby) REFERENCES users(id) ON DELETE CASCADE,
         FOREIGN KEY (office) REFERENCES offices(id) ON DELETE CASCADE,
-        FOREIGN KEY (candidate) REFERENCES candidates(id) ON DELETE CASCADE
+        FOREIGN KEY (candidate) REFERENCES candidates(candidate) ON DELETE CASCADE
     )
     """
 ]

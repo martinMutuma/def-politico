@@ -4,6 +4,7 @@ from flask import Flask, jsonify, Blueprint
 from instance.config import app_config
 from .v1.views import offices, parties, candidates, votes, users
 from .v1.blueprints import bp
+from .v2.db.database_config import Database
 
 
 def create_app(config_name):
@@ -19,6 +20,9 @@ def create_app(config_name):
 
     # register blueprints
     app.register_blueprint(bp)
+
+    # create the database
+    create_db(config_name)
 
     @app.route('/')
     @app.route('/index')
@@ -50,3 +54,16 @@ def create_app(config_name):
         return jsonify({'status': 400, 'message': 'Please review your request and try again'})
 
     return app
+
+
+def create_db(config_name):
+    """ Create all db tables """
+
+    try:
+        db = Database(config_name)
+        db.init_connection()
+        db.create_db()
+        db.create_super_user()
+
+    except Exception as error:
+        print('Error creating the database: {}'.format(str(error)))
