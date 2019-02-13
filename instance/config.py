@@ -7,6 +7,7 @@ class Config(object):
     DEBUG = False
     SECRET = os.getenv('SECRET')
     DATABASE_URL = os.getenv('DATABASE_URL')
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 
 
 class DevelopmentConfig(Config):
@@ -20,6 +21,7 @@ class TestingConfig(Config):
     TESTING = True
     DEBUG = True
     DATABASE_URL = os.getenv('DATABASE_TEST_URL')
+    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 
 
 class StagingConfig(Config):

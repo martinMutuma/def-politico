@@ -35,8 +35,11 @@ def register_user():
 
     # append new user to list
     user.save()
-    print(data)
-    user.as_json()['access_token'] = 'sdf'
-    # return registered user
-    return response("Success", 201, [user.as_json()])
 
+    response_data = {
+        'token': user.access_token,
+        'user': user.as_json()
+    }
+
+    # return registered user
+    return response("Success", 201, [response_data])

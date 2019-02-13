@@ -61,7 +61,10 @@ class BaseModel(Database):
         query = "SELECT * FROM {} WHERE {} = '{}'".format(
             self.table_name, key, value)
 
-        return self.get_one(query)
+        data = self.get_one(query)
+        if data:
+            data[key] = value
+        return data
 
     def from_json(self, json):
         return self
