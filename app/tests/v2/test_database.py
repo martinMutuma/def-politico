@@ -24,27 +24,3 @@ class TestDatabase(unittest.TestCase):
 
         db = Database('testing')
         self.assertTrue(db.init_connection())
-
-    def test_parties_table_created(self):
-        """ Tests whether the party table was created """
-
-        table = self.db.get_one("select to_regclass('public.parties')")
-        self.assertTrue(table)
-
-    def test_offices_table_created(self):
-        """ Tests whether the offices table was created """
-
-        table = self.db.get_one("select to_regclass('public.offices')")
-        self.assertTrue(table)
-
-    def test_users_table_created(self):
-        """ Tests whether the user table was created """
-
-        table = self.db.get_one("select to_regclass('public.users')")
-        self.assertTrue(table)
-
-    def test_votes_table_created(self):
-        """ Tests whether the votes table was created """
-
-        table = self.db.get_one("select to_regclass('public.votes')")
-        self.assertTrue(table)
