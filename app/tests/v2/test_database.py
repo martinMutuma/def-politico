@@ -13,6 +13,8 @@ class TestDatabase(unittest.TestCase):
         self.db.create_db()
         self.db.create_super_user()
 
+    
+
     def test_connect_db(self):
         """ Test whether connection is established """
 
@@ -41,12 +43,6 @@ class TestDatabase(unittest.TestCase):
         """ Tests whether the user table was created """
 
         table = self.db.get_one("select to_regclass('public.users')")
-        self.assertTrue(table)
-
-    def test_candidates_table_created(self):
-        """ Tests whether the candidate table was created """
-
-        table = self.db.get_one("select to_regclass('public.candidates')")
         self.assertTrue(table)
 
     def test_votes_table_created(self):
