@@ -4,6 +4,7 @@ from flask import Flask, jsonify, Blueprint
 from instance.config import app_config
 from .v1.views import offices, parties, candidates, votes, users
 from .v2.views import users as v2_users
+from .v2.views import offices as v2_offices
 from .v2.db.database_config import Database
 from app.blueprints import bp, v2
 from flask_jwt_extended import JWTManager

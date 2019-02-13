@@ -21,7 +21,7 @@ class TestOffices(Base):
     def test_create_office(self):
         """ Tests that a office was created successfully """
 
-        res = self.client.post('/api/v1/offices', json=self.new_office)
+        res = self.client.post('/api/v2/offices', json=self.new_office)
         data = res.get_json()
 
         self.assertEqual(data['status'], 201)
@@ -31,8 +31,8 @@ class TestOffices(Base):
     def test_create_office_same_name(self):
         """ Tests when same name is given twice """
 
-        self.client.post('/api/v1/offices', json=self.new_office)
-        res = self.client.post('/api/v1/offices', json=self.new_office)
+        self.client.post('/api/v2/offices', json=self.new_office)
+        res = self.client.post('/api/v2/offices', json=self.new_office)
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
@@ -42,7 +42,7 @@ class TestOffices(Base):
     def test_create_office_missing_fields(self):
         """ Tests when some fields are missing e.g name """
 
-        res = self.client.post('/api/v1/offices', json={
+        res = self.client.post('/api/v2/offices', json={
             "type": "Pamoja tujengane"
         })
         data = res.get_json()
@@ -54,7 +54,7 @@ class TestOffices(Base):
     def test_create_office_no_data(self):
         """ Tests when no data is provided """
 
-        res = self.client.post('/api/v1/offices')
+        res = self.client.post('/api/v2/offices')
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
@@ -65,7 +65,7 @@ class TestOffices(Base):
         """ Tests when integer is provided for name """
 
         self.new_office['name'] = 3
-        res = self.client.post('/api/v1/offices', json=self.new_office)
+        res = self.client.post('/api/v2/offices', json=self.new_office)
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
@@ -76,7 +76,7 @@ class TestOffices(Base):
         """ Tests when short name is provided """
 
         self.new_office['name'] = 'of'
-        res = self.client.post('/api/v1/offices', json=self.new_office)
+        res = self.client.post('/api/v2/offices', json=self.new_office)
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
@@ -85,15 +85,15 @@ class TestOffices(Base):
 
     # tests for GET offices
     def test_get_all_offices(self):
-        """ Tests when get request made to api/v1/offices """
+        """ Tests when get request made to api/v2/offices """
 
-        res = self.client.post('/api/v1/offices', json=self.new_office)
+        res = self.client.post('/api/v2/offices', json=self.new_office)
         self.new_office['name'] = 'Other name'
-        res = self.client.post('/api/v1/offices', json=self.new_office)
+        res = self.client.post('/api/v2/offices', json=self.new_office)
         self.new_office['name'] = 'Other Other name'
-        res = self.client.post('/api/v1/offices', json=self.new_office)
+        res = self.client.post('/api/v2/offices', json=self.new_office)
 
-        res = self.client.get('/api/v1/offices')
+        res = self.client.get('/api/v2/offices')
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
@@ -102,9 +102,9 @@ class TestOffices(Base):
         self.assertEqual(res.status_code, 200)
 
     def test_get_all_offices_no_data(self):
-        """ Tests when get request made to api/v1/offices """
+        """ Tests when get request made to api/v2/offices """
 
-        res = self.client.get('/api/v1/offices')
+        res = self.client.get('/api/v2/offices')
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
@@ -116,9 +116,9 @@ class TestOffices(Base):
     def test_get_sigle_office(self):
         """ Tests when get reuest made to /offices/<int:id> """
 
-        self.client.post('/api/v1/offices', json=self.new_office)
+        self.client.post('/api/v2/offices', json=self.new_office)
 
-        res = self.client.get('/api/v1/offices/1')
+        res = self.client.get('/api/v2/offices/1')
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
@@ -130,7 +130,7 @@ class TestOffices(Base):
     def test_get_single_office_id_not_found(self):
         """ Tests request made with id that does not exist """
 
-        res = self.client.get('/api/v1/offices/14')
+        res = self.client.get('/api/v2/offices/14')
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
@@ -141,9 +141,9 @@ class TestOffices(Base):
     def test_delete_office(self):
         """ Tests when DELETE reuest made to /offices/<int:id> """
 
-        self.client.post('/api/v1/offices', json=self.new_office)
+        self.client.post('/api/v2/offices', json=self.new_office)
 
-        res = self.client.delete('/api/v1/offices/1')
+        res = self.client.delete('/api/v2/offices/1')
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
@@ -155,7 +155,7 @@ class TestOffices(Base):
     def test_delete_office_id_not_found(self):
         """ Tests DELETE request made with id that does not exist """
 
-        res = self.client.delete('/api/v1/offices/14')
+        res = self.client.delete('/api/v2/offices/14')
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
