@@ -28,6 +28,21 @@ class BaseModel(Database):
         print(query)
         return super().insert(query)
 
+    def edit(self, key, value, id):
+        """ edits a certain column of a table """
+
+        query = "UPDATE {} SET {} = '{}' WHERE id = '{}' \
+            RETURNING *".format(self.table_name, key, value, id)
+
+        return self.insert(query)
+
+    def load_all(self):
+        """  Get all items in table """
+
+        query = "SELECT * FROM {}".format(self.table_name)
+
+        return self.get_all(query)
+
     def delete(self, id):
         """ Remove item from table """
 
