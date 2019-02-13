@@ -13,6 +13,11 @@ class TestDatabase(unittest.TestCase):
         self.db.create_db()
         self.db.create_super_user()
 
+    def tearDown(self):
+        """ tear down tests """
+
+        self.db.drop_db()
+
     def test_connect_db(self):
         """ Test whether connection is established """
 
@@ -29,28 +34,28 @@ class TestDatabase(unittest.TestCase):
         """ Tests whether the party table was created """
 
         table = self.db.get_one("select to_regclass('public.parties')")
-        self.assertEqual(table, {'to_regclass': 'parties'})
+        self.assertTrue(table)
 
     def test_offices_table_created(self):
         """ Tests whether the offices table was created """
 
         table = self.db.get_one("select to_regclass('public.offices')")
-        self.assertEqual(table, {'to_regclass': 'offices'})
+        self.assertTrue(table)
 
     def test_users_table_created(self):
         """ Tests whether the user table was created """
 
         table = self.db.get_one("select to_regclass('public.users')")
-        self.assertEqual(table, {'to_regclass': 'users'})
+        self.assertTrue(table)
 
     def test_candidates_table_created(self):
         """ Tests whether the candidate table was created """
 
         table = self.db.get_one("select to_regclass('public.candidates')")
-        self.assertEqual(table, {'to_regclass': 'candidates'})
+        self.assertTrue(table)
 
     def test_votes_table_created(self):
         """ Tests whether the votes table was created """
 
         table = self.db.get_one("select to_regclass('public.votes')")
-        self.assertEqual(table, {'to_regclass': 'votes'})
+        self.assertTrue(table)
