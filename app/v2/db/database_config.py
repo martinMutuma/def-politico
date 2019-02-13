@@ -3,27 +3,32 @@ from instance.config import app_config
 from werkzeug.security import generate_password_hash
 from psycopg2.extras import RealDictCursor
 import sys
+import os
 
 
 class Database:
     """ This class will handle all our database logic """
 
-    def init_connection(self, config):
+    def __init__(self, config_type):
+        self.config_type = config_type
+
+    def init_connection(self):
         """ create a connection and a cursor  to access db """
 
-        database_url = app_config[config].DATABASE_URL
+        database_url = app_config[self.config_type].DATABASE_URL
+        print(database_url)
 
         try:
             global conn, cur
 
             conn = psycopg2.connect(database_url)
             cur = conn.cursor(cursor_factory=RealDictCursor)
-
+            return True
         except Exception as error:
             print('Error. Unable to establish Database connection')
             print(error)
 
-            sys.exit(1)
+            return False
 
     def create_db(self):
         """ Creates all the tables for the database """
