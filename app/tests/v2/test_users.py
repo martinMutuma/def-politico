@@ -72,7 +72,7 @@ class TestUsers(Base):
     def test_register_short_password(self):
         """ Tests when a short password is provided """
 
-        self.new_user['password'] = 'pass'
+        self.new_user['password'] = 'can'
         res = self.client.post('/api/v2/auth/signup', json=self.new_user)
         data = res.get_json()
 
