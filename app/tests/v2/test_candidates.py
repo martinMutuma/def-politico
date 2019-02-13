@@ -119,6 +119,20 @@ class TestCandidate(Base):
         self.assertEqual(data['error'], 'Selected Office does not exist')
         self.assertEqual(res.status_code, 404)
 
+    def test_register_candidate_office_not_exist(self):
+        """ Tests when the office does not exist  """
+
+        res = self.client.post('/api/v2/office/19/register', json={
+            "party": 1,
+            "office": 13,
+            "candidate": 1
+        })
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 404)
+        self.assertEqual(data['error'], 'Selected Office does not exist')
+        self.assertEqual(res.status_code, 404)
+
     def test_register_candidate_user_not_exist(self):
         """ Tests when the candidate does not exist  """
 

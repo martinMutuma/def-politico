@@ -16,11 +16,11 @@ class Base(unittest.TestCase):
         self.client = self.app.test_client()
 
         # login as a super user
-        # res = self.client.post('/api/v2/auth/login', json={
-        #     'email': 'bedank6@gmail.com', 'password': 'jivunie'})
+        res = self.client.post('/api/v2/auth/login', json={
+            'email': 'bedank6@gmail.com', 'password': 'jivunie'})
 
-        # self.access_token = res.get_json()['data'][0]['token']
-        # self.headers = {'Authorization': 'Bearer {}'.format(self.access_token)}
+        self.access_token = res.get_json()['data'][0]['token']
+        self.headers = {'Authorization': 'Bearer {}'.format(self.access_token)}
 
     def tearDown(self):
         self.app = None
@@ -28,3 +28,4 @@ class Base(unittest.TestCase):
         db = Database('testing')
         db.init_connection()
         db.truncate()
+        db.drop_db()
