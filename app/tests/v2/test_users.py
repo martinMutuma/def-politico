@@ -44,7 +44,8 @@ class TestUsers(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 409)
-        self.assertEqual(data['error'], 'A User with that email already exists')
+        self.assertEqual(
+            data['error'], 'A User with that email already exists')
         self.assertEqual(res.status_code, 409)
 
     def test_register_user_missing_fields(self):
@@ -77,7 +78,8 @@ class TestUsers(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 422)
-        self.assertEqual(data['error'], 'Password must be at least 6 characters long')
+        self.assertEqual(
+            data['error'], 'Password must be at least 6 characters long')
         self.assertEqual(res.status_code, 422)
 
     def test_register_user_int_name(self):
@@ -88,7 +90,8 @@ class TestUsers(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 422)
-        self.assertEqual(data['error'], 'Integer types are not allowed for some fields')
+        self.assertEqual(
+            data['error'], 'Integer types are not allowed for some fields')
         self.assertEqual(res.status_code, 422)
 
     def test_register_user_string_bool(self):
@@ -99,7 +102,8 @@ class TestUsers(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 422)
-        self.assertEqual(data['error'], 'isAdmin is supposed to be a boolean value')
+        self.assertEqual(
+            data['error'], 'isAdmin is supposed to be a boolean value')
         self.assertEqual(res.status_code, 422)
 
     def test_register_user_ivalid_email(self):
