@@ -4,7 +4,7 @@ from flask import jsonify
 from flask import make_response
 from app.v1.utils.validator import response, exists, response_error
 from app.v1.models.office_model import Office
-from app.v1.blueprints import bp
+from app.blueprints import bp
 
 
 office_list = Office.offices

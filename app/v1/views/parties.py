@@ -4,7 +4,7 @@ from flask import jsonify
 from flask import make_response
 from app.v1.models.party_model import Party
 from app.v1.utils.validator import response, exists, response_error
-from app.v1.blueprints import bp
+from app.blueprints import bp
 
 
 party_list = Party.parties

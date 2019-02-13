@@ -3,8 +3,9 @@ import os
 from flask import Flask, jsonify, Blueprint
 from instance.config import app_config
 from .v1.views import offices, parties, candidates, votes, users
-from .v1.blueprints import bp
+from .v2.views import users as v2_users
 from .v2.db.database_config import Database
+from app.blueprints import bp, v2
 
 
 def create_app(config_name):
@@ -18,11 +19,12 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
 
-    # register blueprints
-    app.register_blueprint(bp)
-
     # create the database
     create_db(config_name)
+
+    # register blueprints
+    app.register_blueprint(v2)
+    app.register_blueprint(bp)
 
     @app.route('/')
     @app.route('/index')

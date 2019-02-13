@@ -7,7 +7,7 @@ from app.v1.models.party_model import Party
 from app.v1.models.office_model import Office
 from app.v1.models.user_model import User
 from app.v1.models.candidate_model import Candidate
-from app.v1.blueprints import bp
+from app.blueprints import bp
 
 
 candidate_list = Candidate.candidates
