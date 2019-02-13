@@ -6,7 +6,7 @@ from app.v1.models.office_model import Office
 from app.v1.models.user_model import User
 from app.v1.models.vote_model import Vote
 from app.v1.utils.validator import response, exists, response_error
-from app.v1.blueprints import bp
+from app.blueprints import bp
 
 
 votes_list = Vote.votes

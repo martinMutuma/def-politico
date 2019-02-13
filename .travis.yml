@@ -19,7 +19,7 @@ env:
   - DATABASE_URL="dbname='politico_db' host='127.0.0.1' port='5432' user='politico' password='politica'" DATABASE_TEST_URL="dbname='politico_test_db' host='127.0.0.1' port='5432' user='politico' password='politica'"
 
 script:
-  - pytest app/tests/v1 --cov=app/v1
+  - pytest app/tests/v2/test_users.py --cov=app/v2
   
 after_success:
   - coveralls
