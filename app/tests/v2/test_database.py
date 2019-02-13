@@ -13,11 +13,6 @@ class TestDatabase(unittest.TestCase):
         self.db.create_db()
         self.db.create_super_user()
 
-    def tearDown(self):
-        """ tear down tests """
-
-        self.db.drop_db()
-
     def test_connect_db(self):
         """ Test whether connection is established """
 
