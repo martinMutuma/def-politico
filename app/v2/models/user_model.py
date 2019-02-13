@@ -11,7 +11,7 @@ from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_r
 class User(BaseModel):
     """ model for political party """
 
-    def __init__(self, first_name=None, last_name=None, other_name=None, email=None, phone_number=None, passport_url=None, is_admin=False, password=None):
+    def __init__(self, first_name=None, last_name=None, other_name=None, email=None, phone_number=None, passport_url=None, is_admin=False, password=None, id=None):
         super().__init__('User', 'users')
 
         self.first_name = first_name
@@ -22,6 +22,7 @@ class User(BaseModel):
         self.passport_url = passport_url
         self.is_admin = is_admin
         self.password = password
+        self.id = id
 
     def save(self):
         """save user to db and generate tokens """

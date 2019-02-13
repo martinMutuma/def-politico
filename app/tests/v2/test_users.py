@@ -114,64 +114,67 @@ class TestUsers(Base):
         self.assertEqual(res.status_code, 422)
 
     # tests for login
-    # def test_login_user(self):
-    #     """ Tests that a user was loged in successfully """
+    def test_login_user(self):
+        """ Tests that a user was loged in successfully """
 
-    #     res = self.client.post('/api/v2/auth/login', json=self.new_user)
-    #     data = res.get_json()
+        res = self.client.post('/api/v2/auth/login', json={
+            'email': 'bedank6@gmail.com',
+            'password': 'jivunie'
+        })
+        data = res.get_json()
 
-    #     self.assertEqual(data['status'], 201)
-    #     self.assertEqual(data['message'], 'Success')
-    #     self.assertEqual(data['data'][0]['user']['firstname'], 'Andrew')
-    #     self.assertIn('token', data['data'][0])
-    #     self.assertEqual(res.status_code, 201)
+        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['data'][0]['user']['firstname'], 'Bedan')
+        self.assertIn('token', data['data'][0])
+        self.assertEqual(res.status_code, 200)
 
-    # def test_login_missing_email(self):
-    #     """ Tests when some fields are missing e.g email """
+    def test_login_missing_email(self):
+        """ Tests when some fields are missing e.g email """
 
-    #     res = self.client.post('/api/v2/auth/login', json={
-    #         "password": "jivunie"
-    #     })
-    #     data = res.get_json()
+        res = self.client.post('/api/v2/auth/login', json={
+            "password": "jivunie"
+        })
+        data = res.get_json()
 
-    #     self.assertEqual(data['status'], 400)
-    #     self.assertEqual(data['error'], 'email field is required')
-    #     self.assertEqual(res.status_code, 400)
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['error'], 'email field is required')
+        self.assertEqual(res.status_code, 400)
 
-    # def test_login_missing_password(self):
-    #     """ Tests when some fields are missing e.g password """
+    def test_login_missing_password(self):
+        """ Tests when some fields are missing e.g password """
 
-    #     res = self.client.post('/api/v2/auth/login', json={
-    #         "email": "jivunie@gmail.com"
-    #     })
-    #     data = res.get_json()
+        res = self.client.post('/api/v2/auth/login', json={
+            "email": "jivunie@gmail.com"
+        })
+        data = res.get_json()
 
-    #     self.assertEqual(data['status'], 400)
-    #     self.assertEqual(data['error'], 'password field is required')
-    #     self.assertEqual(res.status_code, 400)
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['error'], 'password field is required')
+        self.assertEqual(res.status_code, 400)
 
-    # def test_login_no_user(self):
-    #     """ Tests when user is not registered """
+    def test_login_no_user(self):
+        """ Tests when user is not registered """
 
-    #     res = self.client.post('/api/v2/auth/login', json={
-    #         "email": "jivunie@gmail.com",
-    #         "password": "some_screte"
-    #     })
-    #     data = res.get_json()
+        res = self.client.post('/api/v2/auth/login', json={
+            "email": "jivunie@gmail.com",
+            "password": "some_screte"
+        })
+        data = res.get_json()
 
-    #     self.assertEqual(data['status'], 404)
-    #     self.assertEqual(data['error'], 'User not registered')
-    #     self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['status'], 404)
+        self.assertEqual(data['error'], 'User not registered')
+        self.assertEqual(res.status_code, 404)
 
-    # def test_login_incorrect_password(self):
-    #     """ Tests when user is not registered """
+    def test_login_incorrect_password(self):
+        """ Tests when user is not registered """
 
-    #     res = self.client.post('/api/v2/auth/login', json={
-    #         "email": "andrew@gmail.com",
-    #         "password": "some_screte"
-    #     })
-    #     data = res.get_json()
+        res = self.client.post('/api/v2/auth/login', json={
+            "email": "bedank6@gmail.com",
+            "password": "some_screte"
+        })
+        data = res.get_json()
 
-    #     self.assertEqual(data['status'], 401)
-    #     self.assertEqual(data['error'], 'Incorrect password')
-    #     self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['status'], 401)
+        self.assertEqual(data['error'], 'Incorrect password')
+        self.assertEqual(res.status_code, 401)
