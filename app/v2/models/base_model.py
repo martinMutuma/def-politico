@@ -1,42 +1,52 @@
 from app.v1.utils.validator import generate_id, exists, validate_ints
+from app.v2.db.database_config import Database
 
 
-class BaseModel():
+class BaseModel(Database):
     """ model that defines all models """
 
-    def __init__(self, object_name, table):
-        self.table = table
+    def __init__(self, object_name, table_name):
+        self.table_name = table_name
         self.object_name = object_name
         self.error_message = ""
         self.error_code = 200
-        self.id = generate_id(table)
 
     def as_json(self):
         pass
 
-    def save(self):
-        """ save the object to table """
-        self.table.append(self.as_json())
+    def params_to_values(self, params):
+        f = ["'{}'".format(i) for i in params]
+        return ", ".join(f)
 
-    def delete(self):
-        """ Remove item from list and return instance """
-        for i in range(len(self.table)):
-            if self.table[i]['id'] == self.id:
-                return self.table.pop(i)
+    def save(self, fields, *values):
+        """ save the object to table """
+
+        query = "INSERT INTO {} ({}) \
+        VALUES ({}) RETURNING *".format(
+            self.table_name, fields, self.params_to_values(values)
+        )
+        print(query)
+        return super().insert(query)
+
+    def delete(self, id):
+        """ Remove item from table """
+
+        query = "DELETE FROM {} WHERE id = {}".format(self.table_name, id)
+
+        self.execute(query)
 
     def validate_object(self):
         """This function validates an object and rejects or accepts it"""
 
         return True
 
-    def find_by_id(self, id):
-        """ Find object from list and return instance """
-        self.id = id
+    def find_by(self, key, value):
+        """ Find object from table and return """
 
-        for i in range(len(self.table)):
-            if self.table[i]['id'] == id:
-                return self.table[i]
-        return None
+        query = "SELECT * FROM {} WHERE {} = '{}'".format(
+            self.table_name, key, value)
+
+        return self.get_one(query)
 
     def from_json(self, json):
         return self
