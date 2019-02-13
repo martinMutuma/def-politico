@@ -35,9 +35,9 @@ class TestOffices(Base):
         res = self.client.post('/api/v2/offices', json=self.new_office)
         data = res.get_json()
 
-        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['status'], 409)
         self.assertEqual(data['error'], 'Office already exists')
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(res.status_code, 409)
 
     def test_create_office_missing_fields(self):
         """ Tests when some fields are missing e.g name """
@@ -68,9 +68,10 @@ class TestOffices(Base):
         res = self.client.post('/api/v2/offices', json=self.new_office)
         data = res.get_json()
 
-        self.assertEqual(data['status'], 400)
-        self.assertEqual(data['error'], 'Integer types are not allowed for some fields')
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(data['status'], 422)
+        self.assertEqual(
+            data['error'], 'Integer types are not allowed for some fields')
+        self.assertEqual(res.status_code, 422)
 
     def test_create_office_short_name(self):
         """ Tests when short name is provided """
@@ -79,9 +80,10 @@ class TestOffices(Base):
         res = self.client.post('/api/v2/offices', json=self.new_office)
         data = res.get_json()
 
-        self.assertEqual(data['status'], 400)
-        self.assertEqual(data['error'], 'The Office name provided is too short')
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(data['status'], 422)
+        self.assertEqual(
+            data['error'], 'The Office name provided is too short')
+        self.assertEqual(res.status_code, 422)
 
     # tests for GET offices
     def test_get_all_offices(self):
@@ -153,7 +155,7 @@ class TestOffices(Base):
         self.assertEqual(res.status_code, 200)
 
     def test_delete_office_id_not_found(self):
-        """ Tests DELETE request made with id that does not exist """
+        """Tests DELETE request made with id that does not exist"""
 
         res = self.client.delete('/api/v2/offices/14')
         data = res.get_json()

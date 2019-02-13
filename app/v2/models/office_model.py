@@ -41,18 +41,18 @@ class Office(BaseModel):
             self.error_message = (
                 "Integer types are not allowed for some"
                 " fields")
-            self.error_code = 400
+            self.error_code = 422
             return False
 
         if len(self.name) < 3:
             self.error_message = "The {} name provided is too short".format(
                 self.object_name)
-            self.error_code = 400
+            self.error_code = 422
             return False
 
         if self.find_by('name', self.name):
             self.error_message = "{} already exists".format(self.object_name)
-            self.error_code = 400
+            self.error_code = 409
             return False
 
         return super().validate_object()
