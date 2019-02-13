@@ -181,7 +181,8 @@ class TestParties(Base):
     def test_patch_party(self):
         """ Tests when PATCH reuest made to /parties/<int:id>/name """
 
-        self.client.post('/api/v2/parties', json=self.new_party)
+        self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
 
         res = self.client.patch(
             '/api/v2/parties/1/Rainbow', headers=self.headers)
