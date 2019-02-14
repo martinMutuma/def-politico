@@ -182,3 +182,52 @@ class TestUsers(Base):
         self.assertEqual(data['status'], 401)
         self.assertEqual(data['error'], 'Incorrect password')
         self.assertEqual(res.status_code, 401)
+
+    # test reset password
+    def test_reset_pwd_no_email(self):
+        """ Tests when some fields are missing e.g email """
+
+        res = self.client.post('/api/v2/auth/reset', json={
+            "emails": "bedan@gmail.com"
+        })
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['error'], 'email field is required')
+        self.assertEqual(res.status_code, 400)
+
+    def test_reset_pwd_no_user(self):
+        """ Tests when user does not exist"""
+
+        res = self.client.post('/api/v2/auth/reset', json={
+            "email": "bedan@gmail.com"
+        })
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 404)
+        self.assertEqual(data['error'], 'User not found')
+        self.assertEqual(res.status_code, 404)
+
+    def test_reset_pwd_no_data(self):
+        """ Tests when no data is provided"""
+
+        res = self.client.post('/api/v2/auth/reset')
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['error'], 'No data was provided')
+        self.assertEqual(res.status_code, 400)
+
+    def test_reset_pwd(self):
+        """ Tests when some fields are missing e.g email """
+
+        res = self.client.post('/api/v2/auth/reset', json={
+            "email": "bedank6@gmail.com"
+        })
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(
+            data['data'][0]['message'],
+            'Check your email for password reset link')
+        self.assertEqual(res.status_code, 200)

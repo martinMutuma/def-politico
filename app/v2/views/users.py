@@ -94,3 +94,35 @@ def login():
         return response(message, status, [response_data])
 
     return response_error(message, status)
+
+
+@v2.route('/auth/reset', methods=['POST'])
+def reset_password():
+    """ Reset user password end point """
+
+    data = request.get_json()
+
+    if not data:
+        return response_error("No data was provided", 400)
+
+    try:
+        email = data['email']
+    except KeyError as e:
+        return response_error("{} field is required".format(e.args[0]), 400)
+
+    model = User()
+
+    if not model.find_by('email', email):
+            return response_error('User not found', 404)
+
+    response_data = {
+        'status': 200,
+        'data': [
+            {
+                "message": "Check your email for password reset link",
+                "email": email
+            }
+        ]
+    }
+
+    return make_response(jsonify(response_data), 200)
