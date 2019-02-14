@@ -66,5 +66,14 @@ class BaseModel(Database):
             data[key] = value
         return data
 
+    def find_all_by(self, key, value):
+        """ Find objects from table and return """
+
+        query = "SELECT * FROM {} WHERE {} = '{}'".format(
+            self.table_name, key, value)
+
+        data = self.get_all(query)
+        return data
+
     def from_json(self, json):
         return self
