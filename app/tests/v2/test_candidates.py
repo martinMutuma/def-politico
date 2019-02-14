@@ -30,10 +30,13 @@ class TestCandidate(Base):
             "email": "james@gmail.com",
             "phoneNumber": "0700000000",
             "passportUrl": "passport_url",
-            "isAdmin": True
+            "isAdmin": True,
+            "password": "jivunie"
         }
-        self.client.post('/api/v2/offices', json=self.new_office)
-        self.client.post('/api/v2/parties', json=self.new_party)
+        self.client.post(
+            '/api/v2/offices', json=self.new_office, headers=self.headers)
+        self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=self.headers)
         self.client.post('/api/v2/register', json=self.new_user)
         self.new_user['email'] = 'some@gmail.com'
         self.client.post('/api/v2/register', json=self.new_user)
@@ -50,7 +53,9 @@ class TestCandidate(Base):
     def test_register_candidate(self):
         """ Tests that a candidate was created successfully """
 
-        res = self.client.post('/api/v2/office/1/register', json=self.new_candidate)
+        res = self.client.post(
+            '/api/v2/office/1/register', json=self.new_candidate,
+            headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 201)
@@ -60,13 +65,17 @@ class TestCandidate(Base):
     def test_register_candidate_twice(self):
         """ Tests when attempt to create candidate twice """
 
-        self.client.post('/api/v2/office/1/register', json=self.new_candidate)
-        res = self.client.post('/api/v2/office/1/register', json=self.new_candidate)
+        self.client.post(
+            '/api/v2/office/1/register', json=self.new_candidate,
+            headers=self.headers)
+        res = self.client.post(
+            '/api/v2/office/1/register', json=self.new_candidate,
+            headers=self.headers)
         data = res.get_json()
 
-        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['status'], 409)
         self.assertEqual(data['error'], 'Candidate already exists')
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(res.status_code, 409)
 
     def test_register_candidate_missing_fields(self):
         """ Tests when some fields are missing e.g name """
@@ -74,7 +83,7 @@ class TestCandidate(Base):
         res = self.client.post('/api/v2/office/1/register', json={
             "office": 1,
             "candidate": 1
-        })
+        }, headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
@@ -84,7 +93,8 @@ class TestCandidate(Base):
     def test_register_candidate_no_data(self):
         """ Tests when no data is provided """
 
-        res = self.client.post('/api/v2/office/1/register')
+        res = self.client.post(
+            '/api/v2/office/1/register', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
@@ -98,7 +108,7 @@ class TestCandidate(Base):
             "party": 28,
             "office": 1,
             "candidate": 1
-        })
+        }, headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
@@ -112,21 +122,7 @@ class TestCandidate(Base):
             "party": 1,
             "office": 13,
             "candidate": 1
-        })
-        data = res.get_json()
-
-        self.assertEqual(data['status'], 404)
-        self.assertEqual(data['error'], 'Selected Office does not exist')
-        self.assertEqual(res.status_code, 404)
-
-    def test_register_candidate_office_not_exist(self):
-        """ Tests when the office does not exist  """
-
-        res = self.client.post('/api/v2/office/19/register', json={
-            "party": 1,
-            "office": 13,
-            "candidate": 1
-        })
+        }, headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
@@ -140,7 +136,7 @@ class TestCandidate(Base):
             "party": 1,
             "office": 1,
             "candidate": 11
-        })
+        }, headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
@@ -151,35 +147,36 @@ class TestCandidate(Base):
         """ Tests when string is provided for candidate """
 
         self.new_candidate['candidate'] = 'jack'
-        res = self.client.post('/api/v2/office/1/register', json=self.new_candidate)
+        res = self.client.post(
+            '/api/v2/office/1/register', json=self.new_candidate,
+            headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['error'], 'String types are not allowed for all fields')
+        self.assertEqual(
+            data['error'], 'String types are not allowed for all fields')
         self.assertEqual(res.status_code, 400)
 
     # tests for GET candidates
     def test_get_all_candidates(self):
         """ Tests when get request made to api/v2/candidates """
 
-        res = self.client.post('/api/v2/candidates', json=self.new_candidate)
-        self.new_candidate['candidate'] = 2
-        res = self.client.post('/api/v2/candidates', json=self.new_candidate)
-        self.new_candidate['candidate'] = 3
-        res = self.client.post('/api/v2/candidates', json=self.new_candidate)
+        res = self.client.post(
+            '/api/v2/office/1/register', json=self.new_candidate,
+            headers=self.headers)
 
-        res = self.client.get('/api/v2/candidates')
+        res = self.client.get('/api/v2/candidates', headers=self.headers)
         data = res.get_json()
 
-        self.assertEqual(data['status'], 200)
         self.assertEqual(data['message'], 'Success')
-        self.assertEqual(len(data['data']), 3)
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(len(data['data']), 1)
         self.assertEqual(res.status_code, 200)
 
     def test_get_all_candidates_no_data(self):
         """ Tests when get request made to api/v2/candidates """
 
-        res = self.client.get('/api/v2/candidates')
+        res = self.client.get('/api/v2/candidates', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
@@ -191,13 +188,14 @@ class TestCandidate(Base):
     def test_get_sigle_candidate(self):
         """ Tests when get reuest made to /candidates/<int:id> """
 
-        self.client.post('/api/v2/candidates', json=self.new_candidate)
+        self.client.post(
+            '/api/v2/office/1/register', json=self.new_candidate,
+            headers=self.headers)
 
-        res = self.client.get('/api/v2/candidates/1')
+        res = self.client.get('/api/v2/candidates/1', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(data['data'][0]['id'], 1)
         self.assertEqual(res.status_code, 200)
@@ -205,7 +203,7 @@ class TestCandidate(Base):
     def test_get_single_candidate_id_not_found(self):
         """ Tests request made with id that does not exist """
 
-        res = self.client.get('/api/v2/candidates/14')
+        res = self.client.get('/api/v2/candidates/14', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
