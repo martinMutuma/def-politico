@@ -1,8 +1,7 @@
-from flask import Blueprint
 from flask import request
 from flask import jsonify
 from flask import make_response
-from app.v2.utils.validator import response, exists, response_error, not_admin
+from app.v2.utils.validator import response, response_error, not_admin
 from app.v2.models.party_model import Party
 from app.v2.models.office_model import Office
 from app.v2.models.user_model import User

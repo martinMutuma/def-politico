@@ -92,6 +92,32 @@ class TestParties(Base):
         self.assertEqual(data['error'], 'The Party name provided is too short')
         self.assertEqual(res.status_code, 400)
 
+    def test_create_party_not_admin(self):
+        """ Tests when short name is provided """
+
+        res = self.client.post('/api/v2/auth/signup', json={
+            "firstname": "Andrew",
+            "lastname": "Kimani",
+            "othername": "Kamau",
+            "email": "andrew@gmail.com",
+            "phoneNumber": "0700000000",
+            "passportUrl": "passport_url",
+            "isAdmin": False,
+            "password": "jivunie"
+        })
+        data = res.get_json()
+        access_token = data['data'][0]['token']
+        headers = {'Authorization': 'Bearer {}'.format(access_token)}
+
+        res = self.client.post(
+            '/api/v2/parties', json=self.new_party, headers=headers)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 401)
+        self.assertEqual(
+            data['error'], 'This action is reserved to Admins only')
+        self.assertEqual(res.status_code, 401)
+
     # tests for GET parties
     def test_get_all_parties(self):
         """ Tests when get request made to api/v2/parties """

@@ -1,4 +1,4 @@
-from app.v1.utils.validator import validate_ints, validate_bool
+from app.v1.utils.validator import validate_bool
 from app.v1.utils.validator import validate_strings
 from .base_model import BaseModel
 import datetime

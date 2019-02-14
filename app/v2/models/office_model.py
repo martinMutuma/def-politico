@@ -1,4 +1,4 @@
-from app.v2.utils.validator import generate_id, exists, validate_ints
+from app.v2.utils.validator import validate_ints
 from app.v2.utils.validator import validate_strings
 from .base_model import BaseModel
 

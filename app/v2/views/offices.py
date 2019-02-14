@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask import request
 from flask import jsonify
 from flask import make_response
-from app.v2.utils.validator import response, exists, response_error
+from app.v2.utils.validator import response, response_error
 from app.v2.models.office_model import Office
 from app.blueprints import v2 as bp
 
@@ -41,11 +41,11 @@ def create_office():
         return response('Success', 200, model.load_all())
 
 
-@bp.route('/offices/<int:id>', methods=['GET', 'DELETE'])
-def get_office(id):
+@bp.route('/offices/<int:office_id>', methods=['GET', 'DELETE'])
+def get_office(office_id):
 
     model = Office()
-    data = model.find_by('id', id)
+    data = model.find_by('id', office_id)
 
     if not data:
         return response_error('Office not found', 404)

@@ -1,4 +1,4 @@
-from app.v2.utils.validator import generate_id, exists, validate_ints
+from app.v2.utils.validator import validate_ints
 from app.v2.utils.validator import validate_strings
 from .base_model import BaseModel
 from datetime import datetime
@@ -37,12 +37,6 @@ class Vote(BaseModel):
             "candidate": self.candidate,
             "createdOn": self.created_on
         }
-
-    def from_json(self, json):
-        self.__init__(json['createdBy'], json['office'], json['candidate'])
-        self.id = json['id']
-        self.created_on = json['createdOn']
-        return self
 
     def validate_object(self):
         """ validates the object """

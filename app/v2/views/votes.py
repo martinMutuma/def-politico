@@ -5,7 +5,7 @@ from flask import make_response
 from app.v2.models.office_model import Office
 from app.v2.models.user_model import User
 from app.v2.models.vote_model import Vote
-from app.v2.utils.validator import response, exists, response_error
+from app.v2.utils.validator import response, response_error
 from app.blueprints import v2 as bp
 from flask_jwt_extended import (jwt_required)
 
@@ -33,11 +33,6 @@ def vote():
 
         if not vote.validate_object():
             return response_error(vote.error_message, vote.error_code)
-
-        if not Office().find_by('id', office):
-            return response_error('Selected Office does not exist', 404)
-        if not User().find_by('id', candidate):
-            return response_error('Selected User does not exist', 404)
 
         # append new vote to list
         vote.save()
