@@ -6,14 +6,14 @@ class Config(object):
     """Parent configuration class."""
     DEBUG = False
     SECRET = os.getenv('SECRET')
-    DATABASE_URL = os.getenv('DATABASE_URL')
+    DATABASE_URL = os.environ.get('DATABASE_URL')
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 
 
 class DevelopmentConfig(Config):
     """Configurations for Development."""
     DEBUG = True
-    DATABASE_URL = os.getenv('DATABASE_URL')
+    DATABASE_URL = os.environ.get('DATABASE_URL')
 
 
 class TestingConfig(Config):
@@ -34,7 +34,7 @@ class ProductionConfig(Config):
     """Configurations for Production."""
     DEBUG = False
     TESTING = False
-    DATABASE_URL = os.getenv('DATABASE_URL')
+    DATABASE_URL = os.environ.get('DATABASE_URL')
 
 
 app_config = {
