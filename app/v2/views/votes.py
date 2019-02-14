@@ -51,44 +51,13 @@ def vote():
         return response('Success', 200, Vote().load_all())
 
 
-@bp.route('/votes/user/<int:id>', methods=['GET'])
+@bp.route('/office/<int:office_id>/result', methods=['GET'])
 @jwt_required
-def get_user_votes(id):
-    """ Gets all votes a user has cast """
+def get_results(office_id):
+    """ Gets results """
 
-    filtered = Vote().find_all_by('createdby', id)
+    filtered = Vote().get_all(
+        "SELECT office, candidate, COUNT(*) as result FROM votes WHERE office = '{}'\
+             GROUP BY candidate, office".format(office_id))
 
-    return vote_response('Success', 200, len(filtered), filtered)
-
-
-@bp.route('/votes/candidate/<int:id>', methods=['GET'])
-@jwt_required
-def get_candidate_votes(id):
-    """ Gets all votes for a specific candidate """
-
-    filtered = Vote().find_all_by('candidate', id)
-
-    return vote_response(
-        'Success', 200, len(filtered), filtered)
-
-
-@bp.route('/votes/office/<int:id>', methods=['GET'])
-@jwt_required
-def get_office_votes(id):
-    """ Gets all votes for a specific office """
-
-    filtered = Vote().find_all_by('office', id)
-
-    return vote_response(
-        'Success', 200, len(filtered), filtered)
-
-
-def vote_response(message, code, count, data=None):
-    """ Creates a basic reposnse """
-    response = {
-        "status": code,
-        "message": message,
-        "data": data,
-        "count": count
-    }
-    return make_response(jsonify(response), code)
+    return response('Success', 200, filtered)

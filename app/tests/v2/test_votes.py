@@ -112,7 +112,7 @@ class TestVotes(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)
-        self.assertEqual(data['error'], 'Selected User does not exist')
+        self.assertEqual(data['error'], 'Selected Candidate does not exist')
         self.assertEqual(res.status_code, 404)
 
     def test_create_vote_twice(self):
@@ -167,60 +167,18 @@ class TestVotes(Base):
         self.assertEqual(len(data['data']), 0)
         self.assertEqual(res.status_code, 200)
 
-    def test_get_all_user_votes(self):
-        """ Tests when get request made to api/v2/votes/user/id """
-
-        self.client.post(
-            '/api/v2/votes', json=self.new_vote, headers=self.headers)
-        res = self.client.get('/api/v2/votes/user/1', headers=self.headers)
-        data = res.get_json()
-
-        self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
-        self.assertEqual(len(data['data']), 1)
-        self.assertEqual(res.status_code, 200)
-
-    def test_get_all_candidate_votes(self):
-        """ Tests when get request made to api/v2/votes/candidate/id """
-
-        self.client.post(
-            '/api/v2/votes', json=self.new_vote, headers=self.headers)
-        res = self.client.get(
-            '/api/v2/votes/candidate/1', headers=self.headers)
-        data = res.get_json()
-
-        self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
-        self.assertEqual(len(data['data']), 1)
-        self.assertEqual(res.status_code, 200)
-
-    def test_get_all_office_votes(self):
-        """ Tests when get request made to api/v2/votes/office/id """
-
-        self.client.post(
-            '/api/v2/votes', json=self.new_vote, headers=self.headers)
-        res = self.client.get('/api/v2/votes/office/1', headers=self.headers)
-        data = res.get_json()
-
-        self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
-        self.assertEqual(len(data['data']), 1)
-        self.assertEqual(res.status_code, 200)
-
     # get election results
-    # def test_election_results(self):
-    #     """ Tests GET request to get election results """
+    def test_election_results(self):
+        """ Tests GET request to get election results """
 
-    #     self.client.post(
-    #         '/api/v2/votes', json=self.new_vote, headers=self.headers)
-    #     self.client.post(
-    #         '/api/v2/votes', json=self.new_vote, headers=self.headers)
+        self.client.post(
+            '/api/v2/votes', json=self.new_vote, headers=self.headers)
 
-    #     res = self.client.get(
-    #         '/api/v2/office/1/result', headers=self.headers)
-    #     data = res.get_json()
+        res = self.client.get(
+            '/api/v2/office/1/result', headers=self.headers)
+        data = res.get_json()
 
-    #     self.assertEqual(data['message'], 'Success')
-    #     self.assertEqual(data['status'], 200)
-    #     self.assertEqual(len(data['data']), 1)
-    #     self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(len(data['data']), 1)
+        self.assertEqual(res.status_code, 200)

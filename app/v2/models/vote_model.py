@@ -2,6 +2,8 @@ from app.v2.utils.validator import generate_id, exists, validate_ints
 from app.v2.utils.validator import validate_strings
 from .base_model import BaseModel
 from datetime import datetime
+from .office_model import Office
+from .user_model import User
 
 
 class Vote(BaseModel):
@@ -48,6 +50,21 @@ class Vote(BaseModel):
         if not validate_ints(self.created_by, self.candidate, self.office):
             self.error_message = "String types are not allowed for all fields"
             self.error_code = 422
+            return False
+
+        if not Office().find_by('id', self.office):
+            self.error_message = 'Selected Office does not exist'
+            self.error_code = 404
+            return False
+
+        if not User().find_by('id', self.created_by):
+            self.error_message = 'Selected User does not exist'
+            self.error_code = 404
+            return False
+
+        if not User().find_by('id', self.candidate):
+            self.error_message = 'Selected Candidate does not exist'
+            self.error_code = 404
             return False
 
         if self.get_one(
