@@ -1,5 +1,4 @@
-from app.v2.utils.validator import generate_id, exists, validate_ints
-from app.v2.utils.validator import validate_strings
+from app.v2.utils.validator import validate_ints
 from .base_model import BaseModel
 from .office_model import Office
 from .party_model import Party

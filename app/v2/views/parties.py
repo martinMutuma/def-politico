@@ -4,7 +4,7 @@ from flask import jsonify
 from flask import make_response
 from app.v2.models.party_model import Party
 from app.v2.models.user_model import User
-from app.v2.utils.validator import response, exists, response_error, not_admin
+from app.v2.utils.validator import response, response_error, not_admin
 from app.blueprints import v2 as bp
 from flask_jwt_extended import (jwt_required)
 

@@ -33,6 +33,15 @@ def response_error(message, code):
     return make_response(jsonify(response), code)
 
 
+def validate_ints(*args):
+    """ validates that inputs are ints only """
+
+    for value in args:
+        if not isinstance(value, int):
+            return False
+    return True
+
+
 def validate_strings(*args):
     """ validates that inputs are strings only """
 
@@ -50,11 +59,3 @@ def validate_bool(*args):
             return False
     return True
 
-
-def validate_ints(*args):
-    """ validates that inputs are ints only """
-
-    for value in args:
-        if not isinstance(value, int):
-            return False
-    return True
