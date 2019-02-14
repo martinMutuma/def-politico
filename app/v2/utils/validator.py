@@ -12,12 +12,6 @@ def not_admin():
     return None
 
 
-def generate_id(list):
-    """ Creates a unique ID for a new item to be added to the list"""
-
-    return len(list) + 1
-
-
 def response(message, code, data=[]):
     """ Creates a basic reposnse """
 
@@ -37,13 +31,6 @@ def response_error(message, code):
         "error": message
     }
     return make_response(jsonify(response), code)
-
-
-def exists(key, value, collection):
-    """ Checks if list contains certain item based on certain key """
-
-    filtered = [item for item in collection if item[key] == value]
-    return len(filtered) > 0
 
 
 def validate_strings(*args):
