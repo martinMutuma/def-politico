@@ -13,6 +13,7 @@ The Politico API is hosted on Heroku. You can access it at [Kura Yangu](https://
 - [VS code](https://code.visualstudio.com/)
 - [Python 3.x](https://www.python.org/)
 - [Postman](https://www.getpostman.com/downloads/)
+- [Postgres](https://www.postgresql.org/)
 
 <details><summary>Installation</summary>
 <p>
