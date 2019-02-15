@@ -54,6 +54,9 @@ $ pip install -r requirements.txt
 ## Version 2
  | **Endpoint** | **Functionality** | **Route** |
 | --- | --- | --- |
+| **POST** /auth/signup/ | Register user to the database | `api/v2/auth/signup/` |
+| **POST** /auth/login/ | Register user to the database | `api/v2/auth/login/` |
+| **POST** /auth/reset | Reset password | `api/v2/auth/reset` |
 | **POST** /parties | Creates a political party | `/api/v2/parties/` |
 | **GET** /parties/`<int:party-id>` | Gets a specific political party | `/api/v2/parties/<int:party_id>` |
 | **GET** /parties | Gets all political parties | `/api/v2/parties/` |
@@ -62,11 +65,9 @@ $ pip install -r requirements.txt
 | **POST** /offices | Create a political office. | `/api/v2/offices/` |
 | **GEt** /offices | Fetch all political offices records | `api/v2/offices/` |
 | **GET** /offices/`<int:office_id>` | Fetch a specific political office record | `api/v2/offices/<int:office_id>` |
-| **POST** /auth/signup/ | Register user to the database | `api/v2/auth/signup/` |
 | **POST** /office/`<int:office_id>`/register/ | Register a political candidate | `api/v2/office<int:office_id>/register` |
 | **POST** /votes/ | Cast a vote | `api/v2/votes/` |
 | **GET** /api/v2/office/`<int:office_id>`/result | Get election results for specific office| `/api/v2/office/<int:office_id>/result` |
-| **POST** /auth/reset | Reset password | `api/v2/auth/reset` |
 
 ## Version 1
   | **Endpoint** | **Functionality** | **Route** |
