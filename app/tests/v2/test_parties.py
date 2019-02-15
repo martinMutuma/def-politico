@@ -77,7 +77,7 @@ class TestParties(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 400)
-        self.assertEqual(data['error'], 'Integer types are not allowed for some fields')
+        self.assertEqual(data['error'], "Invalid or empty string")
         self.assertEqual(res.status_code, 400)
 
     def test_create_party_short_name(self):

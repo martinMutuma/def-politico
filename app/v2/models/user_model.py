@@ -74,9 +74,7 @@ class User(BaseModel):
         if not validate_strings(
                 self.first_name, self.last_name, self.email,
                 self.passport_url):
-            self.error_message = (
-                "Integer types are not allowed for some "
-                "fields")
+            self.error_message = ("Invalid or empty string")
             self.error_code = 422
             return False
 

@@ -91,7 +91,7 @@ class TestUsers(Base):
 
         self.assertEqual(data['status'], 422)
         self.assertEqual(
-            data['error'], 'Integer types are not allowed for some fields')
+            data['error'], "Invalid or empty string")
         self.assertEqual(res.status_code, 422)
 
     def test_register_user_string_bool(self):

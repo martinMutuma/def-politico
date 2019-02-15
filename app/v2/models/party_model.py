@@ -54,7 +54,7 @@ class Party(BaseModel):
         if not validate_strings(
                 self.name, self.hq_address, self.logo_url, self.slogan):
             self.error_message = (
-                "Integer types are not allowed for some fields")
+                "Invalid or empty string")
             self.error_code = 400
             return False
 

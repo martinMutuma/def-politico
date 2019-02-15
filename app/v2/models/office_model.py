@@ -39,8 +39,7 @@ class Office(BaseModel):
 
         if not validate_strings(self.name, self.type):
             self.error_message = (
-                "Integer types are not allowed for some"
-                " fields")
+                "Invalid or empty string")
             self.error_code = 422
             return False
 

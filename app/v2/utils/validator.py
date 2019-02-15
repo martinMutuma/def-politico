@@ -46,7 +46,7 @@ def validate_strings(*args):
     """ validates that inputs are strings only """
 
     for value in args:
-        if not isinstance(value, str):
+        if not isinstance(value, str) or not value or not value.split():
             return False
     return True
 
@@ -58,4 +58,3 @@ def validate_bool(*args):
         if not isinstance(value, bool):
             return False
     return True
-

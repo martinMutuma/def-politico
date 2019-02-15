@@ -66,7 +66,6 @@ class Database:
         cur.execute(query)
         data = cur.fetchone()
         conn.commit()
-        print(data)
         return data
 
     def get_one(self, query):
@@ -74,7 +73,6 @@ class Database:
 
         cur.execute(query)
         data = cur.fetchone()
-        print(data)
         return data
 
     def get_all(self, query):
