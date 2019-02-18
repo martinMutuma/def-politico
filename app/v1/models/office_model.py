@@ -30,19 +30,23 @@ class Office(BaseModel):
     def validate_object(self):
         """ validates the object """
 
+        ok = True
+
         if not validate_strings(self.name, self.type):
-            self.error_message = "Integer types are not allowed for some fields"
+            self.error_message = (
+                "Integer types are not allowed for some fields")
             self.error_code = 400
-            return False
+            ok = False
 
-        if len(self.name) < 3:
-            self.error_message = "The {} name provided is too short".format(self.object_name)
+        elif len(self.name) < 3:
+            self.error_message = "The {} name provided is too short".format(
+                self.object_name)
             self.error_code = 400
-            return False
+            ok = False
 
-        if exists('name', self.name, self.table):
+        elif exists('name', self.name, self.table):
             self.error_message = "{} already exists".format(self.object_name)
             self.error_code = 400
-            return False
+            ok = False
 
-        return super().validate_object()
+        return ok

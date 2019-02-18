@@ -41,31 +41,33 @@ class Vote(BaseModel):
     def validate_object(self):
         """ validates the object """
 
+        ok = True
+
         if not validate_ints(self.created_by, self.candidate, self.office):
             self.error_message = "String types are not allowed for all fields"
             self.error_code = 422
-            return False
+            ok = False
 
-        if not Office().find_by('id', self.office):
+        elif not Office().find_by('id', self.office):
             self.error_message = 'Selected Office does not exist'
             self.error_code = 404
-            return False
+            ok = False
 
-        if not User().find_by('id', self.created_by):
+        elif not User().find_by('id', self.created_by):
             self.error_message = 'Selected User does not exist'
             self.error_code = 404
-            return False
+            ok = False
 
-        if not User().find_by('id', self.candidate):
+        elif not User().find_by('id', self.candidate):
             self.error_message = 'Selected Candidate does not exist'
             self.error_code = 404
-            return False
+            ok = False
 
-        if self.get_one(
+        elif self.get_one(
             "SELECT * FROM {} where createdby = '{}' and office = '{}';\
                 ".format(self.table_name, self.created_by, self.office)):
             self.error_message = "You can only vote once per office"
             self.error_code = 409
-            return False
+            ok = False
 
-        return super().validate_object()
+        return ok
