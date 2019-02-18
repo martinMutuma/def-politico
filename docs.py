@@ -3,7 +3,7 @@ from flasgger import Swagger
 
 
 app = create_app('production')
-swagger = Swagger(app, template_file='../apidocs2.yaml')
+swagger = Swagger(app, template_file='apidocs.yaml')
 
 
 # @app.route('/api/v2/auth/signup', methods=['POST'])
