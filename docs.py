@@ -26,4 +26,5 @@ swagger = Swagger(app, template_file='../apidocs2.yaml')
 #     """
 
 
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run()
