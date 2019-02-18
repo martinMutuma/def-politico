@@ -27,7 +27,8 @@ class Party(BaseModel):
         }
 
     def from_json(self, json):
-        self.__init__(json['name'], json['hq_address'], json['logo_url'], json['slogan'])
+        self.__init__(
+            json['name'], json['hq_address'], json['logo_url'], json['slogan'])
         self.id = json['id']
         return self
 
@@ -44,19 +45,24 @@ class Party(BaseModel):
     def validate_object(self):
         """ validates the object """
 
-        if not validate_strings(self.name, self.hq_address, self.logo_url, self.slogan):
-            self.error_message = "Integer types are not allowed for some fields"
-            self.error_code = 400
-            return False
+        ok = True
 
-        if len(self.name) < 3:
-            self.error_message = "The {} name provided is too short".format(self.object_name)
+        if not validate_strings(
+                self.name, self.hq_address, self.logo_url, self.slogan):
+            self.error_message = (
+                "Integer types are not allowed for some fields")
             self.error_code = 400
-            return False
+            ok = False
 
-        if exists('name', self.name, self.parties):
+        elif len(self.name) < 3:
+            self.error_message = "The {} name provided is too short".format(
+                self.object_name)
+            self.error_code = 400
+            ok = False
+
+        elif exists('name', self.name, self.parties):
             self.error_message = "{} already exists".format(self.object_name)
             self.error_code = 400
-            return False
+            ok = False
 
-        return super().validate_object()
+        return ok
