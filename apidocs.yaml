@@ -1,0 +1,661 @@
+openapi: 3.0.0
+info:
+  title: Kura Yangu v2
+  description: "Welcome to the official documentation of KURA YANGU api. \nUse these endpoints to build an awesome voting system. \n\nThank you for visiting"
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://kurayangu.herokuapp.com/api/v2
+  variables: {}
+- url: http://127.0.0.1:5000/api/v2
+  variables: {}
+paths:
+  /parties:
+    post:
+      tags:
+      - Misc
+      summary: Create Party
+      description: Use this endpoint to create a political party
+      operationId: CreateParty
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePartyRequest'
+            example: '{"name":"JAMBO PARTY","hq_address":"Nairobi Hq","logo_url":"sd","slogan":"Tunaweza pamoja. Pamoja tunaweza"}'
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+    get:
+      tags:
+      - Misc
+      summary: Get All parties
+      description: Use this endpoint to get a list of all political parties
+      operationId: GetAllParties
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+  /parties/1:
+    get:
+      tags:
+      - Misc
+      summary: Get Single Party
+      description: Get a single party by appending the id to the endpoint
+      operationId: GetSingleParty
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+    delete:
+      tags:
+      - Misc
+      summary: Delete party
+      description: Delete a political party by appending the id to this endpoint with a DELETE method
+      operationId: DeleteParty
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+  /parties/2/OLLM%20PARTY:
+    patch:
+      tags:
+      - Misc
+      summary: Edit name
+      description: This endpoint edits a political party's name by sending a PATHC request to endpoint and appending the new name
+      operationId: EditName
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+  /offices:
+    post:
+      tags:
+      - Misc
+      summary: Create Office
+      description: Create a political office
+      operationId: CreateOffice
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOfficeRequest'
+            example: '{"name":"Governor","type":"federal"}'
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+    get:
+      tags:
+      - Misc
+      summary: Get All offices
+      description: Get a list of all political offices
+      operationId: GetAllOffices
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+  /offices/1:
+    get:
+      tags:
+      - Misc
+      summary: Get Single Office
+      description: Request for a single office
+      operationId: GetSingleOffice
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+    delete:
+      tags:
+      - Misc
+      summary: Delete Office
+      description: Delete that office
+      operationId: DeleteOffice
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+  /auth/signup:
+    post:
+      tags:
+      - Misc
+      summary: Register User
+      description: Register a new user into the system. This user can be a candidate, voter or admin. It's a free world
+      operationId: RegisterUser
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserRequest'
+            example: '{"firstname":"Jackson","lastname":"Marks","othername":"Kamau","email":"marks@gmail.com","phoneNumber":"0700000000","passportUrl":"passport_url","isAdmin":true,"password":"jackson"}'
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+  /auth/login:
+    post:
+      tags:
+      - Misc
+      summary: Login
+      description: Login and get access_token
+      operationId: Login
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example: '{"password":"jackson","email":"marks@gmail.com"}'
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+  /auth/reset:
+    post:
+      tags:
+      - Misc
+      summary: Reset pwd
+      description: Register a new user into the system. This user can be a candidate, voter or admin. It's a free world
+      operationId: ResetPwd
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetpwdRequest'
+            example: '{"email":"marks@gmail.com"}'
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+  /office/2/register:
+    post:
+      tags:
+      - Misc
+      summary: Create Candidate
+      description: From the registered users and offices, use this endpoint to create a candidate
+      operationId: CreateCandidate
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCandidateRequest'
+            example: '{"party":2,"office":2,"candidate":3}'
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+  /votes:
+    post:
+      tags:
+      - Misc
+      summary: Vote
+      description: Use this endpoint to vote
+      operationId: Vote
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoteRequest'
+            example: '{"createdBy":500,"candidate":2,"office":2}'
+        required: true
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+    get:
+      tags:
+      - Misc
+      summary: All votes
+      description: Get all votes
+      operationId: AllVotes
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://127.0.0.1:5000/api/v2
+        variables: {}
+  /candidates/1:
+    get:
+      tags:
+      - Misc
+      summary: Get candidate
+      description: Get single candidate
+      operationId: GetCandidate
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://127.0.0.1:5000/api/v2
+        variables: {}
+  /candidates:
+    get:
+      tags:
+      - Misc
+      summary: Get candidates
+      description: Get all candidates
+      operationId: GetCandidates
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://127.0.0.1:5000/api/v2
+        variables: {}
+  /office/2/result:
+    get:
+      tags:
+      - Misc
+      summary: RESULTS
+      description: Get results for specific office
+      operationId: RESULTS
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+      responses:
+        200:
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://kurayangu.herokuapp.com/api/v2
+        variables: {}
+components:
+  schemas:
+    CreatePartyRequest:
+      title: CreatePartyRequest
+      required:
+      - name
+      - hq_address
+      - logo_url
+      - slogan
+      type: object
+      properties:
+        name:
+          type: string
+        hq_address:
+          type: string
+        logo_url:
+          type: string
+        slogan:
+          type: string
+      example:
+        name: JAMBO PARTY
+        hq_address: Nairobi Hq
+        logo_url: sd
+        slogan: Tunaweza pamoja. Pamoja tunaweza
+    CreateOfficeRequest:
+      title: CreateOfficeRequest
+      required:
+      - name
+      - type
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+      example:
+        name: Governor
+        type: federal
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - firstname
+      - lastname
+      - othername
+      - email
+      - phoneNumber
+      - passportUrl
+      - isAdmin
+      - password
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        othername:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        passportUrl:
+          type: string
+        isAdmin:
+          type: boolean
+        password:
+          type: string
+      example:
+        firstname: Jackson
+        lastname: Marks
+        othername: Kamau
+        email: marks@gmail.com
+        phoneNumber: 0700000000
+        passportUrl: passport_url
+        isAdmin: true
+        password: jackson
+    LoginRequest:
+      title: LoginRequest
+      required:
+      - password
+      - email
+      type: object
+      properties:
+        password:
+          type: string
+        email:
+          type: string
+      example:
+        password: jackson
+        email: marks@gmail.com
+    ResetpwdRequest:
+      title: ResetpwdRequest
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
+      example:
+        email: marks@gmail.com
+    CreateCandidateRequest:
+      title: CreateCandidateRequest
+      required:
+      - party
+      - office
+      - candidate
+      type: object
+      properties:
+        party:
+          type: integer
+          format: int32
+        office:
+          type: integer
+          format: int32
+        candidate:
+          type: integer
+          format: int32
+      example:
+        party: 2
+        office: 2
+        candidate: 3
+    VoteRequest:
+      title: VoteRequest
+      required:
+      - createdBy
+      - candidate
+      - office
+      type: object
+      properties:
+        createdBy:
+          type: integer
+          format: int32
+        candidate:
+          type: integer
+          format: int32
+        office:
+          type: integer
+          format: int32
+      example:
+        createdBy: 500
+        candidate: 2
+        office: 2
+security:
+- {}
+tags:
+- name: Misc
+  description: ''
