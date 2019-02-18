@@ -13,7 +13,7 @@ paths:
   /parties:
     post:
       tags:
-      - Misc
+      - Parties
       summary: Create Party
       description: Use this endpoint to create a political party
       operationId: CreateParty
@@ -45,7 +45,7 @@ paths:
         variables: {}
     get:
       tags:
-      - Misc
+      - Parties
       summary: Get All parties
       description: Use this endpoint to get a list of all political parties
       operationId: GetAllParties
@@ -70,7 +70,7 @@ paths:
   /parties/1:
     get:
       tags:
-      - Misc
+      - Parties
       summary: Get Single Party
       description: Get a single party by appending the id to the endpoint
       operationId: GetSingleParty
@@ -94,7 +94,7 @@ paths:
         variables: {}
     delete:
       tags:
-      - Misc
+      - Parties
       summary: Delete party
       description: Delete a political party by appending the id to this endpoint with a DELETE method
       operationId: DeleteParty
@@ -119,7 +119,7 @@ paths:
   /parties/2/OLLM%20PARTY:
     patch:
       tags:
-      - Misc
+      - Parties
       summary: Edit name
       description: This endpoint edits a political party's name by sending a PATHC request to endpoint and appending the new name
       operationId: EditName
@@ -144,7 +144,7 @@ paths:
   /offices:
     post:
       tags:
-      - Misc
+      - Offices
       summary: Create Office
       description: Create a political office
       operationId: CreateOffice
@@ -176,7 +176,7 @@ paths:
         variables: {}
     get:
       tags:
-      - Misc
+      - Offices
       summary: Get All offices
       description: Get a list of all political offices
       operationId: GetAllOffices
@@ -201,7 +201,7 @@ paths:
   /offices/1:
     get:
       tags:
-      - Misc
+      - Offices
       summary: Get Single Office
       description: Request for a single office
       operationId: GetSingleOffice
@@ -225,7 +225,7 @@ paths:
         variables: {}
     delete:
       tags:
-      - Misc
+      - Offices
       summary: Delete Office
       description: Delete that office
       operationId: DeleteOffice
@@ -250,7 +250,7 @@ paths:
   /auth/signup:
     post:
       tags:
-      - Misc
+      - User
       summary: Register User
       description: Register a new user into the system. This user can be a candidate, voter or admin. It's a free world
       operationId: RegisterUser
@@ -284,7 +284,7 @@ paths:
   /auth/login:
     post:
       tags:
-      - Misc
+      - User
       summary: Login
       description: Login and get access_token
       operationId: Login
@@ -317,7 +317,7 @@ paths:
   /auth/reset:
     post:
       tags:
-      - Misc
+      - User
       summary: Reset pwd
       description: Register a new user into the system. This user can be a candidate, voter or admin. It's a free world
       operationId: ResetPwd
@@ -350,7 +350,7 @@ paths:
   /office/2/register:
     post:
       tags:
-      - Misc
+      - Candidate
       summary: Create Candidate
       description: From the registered users and offices, use this endpoint to create a candidate
       operationId: CreateCandidate
@@ -383,7 +383,7 @@ paths:
   /votes:
     post:
       tags:
-      - Misc
+      - Votes
       summary: Vote
       description: Use this endpoint to vote
       operationId: Vote
@@ -415,7 +415,7 @@ paths:
         variables: {}
     get:
       tags:
-      - Misc
+      - Candidate
       summary: All votes
       description: Get all votes
       operationId: AllVotes
@@ -440,7 +440,7 @@ paths:
   /candidates/1:
     get:
       tags:
-      - Misc
+      - Candidate
       summary: Get candidate
       description: Get single candidate
       operationId: GetCandidate
@@ -465,7 +465,7 @@ paths:
   /candidates:
     get:
       tags:
-      - Misc
+      - Candidate
       summary: Get candidates
       description: Get all candidates
       operationId: GetCandidates
@@ -490,7 +490,7 @@ paths:
   /office/2/result:
     get:
       tags:
-      - Misc
+      - Votes
       summary: RESULTS
       description: Get results for specific office
       operationId: RESULTS
