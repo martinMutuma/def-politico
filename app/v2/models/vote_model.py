@@ -4,6 +4,7 @@ from .base_model import BaseModel
 from datetime import datetime
 from .office_model import Office
 from .user_model import User
+from .candidate_model import Candidate
 
 
 class Vote(BaseModel):
@@ -56,7 +57,7 @@ class Vote(BaseModel):
             self.error_code = 404
             return False
 
-        if not User().find_by('id', self.candidate):
+        if not Candidate().find_by('candidate', self.candidate):
             self.error_message = 'Selected Candidate does not exist'
             self.error_code = 404
             return False

@@ -5,9 +5,11 @@ from flask import make_response
 from app.v2.utils.validator import response, response_error
 from app.v2.models.office_model import Office
 from app.blueprints import v2 as bp
+from flask_jwt_extended import (jwt_required)
 
 
 @bp.route('/offices', methods=['POST', 'GET'])
+@jwt_required
 def create_office():
     if request.method == 'POST':
         """ Create office end point """
@@ -42,6 +44,7 @@ def create_office():
 
 
 @bp.route('/offices/<int:office_id>', methods=['GET', 'DELETE'])
+@jwt_required
 def get_office(office_id):
 
     model = Office()
