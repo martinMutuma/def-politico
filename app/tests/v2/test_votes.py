@@ -115,20 +115,6 @@ class TestVotes(Base):
         self.assertEqual(data['error'], 'Selected Candidate does not exist')
         self.assertEqual(res.status_code, 404)
 
-    def test_create_vote_user_not_exist(self):
-        """ Tests when the user does not exist  """
-
-        res = self.client.post('/api/v2/votes', json={
-            "createdBy": 13,
-            "office": 1,
-            "candidate": 1
-        }, headers=self.headers)
-        data = res.get_json()
-
-        self.assertEqual(data['status'], 404)
-        self.assertEqual(data['error'], 'Selected User does not exist')
-        self.assertEqual(res.status_code, 404)
-
     def test_create_vote_twice(self):
         """ Tests when user attempts to vote twice for same office """
 
