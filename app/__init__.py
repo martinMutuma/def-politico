@@ -32,7 +32,6 @@ def create_app(config_name):
 
     jwt = JWTManager(app)
     
-
     @app.route('/')
     @app.route('/index')
     def index():

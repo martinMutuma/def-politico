@@ -42,6 +42,12 @@ def signup():
     tags:
         - Users
     parameters:
+      -
+          name: authorization
+          in: header
+          type: string
+          required: false
+          example: Bearer
       - in: body
         name: Users
         required: true
@@ -77,6 +83,38 @@ def signup():
         description: Created
       '409':
         description: Duplicate
+      '422':
+        description: Unprocessable
+      '400':
+        description: Bad Request
+    """
+
+
+@app.route('/api/v2/auth/signup', methods=['PUT'])
+def set_admin():
+    """ Endpoint for changing a user's Admin status.
+    ---
+    tags:
+        - Users
+    parameters:
+      -
+          name: authorization
+          in: header
+          type: string
+          required: true
+          example: Bearer
+      - in: body
+        name: Users
+        required: true
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+              example: "james@gmail.com"
+    responses:
+      '200':
+        description: Updated
       '422':
         description: Unprocessable
       '400':

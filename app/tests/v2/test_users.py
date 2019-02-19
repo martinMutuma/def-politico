@@ -231,3 +231,63 @@ class TestUsers(Base):
             data['data'][0]['message'],
             'Check your email for password reset link')
         self.assertEqual(res.status_code, 200)
+
+    # test update Admin
+    def test_demote_user(self):
+        """ Tests endpoint to update Admin status"""
+
+        res = self.client.put('/api/v2/auth/signup', json={
+            "email": "bedank6@gmail.com"
+        }, headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(
+            data['message'],
+            'User demoted to normal user')
+        self.assertEqual(res.status_code, 200)
+
+    def test_toggle_user_status(self):
+        """ Tests endpoint to update Admin status"""
+
+        self.client.post('/api/v2/auth/signup', json={
+            "firstname": "James",
+            "lastname": "Kimani",
+            "othername": "Kamau",
+            "email": "james@gmail.com",
+            "phoneNumber": "0700000000",
+            "passportUrl": "passport_url",
+            "isAdmin": True,
+            "password": "jikakamue"
+        })
+        
+        res = self.client.put('/api/v2/auth/signup', json={
+            "email": "james@gmail.com"
+        }, headers=self.headers)
+        data = res.get_json()
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(
+            data['message'],
+            'User promoted to Admin')
+        self.assertEqual(res.status_code, 200)
+
+        res = self.client.put('/api/v2/auth/signup', json={
+            "email": "james@gmail.com"
+        }, headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(
+            data['message'],
+            'User demoted to normal user')
+
+    def test_admin_status_no_data(self):
+        """ Tests when no data is provided"""
+
+        res = self.client.post('/api/v2/auth/signup', headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['error'], 'No data was provided')
+        self.assertEqual(res.status_code, 400)

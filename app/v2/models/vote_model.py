@@ -76,6 +76,17 @@ class Vote(BaseModel):
             self.error_code = 404
             ok = False
 
+        elif not Candidate().get_one(
+                """
+                    SELECT * FROM candidates WHERE office = '{}'
+                    AND candidate = '{}'
+                """.format(self.office, self.candidate)
+                ):
+            self.error_message = (
+                "Candidate not registered under selected Office")
+            self.error_code = 404
+            ok = False
+
         elif self.get_one(
             "SELECT * FROM {} where createdby = '{}' and office = '{}';\
                 ".format(self.table_name, self.created_by, self.office)):

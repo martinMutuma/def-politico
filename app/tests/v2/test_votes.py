@@ -128,23 +128,6 @@ class TestVotes(Base):
         self.assertEqual(data['error'], 'You can only vote once per office')
         self.assertEqual(res.status_code, 409)
 
-    def test_create_vote_twice_candidate(self):
-        """ Tests when user attempts to vote twice for same office """
-
-        self.client.post(
-            '/api/v2/votes', json=self.new_vote, headers=self.headers)
-        self.new_vote['office'] = 2
-        self.new_office['name'] = "Other Office"
-        self.client.post(
-            '/api/v2/offices', json=self.new_office, headers=self.headers)
-        res = self.client.post(
-            '/api/v2/votes', json=self.new_vote, headers=self.headers)
-        data = res.get_json()
-
-        self.assertEqual(data['status'], 409)
-        self.assertEqual(data['error'], 'You can only vote once per candidate')
-        self.assertEqual(res.status_code, 409)
-
     def test_create_vote_string_candidate(self):
         """ Tests when string is provided for candidate """
 
