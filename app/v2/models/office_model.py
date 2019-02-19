@@ -37,21 +37,23 @@ class Office(BaseModel):
     def validate_object(self):
         """ validates the object """
 
+        ok = True
+
         if not validate_strings(self.name, self.type):
             self.error_message = (
                 "Invalid or empty string")
             self.error_code = 422
-            return False
+            ok = False
 
-        if len(self.name) < 3:
+        elif len(self.name) < 3:
             self.error_message = "The {} name provided is too short".format(
                 self.object_name)
             self.error_code = 422
-            return False
+            ok = False
 
-        if self.find_by('name', self.name):
+        elif self.find_by('name', self.name):
             self.error_message = "{} already exists".format(self.object_name)
             self.error_code = 409
-            return False
+            ok = False
 
-        return super().validate_object()
+        return ok

@@ -71,34 +71,36 @@ class User(BaseModel):
     def validate_object(self):
         """ validates the object """
 
+        ok = True
+
         if not validate_strings(
                 self.first_name, self.last_name, self.email,
                 self.passport_url):
             self.error_message = ("Invalid or empty string")
             self.error_code = 422
-            return False
+            ok = False
 
-        if not validate_bool(self.is_admin):
+        elif not validate_bool(self.is_admin):
             self.error_message = "isAdmin is supposed to be a boolean value"
             self.error_code = 422
-            return False
+            ok = False
 
-        if self.find_by('email', self.email):
+        elif self.find_by('email', self.email):
             self.error_message = "A {} with that email already exists".format(
                 self.object_name)
             self.error_code = 409
-            return False
+            ok = False
 
-        if len(self.password) < 6:
+        elif len(self.password) < 6:
             self.error_message = "Password must be at least 6 characters long"
             self.error_code = 422
-            return False
+            ok = False
 
-        if not re.match(
+        elif not re.match(
                 r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$",
                 self.email):
             self.error_message = "Invalid email"
             self.error_code = 422
-            return False
+            ok = False
 
-        return super().validate_object()
+        return ok

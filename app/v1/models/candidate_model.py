@@ -35,29 +35,31 @@ class Candidate(BaseModel):
     def validate_object(self):
         """ validates the object """
 
+        ok = True
+
         if not validate_ints(self.party, self.candidate, self.office):
             self.error_message = "String types are not allowed for all fields"
             self.error_code = 400
-            return False
+            ok = False
 
-        if exists('candidate', self.candidate, self.table):
+        elif exists('candidate', self.candidate, self.table):
             self.error_message = "{} already exists".format(self.object_name)
             self.error_code = 400
-            return False
+            ok = False
 
-        if not exists('id', self.office, Office.offices):
+        elif not exists('id', self.office, Office.offices):
             self.error_message = 'Selected Office does not exist'
             self.error_code = 404
-            return False
+            ok = False
 
-        if not exists('id', self.party, Party.parties):
+        elif not exists('id', self.party, Party.parties):
             self.error_message = 'Selected Party does not exist'
             self.error_code = 404
-            return False
+            ok = False
 
-        if not exists('id', self.candidate, User.users):
+        elif not exists('id', self.candidate, User.users):
             self.error_message = 'Selected User does not exist'
             self.error_code = 404
-            return False
+            ok = False
 
-        return super().validate_object()
+        return ok

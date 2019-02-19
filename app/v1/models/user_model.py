@@ -8,7 +8,9 @@ class User(BaseModel):
 
     users = []
 
-    def __init__(self, first_name=None, last_name=None, other_name=None, email=None, phone_number=None, passport_url=None, is_admin=False):
+    def __init__(
+            self, first_name=None, last_name=None, other_name=None, email=None,
+            phone_number=None, passport_url=None, is_admin=False):
         super().__init__('User', self.users)
 
         self.first_name = first_name
@@ -33,26 +35,35 @@ class User(BaseModel):
         }
 
     def from_json(self, json):
-        self.__init__(json['firstname'], json['lastname'], json['othername'], json['email'], json['phoneNumber'], json['passportUrl'], json['isAdmin'])
+        self.__init__(
+            json['firstname'], json['lastname'], json['othername'],
+            json['email'], json['phoneNumber'], json['passportUrl'],
+            json['isAdmin'])
         self.id = json['id']
         return self
 
     def validate_object(self):
         """ validates the object """
 
-        if not validate_strings(self.first_name, self.last_name, self.email, self.passport_url):
-            self.error_message = "Integer types are not allowed for some fields"
+        ok = True
+
+        if not validate_strings(
+                self.first_name, self.last_name, self.email,
+                self.passport_url):
+            self.error_message = (
+                "Integer types are not allowed for some fields")
             self.error_code = 400
-            return False
+            ok = False
 
         if not validate_bool(self.is_admin):
             self.error_message = "isAdmin is supposed to be a boolean value"
             self.error_code = 400
-            return False
+            ok = False
 
         if exists('email', self.email, self.table):
-            self.error_message = "A {} with that email already exists".format(self.object_name)
+            self.error_message = "A {} with that email already exists".format(
+                self.object_name)
             self.error_code = 400
-            return False
+            ok = False
 
-        return super().validate_object()
+        return ok

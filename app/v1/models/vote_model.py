@@ -36,16 +36,20 @@ class Vote(BaseModel):
     def validate_object(self):
         """ validates the object """
 
+        ok = True
+
         if not validate_ints(self.created_by, self.candidate, self.office):
             self.error_message = "String types are not allowed for all fields"
             self.error_code = 400
-            return False
+            ok = False
 
-        filtered = filter(lambda item: item['createdBy'] == self.created_by and item['office'] == self.office, self.votes)
+        filtered = filter(
+            lambda item: item['createdBy'] == self.created_by and
+            item['office'] == self.office, self.votes)
         filtered = list(filtered)
         if len(filtered) > 0:
             self.error_message = "You can only vote once per office"
             self.error_code = 400
-            return False
+            ok = False
 
-        return super().validate_object()
+        return ok
