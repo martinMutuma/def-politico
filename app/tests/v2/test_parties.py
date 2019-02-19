@@ -211,21 +211,25 @@ class TestParties(Base):
             '/api/v2/parties', json=self.new_party, headers=self.headers)
 
         res = self.client.patch(
-            '/api/v2/parties/1/Rainbow', headers=self.headers)
+            '/api/v2/parties/1/name', json={
+                "name": "New name"
+            }, headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
         self.assertEqual(data['message'], 'Success')
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(data['data'][0]['id'], 1)
-        self.assertEqual(data['data'][0]['name'], 'Rainbow')
+        self.assertEqual(data['data'][0]['name'], 'New name')
         self.assertEqual(res.status_code, 200)
 
     def test_patch_party_id_not_found(self):
         """ Tests PATCH request made with id that does not exist """
 
         res = self.client.patch(
-            '/api/v2/parties/14/Rainbow', headers=self.headers)
+            '/api/v2/parties/14/name', json={
+                "name": "New name"
+            }, headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['status'], 404)

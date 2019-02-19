@@ -42,6 +42,12 @@ def signup():
     tags:
         - Users
     parameters:
+      -
+          name: authorization
+          in: header
+          type: string
+          required: false
+          example: Bearer
       - in: body
         name: Users
         required: true
@@ -77,6 +83,38 @@ def signup():
         description: Created
       '409':
         description: Duplicate
+      '422':
+        description: Unprocessable
+      '400':
+        description: Bad Request
+    """
+
+
+@app.route('/api/v2/auth/signup', methods=['PUT'])
+def set_admin():
+    """ Endpoint for changing a user's Admin status.
+    ---
+    tags:
+        - Users
+    parameters:
+      -
+          name: authorization
+          in: header
+          type: string
+          required: true
+          example: Bearer
+      - in: body
+        name: Users
+        required: true
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+              example: "james@gmail.com"
+    responses:
+      '200':
+        description: Updated
       '422':
         description: Unprocessable
       '400':
@@ -361,8 +399,8 @@ def delete_single_party(office_id):
     """
 
 
-@app.route('/api/v2/parties/<party_id>/<name>', methods=['PATCH'])
-def patch_single_party(party_id, name):
+@app.route('/api/v2/parties/<party_id>/name', methods=['PATCH'])
+def patch_single_party(party_id):
     """ Endpoint for editting the name of a party.
     ---
     tags:
@@ -378,10 +416,15 @@ def patch_single_party(party_id, name):
         name: party_id
         required: true
         type: integer
-      - in: path
-        name: name
+      - in: body
+        name: Party
         required: true
-        type: string
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              example: New name
     responses:
       '200':
         description: Success

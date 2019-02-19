@@ -9,14 +9,16 @@ import os
 class Database:
     """ This class will handle all our database logic """
 
-    def __init__(self, config_type):
+    def __init__(self, config_type='development'):
         self.config_type = config_type
 
     def init_connection(self):
         """ create a connection and a cursor  to access db """
 
-        database_url = app_config[self.config_type].DATABASE_URL
-        print(database_url)
+        config = app_config[self.config_type]
+        database_url = config.DATABASE_URL
+        self.admin_email = config.ADMIN_EMAIL
+        self.admin_password = config.ADMIN_PASSWORD
 
         try:
             global conn, cur
@@ -56,8 +58,9 @@ class Database:
         if not user:
             cur.execute("INSERT INTO users (firstname, lastname, phonenumber, email, \
                 password, admin) VALUES ('Bedan', 'Kimani', '0712068754', \
-                'bedank6@gmail.com', '{}', True)\
-            ".format(generate_password_hash('jivunie')))
+                '{}', '{}', True)\
+            ".format(
+                self.admin_email, generate_password_hash(self.admin_password)))
             conn.commit()
 
     def insert(self, query):

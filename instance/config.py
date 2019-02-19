@@ -8,6 +8,8 @@ class Config(object):
     SECRET = os.getenv('SECRET')
     DATABASE_URL = os.environ.get('DATABASE_URL')
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
+    ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')
+    ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')
 
 
 class DevelopmentConfig(Config):

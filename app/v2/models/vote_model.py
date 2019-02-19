@@ -39,6 +39,18 @@ class Vote(BaseModel):
             "createdOn": self.created_on
         }
 
+    def load_all(self):
+        """ Inner joins all relevant tables to create vote objects """
+
+        query = """
+        SELECT concat_ws(' ', firstname, lastname) AS candidate,
+         offices.name as office, createdOn, votes.id
+         FROM votes
+         INNER JOIN users ON users.id = votes.candidate
+         INNER JOIN offices ON offices.id = votes.office
+        """
+        return self.get_all(query)
+
     def validate_object(self):
         """ validates the object """
 
@@ -64,10 +76,28 @@ class Vote(BaseModel):
             self.error_code = 404
             ok = False
 
+        elif not Candidate().get_one(
+                """
+                    SELECT * FROM candidates WHERE office = '{}'
+                    AND candidate = '{}'
+                """.format(self.office, self.candidate)
+                ):
+            self.error_message = (
+                "Candidate not registered under selected Office")
+            self.error_code = 404
+            ok = False
+
         elif self.get_one(
             "SELECT * FROM {} where createdby = '{}' and office = '{}';\
                 ".format(self.table_name, self.created_by, self.office)):
             self.error_message = "You can only vote once per office"
+            self.error_code = 409
+            ok = False
+
+        elif self.get_one(
+            "SELECT * FROM {} where createdby = '{}' and candidate = '{}';\
+                ".format(self.table_name, self.created_by, self.candidate)):
+            self.error_message = "You can only vote once per candidate"
             self.error_code = 409
             ok = False
 

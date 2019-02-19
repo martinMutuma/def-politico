@@ -115,7 +115,7 @@ class TestVotes(Base):
         self.assertEqual(data['error'], 'Selected Candidate does not exist')
         self.assertEqual(res.status_code, 404)
 
-    def test_create_vote_twice(self):
+    def test_create_vote_twice_office(self):
         """ Tests when user attempts to vote twice for same office """
 
         self.client.post(

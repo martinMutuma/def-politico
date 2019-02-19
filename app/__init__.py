@@ -1,6 +1,6 @@
 '''Creating app'''
 import os
-from flask import Flask, jsonify, Blueprint, redirect
+from flask import Flask, jsonify, Blueprint, redirect, url_for
 from instance.config import app_config
 from .v1.views import offices, parties, candidates, votes, users
 from .v2.views import offices as v2_offices
@@ -31,21 +31,13 @@ def create_app(config_name):
     app.register_blueprint(bp)
 
     jwt = JWTManager(app)
-
-    @app.route('/docs')
-    def docs():
-        """ Documentation"""
-
-        return redirect('https://app.swaggerhub.com/apis-docs/Bedan/kura-yangu/2.0')
-
+    
     @app.route('/')
     @app.route('/index')
     def index():
         """ THe welcome screen of the api """
 
-        return jsonify({
-            'status': 200, 'message': 'Welcome to the Politico API'
-            })
+        return redirect(url_for('flasgger.apidocs'))
 
     @app.errorhandler(404)
     def page_not_found(error):
