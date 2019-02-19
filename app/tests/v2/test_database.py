@@ -1,6 +1,7 @@
 import unittest
 from app.v2.db.database_config import Database
 from app import create_app
+from app.v2.models.user_model import User
 
 
 class TestDatabase(unittest.TestCase):
@@ -24,3 +25,10 @@ class TestDatabase(unittest.TestCase):
 
         db = Database('testing')
         self.assertTrue(db.init_connection())
+
+    def test_super_user_created(self):
+        """ Tests whether the super user was created """
+
+        admin = User().find_by('email', 'bedank6@gmail.com')
+        self.assertTrue(admin)
+        self.assertEqual(admin['firstname'], 'Bedan')

@@ -361,8 +361,8 @@ def delete_single_party(office_id):
     """
 
 
-@app.route('/api/v2/parties/<party_id>/<name>', methods=['PATCH'])
-def patch_single_party(party_id, name):
+@app.route('/api/v2/parties/<party_id>/name', methods=['PATCH'])
+def patch_single_party(party_id):
     """ Endpoint for editting the name of a party.
     ---
     tags:
@@ -378,10 +378,15 @@ def patch_single_party(party_id, name):
         name: party_id
         required: true
         type: integer
-      - in: path
-        name: name
+      - in: body
+        name: Party
         required: true
-        type: string
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              example: New name
     responses:
       '200':
         description: Success
