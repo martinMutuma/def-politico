@@ -83,4 +83,11 @@ class Vote(BaseModel):
             self.error_code = 409
             ok = False
 
+        elif self.get_one(
+            "SELECT * FROM {} where createdby = '{}' and candidate = '{}';\
+                ".format(self.table_name, self.created_by, self.candidate)):
+            self.error_message = "You can only vote once per candidate"
+            self.error_code = 409
+            ok = False
+
         return ok

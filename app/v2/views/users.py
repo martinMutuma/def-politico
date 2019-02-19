@@ -33,6 +33,9 @@ def register_user():
             return response_error(
                 "{} field is required".format(e.args[0]), 400)
 
+        if not get_jwt_identity() or not_admin():
+            is_admin = False
+
         user = User(
             first_name, last_name, other_name, email, phone_number,
             passport_url,
