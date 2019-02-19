@@ -39,6 +39,18 @@ class Vote(BaseModel):
             "createdOn": self.created_on
         }
 
+    def load_all(self):
+        """ Inner joins all relevant tables to create vote objects """
+
+        query = """
+        SELECT concat_ws(' ', firstname, lastname) AS candidate,
+         offices.name as office, createdOn, votes.id
+         FROM votes
+         INNER JOIN users ON users.id = votes.candidate
+         INNER JOIN offices ON offices.id = votes.office
+        """
+        return self.get_all(query)
+
     def validate_object(self):
         """ validates the object """
 

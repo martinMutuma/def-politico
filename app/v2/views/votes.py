@@ -53,7 +53,18 @@ def get_results(office_id):
     """ Gets results """
 
     filtered = Vote().get_all(
-        "SELECT office, candidate, COUNT(*) as result FROM votes WHERE office = '{}'\
-             GROUP BY candidate, office".format(office_id))
+        """
+        SELECT concat_ws(' ', users.firstname, users.lastname) AS full_name,
+         (SELECT COUNT(*)
+            FROM votes AS p
+            WHERE p.candidate = e.candidate
+            GROUP BY p.candidate
+         ) AS results
+         FROM votes AS e
+         INNER JOIN users ON users.id = e.candidate
+         WHERE office = '{}'
+         GROUP BY e.candidate, users.firstname, users.lastname
+        """.format(office_id)
+    )
 
     return response('Success', 200, filtered)
