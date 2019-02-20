@@ -19,10 +19,6 @@ def post_candidate(id):
     error = True
     """ Create candidate end point """
 
-    restricted = not_admin()
-    if restricted:
-        return restricted
-
     data = request.get_json()
 
     if data:

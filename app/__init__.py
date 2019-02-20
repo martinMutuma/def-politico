@@ -57,7 +57,19 @@ def create_app(config_name):
     def bad_request(error):
         """ Handler for error 400 """
 
-        return jsonify({'status': 400, 'message': 'Please review your request and try again'})
+        return jsonify({
+            'status': 400,
+            'message': 'Please review your request and try again'
+        })
+
+    @app.errorhandler(415)
+    def unsuported_media_type(error):
+        """ Handler for error 415 """
+
+        return jsonify({
+            'status': 415,
+            'message': 'Unsupported Media Type'
+        })
 
     return app
 
