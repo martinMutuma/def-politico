@@ -44,7 +44,9 @@ class User(BaseModel):
         return data
 
     def create_tokens(self):
-        self.access_token = create_access_token(identity=self.id)
+        expires = datetime.timedelta(days=60)
+        self.access_token = create_access_token(
+            identity=self.id, expires_delta=expires)
         self.refresh_token = create_refresh_token(identity=self.id)
 
     def as_json(self):
