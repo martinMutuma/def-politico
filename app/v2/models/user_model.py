@@ -80,6 +80,13 @@ class User(BaseModel):
             self.error_code = 422
             ok = False
 
+        elif not re.match(
+                r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$",
+                self.email):
+            self.error_message = "Invalid email"
+            self.error_code = 422
+            ok = False
+
         elif not validate_bool(self.is_admin):
             self.error_message = "isAdmin is supposed to be a boolean value"
             self.error_code = 422
@@ -93,13 +100,6 @@ class User(BaseModel):
 
         elif len(self.password) < 6:
             self.error_message = "Password must be at least 6 characters long"
-            self.error_code = 422
-            ok = False
-
-        elif not re.match(
-                r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$",
-                self.email):
-            self.error_message = "Invalid email"
             self.error_code = 422
             ok = False
 

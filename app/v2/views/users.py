@@ -2,11 +2,13 @@ from flask import Blueprint
 from flask import request, jsonify
 from flask import make_response
 from app.v2.utils.validator import response, response_error, not_admin
+from app.v2.utils.validator import validate_strings
 from app.v2.models.user_model import User
 from app.blueprints import v2
 from werkzeug.security import check_password_hash
 from app.v2.utils.jwt_utils import admin_optional
 from flask_jwt_extended import get_jwt_identity
+import re
 
 
 @v2.route('/auth/signup', methods=['POST', 'PUT'])
@@ -107,7 +109,16 @@ def login():
 
     user = User().find_by('email', email)
 
-    if not user:
+    if not validate_strings(email, password):
+        message = ("Invalid or empty string")
+        status = 422
+
+    elif not re.match(
+            r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+        message = ("Invalid email")
+        status = 422
+
+    elif not user:
         message = "User not registered"
         status = 404
 

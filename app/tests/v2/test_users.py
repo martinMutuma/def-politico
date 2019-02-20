@@ -183,6 +183,33 @@ class TestUsers(Base):
         self.assertEqual(data['error'], 'Incorrect password')
         self.assertEqual(res.status_code, 401)
 
+    def test_login_user_ivalid_email(self):
+        """ Tests when invalid email is provided """
+
+        res = self.client.post('/api/v2/auth/login', json={
+            "email": "bedank",
+            "password": "some_screte"
+        })
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 422)
+        self.assertEqual(data['error'], 'Invalid email')
+        self.assertEqual(res.status_code, 422)
+
+    def test_login_bad_email(self):
+        """ Tests when integer is provided for firstname """
+
+        res = self.client.post('/api/v2/auth/login', json={
+            "email": 3,
+            "password": "some_screte"
+        })
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 422)
+        self.assertEqual(
+            data['error'], "Invalid or empty string")
+        self.assertEqual(res.status_code, 422)
+
     # test reset password
     def test_reset_pwd_no_email(self):
         """ Tests when some fields are missing e.g email """
