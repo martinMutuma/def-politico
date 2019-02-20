@@ -54,7 +54,8 @@ def get_results(office_id):
 
     filtered = Vote().get_all(
         """
-        SELECT concat_ws(' ', users.firstname, users.lastname) AS full_name,
+        SELECT concat_ws(' ', users.firstname, users.lastname) AS candidate,
+        offices.name as office,
          (SELECT COUNT(*)
             FROM votes AS p
             WHERE p.candidate = e.candidate
@@ -62,9 +63,34 @@ def get_results(office_id):
          ) AS results
          FROM votes AS e
          INNER JOIN users ON users.id = e.candidate
+         INNER JOIN offices ON offices.id = e.office
          WHERE office = '{}'
-         GROUP BY e.candidate, users.firstname, users.lastname
+         GROUP BY e.candidate, users.firstname, users.lastname, offices.name
         """.format(office_id)
+    )
+
+    return response('Success', 200, filtered)
+
+
+@bp.route('/results', methods=['GET'])
+@jwt_required
+def get_all_results():
+    """ Gets results """
+
+    filtered = Vote().get_all(
+        """
+        SELECT concat_ws(' ', users.firstname, users.lastname) AS candidate,
+         (SELECT COUNT(*)
+            FROM votes AS p
+            WHERE p.candidate = e.candidate
+            GROUP BY p.candidate
+         ) AS results,
+         offices.name as office
+         FROM votes AS e
+         INNER JOIN users ON users.id = e.candidate
+         INNER JOIN offices ON offices.id = e.office
+         GROUP BY e.candidate, users.firstname, users.lastname, offices.name
+        """
     )
 
     return response('Success', 200, filtered)
