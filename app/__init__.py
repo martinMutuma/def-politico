@@ -62,8 +62,6 @@ def create_app(config_name):
             'message': 'Please review your request and try again'
         })
 
-    return app
-
     @app.errorhandler(415)
     def unsuported_media_type(error):
         """ Handler for error 415 """
