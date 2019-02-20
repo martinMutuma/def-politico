@@ -71,6 +71,14 @@ def create_app(config_name):
             'message': 'Unsupported Media Type'
         })
 
+    @jwt.expired_token_loader
+    def my_expired_token_callback(expired_token):
+        token_type = expired_token['type']
+        return jsonify({
+            'status': 401,
+            'error': 'The {} token has expired'.format(token_type)
+        }), 401
+
     return app
 
 
