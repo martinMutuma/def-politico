@@ -46,7 +46,7 @@ def create_app(config_name):
         """ Handler for error 500 """
 
         return jsonify({
-            'status': 500, 'message': 'We cannot process your request at this time'
+            'status': 500, 'error': 'We cannot process your request at this time'
             })
 
     @app.errorhandler(404)
@@ -54,14 +54,14 @@ def create_app(config_name):
         """ Handler for error 404 """
 
         return jsonify({
-            'status': 404, 'message': 'The requested resource was not found'
+            'status': 404, 'error': 'The requested resource was not found'
             })
 
     @app.errorhandler(405)
     def method_not_allowed(error):
         """ Handler for error 405 """
 
-        return jsonify({'status': 405, 'message': 'Method not allowed'})
+        return jsonify({'status': 405, 'error': 'Method not allowed'})
 
     @app.errorhandler(400)
     def bad_request(error):
@@ -69,7 +69,7 @@ def create_app(config_name):
 
         return jsonify({
             'status': 400,
-            'message': 'Please review your request and try again'
+            'error': 'Please review your request and try again'
         })
 
     @app.errorhandler(415)
@@ -78,7 +78,7 @@ def create_app(config_name):
 
         return jsonify({
             'status': 415,
-            'message': 'Unsupported Media Type'
+            'error': 'Unsupported Media Type'
         })
 
     @jwt.expired_token_loader
