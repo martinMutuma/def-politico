@@ -30,11 +30,12 @@ def create_party():
             hq_address = data['hq_address']
             logo_url = data['logo_url']
             slogan = data['slogan']
+            manifesto = data['manifesto']
         except KeyError as e:
             return response_error(
                 "{} field is required".format(e.args[0]), 400)
 
-        party = Party(name, hq_address, logo_url, slogan)
+        party = Party(name, hq_address, logo_url, slogan, manifesto)
 
         if not party.validate_object():
             return response_error(party.error_message, party.error_code)

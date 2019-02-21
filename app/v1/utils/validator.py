@@ -39,7 +39,7 @@ def validate_strings(*args):
     """ validates that inputs are strings only """
 
     for value in args:
-        if not isinstance(value, str) or not value or not value.split():
+        if not isinstance(value, str) or not value or not value.strip():
             return False
     return True
 
