@@ -41,6 +41,14 @@ def create_app(config_name):
 
         return redirect(url_for('flasgger.apidocs'))
 
+    @app.errorhandler(500)
+    def internal_server(error):
+        """ Handler for error 500 """
+
+        return jsonify({
+            'status': 500, 'message': 'We cannot process your request at this time'
+            })
+
     @app.errorhandler(404)
     def page_not_found(error):
         """ Handler for error 404 """
