@@ -119,6 +119,7 @@ table_queries = [
         hq_address VARCHAR(250) NOT NULL,
         logo_url VARCHAR(250) NULL,
         slogan VARCHAR(250) NOT NULL,
+        manifesto VARCHAR(250) NOT NULL,
         UNIQUE(name)
     )
     """,

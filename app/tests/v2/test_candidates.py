@@ -17,7 +17,8 @@ class TestCandidate(Base):
             "name": "NARC",
             "slogan": "Pamoja tujengane",
             "hq_address": "Nairobe",
-            "logo_url": "url"
+            "logo_url": "url",
+            "manifesto": "We will bring change"
         }
         self.new_office = {
             "name": "Governor",
