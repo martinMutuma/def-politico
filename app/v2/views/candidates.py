@@ -1,12 +1,13 @@
 from flask import request
 from flask import jsonify
 from flask import make_response
-from app.v2.utils.validator import response, response_error, not_admin
+from app.v2.utils.validator import response, response_error
 from app.v2.models.party_model import Party
 from app.v2.models.office_model import Office
 from app.v2.models.user_model import User
 from app.v2.models.candidate_model import Candidate
 from app.blueprints import v2 as bp
+from app.v2.utils.jwt_utils import not_admin
 from flask_jwt_extended import (jwt_required)
 
 
@@ -75,3 +76,25 @@ def get_candidate(id):
         return response_error('Candidate not found', 404)
 
     return response('Success', 200, [data])
+
+
+@bp.route('/office/<int:office_id>/candidates', methods=['GET'])
+@jwt_required
+def get_office_candidates(office_id):
+    """ Get all candidates of a certain office end point """
+
+    if not Office().find_by('id', office_id):
+        return response_error('Selected Office does not exist', 404)
+
+    return response('Success', 200, Candidate().find_all('office', office_id))
+
+
+@bp.route('/party/<int:party_id>/candidates', methods=['GET'])
+@jwt_required
+def get_party_candidates(party_id):
+    """ Get all candidates of a certain party end point """
+
+    if not Party().find_by('id', party_id):
+        return response_error('Selected Party does not exist', 404)
+
+    return response('Success', 200, Candidate().find_all('party', party_id))

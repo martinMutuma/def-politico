@@ -1,5 +1,6 @@
-from app.v1.utils.validator import validate_bool
-from app.v1.utils.validator import validate_strings
+from app.v2.utils.validator import validate_ints, valid_email, valid_string
+from app.v2.utils.validator import validate_strings, validate_links
+from app.v2.utils.validator import validate_bool
 from .base_model import BaseModel
 import datetime
 import jwt
@@ -75,17 +76,20 @@ class User(BaseModel):
 
         ok = True
 
-        if not validate_strings(
-                self.first_name, self.last_name, self.email,
-                self.passport_url, self.password, self.phone_number):
-            self.error_message = ("Invalid or empty string")
+        validate_strings(
+            self.as_json(), 'firstname', 'lastname', 'othername', 'email',
+            'phoneNumber')
+
+        validate_links(
+            self.as_json(), 'passportUrl')
+
+        if not valid_email(self.email):
+            self.error_message = "Invalid email"
             self.error_code = 422
             ok = False
 
-        elif not re.match(
-                r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$",
-                self.email):
-            self.error_message = "Invalid email"
+        elif not valid_string(self.password):
+            self.error_message = "Invalid or empty string for password"
             self.error_code = 422
             ok = False
 
@@ -98,6 +102,11 @@ class User(BaseModel):
             self.error_message = "A {} with that email already exists".format(
                 self.object_name)
             self.error_code = 409
+            ok = False
+
+        elif not re.match('^[0-9]*$', self.phone_number):
+            self.error_message = "Invalid phone number"
+            self.error_code = 422
             ok = False
 
         elif len(self.password) < 6:

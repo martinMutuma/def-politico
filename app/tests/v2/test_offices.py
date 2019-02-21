@@ -64,7 +64,8 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 422)
-        self.assertEqual(data['error'], "'random' is not a supported office type")
+        self.assertEqual(
+            data['error'], "'random' is not a supported office type")
         self.assertEqual(res.status_code, 422)
 
     def test_create_office_no_data(self):
@@ -88,7 +89,7 @@ class TestOffices(Base):
 
         self.assertEqual(data['status'], 422)
         self.assertEqual(
-            data['error'], "Invalid or empty string")
+            data['error'], "Invalid or empty string for name")
         self.assertEqual(res.status_code, 422)
 
     def test_create_office_short_name(self):

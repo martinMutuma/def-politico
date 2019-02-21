@@ -14,7 +14,7 @@ class TestUsers(Base):
             "othername": "Kamau",
             "email": "andrew@gmail.com",
             "phoneNumber": "0700000000",
-            "passportUrl": "passport_url",
+            "passportUrl": "https://kurayangu.herokuapp.com",
             "isAdmin": True,
             "password": "jivunie"
         }
@@ -82,6 +82,30 @@ class TestUsers(Base):
             data['error'], 'Password must be at least 6 characters long')
         self.assertEqual(res.status_code, 422)
 
+    def test_register_invalid_phone(self):
+        """ Tests when an invalid phone is provided """
+
+        self.new_user['phoneNumber'] = 'cansd'
+        res = self.client.post('/api/v2/auth/signup', json=self.new_user)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 422)
+        self.assertEqual(
+            data['error'], 'Invalid phone number')
+        self.assertEqual(res.status_code, 422)
+
+    def test_register_invalid_link(self):
+        """ Tests when an invalid link is provided """
+
+        self.new_user['passportUrl'] = 'cansd'
+        res = self.client.post('/api/v2/auth/signup', json=self.new_user)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 422)
+        self.assertEqual(
+            data['error'], 'Invalid link for passportUrl')
+        self.assertEqual(res.status_code, 422)
+
     def test_register_user_int_name(self):
         """ Tests when integer is provided for firstname """
 
@@ -91,7 +115,7 @@ class TestUsers(Base):
 
         self.assertEqual(data['status'], 422)
         self.assertEqual(
-            data['error'], "Invalid or empty string")
+            data['error'], "Invalid or empty string for firstname")
         self.assertEqual(res.status_code, 422)
 
     def test_register_user_string_bool(self):
@@ -207,7 +231,7 @@ class TestUsers(Base):
 
         self.assertEqual(data['status'], 422)
         self.assertEqual(
-            data['error'], "Invalid or empty string")
+            data['error'], "Invalid or empty string for email")
         self.assertEqual(res.status_code, 422)
 
     # test reset password
@@ -283,7 +307,7 @@ class TestUsers(Base):
             "othername": "Kamau",
             "email": "james@gmail.com",
             "phoneNumber": "0700000000",
-            "passportUrl": "passport_url",
+            "passportUrl": "https://kurayangu.herokuapp.com",
             "isAdmin": True,
             "password": "jikakamue"
         })

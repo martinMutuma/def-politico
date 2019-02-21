@@ -17,6 +17,7 @@ class Vote(BaseModel):
         self.office = office
         self.candidate = candidate
         self.id = id
+        self.created_on = None
 
     def save(self):
         """save vote to db """
@@ -56,18 +57,10 @@ class Vote(BaseModel):
 
         ok = True
 
-        if not validate_ints(self.created_by, self.candidate, self.office):
-            self.error_message = "String types are not allowed for all fields"
-            self.error_code = 422
-            ok = False
+        validate_ints(self.as_json(), 'createdBy', 'office', 'candidate')
 
-        elif not Office().find_by('id', self.office):
+        if not Office().find_by('id', self.office):
             self.error_message = 'Selected Office does not exist'
-            self.error_code = 404
-            ok = False
-
-        elif not User().find_by('id', self.created_by):
-            self.error_message = 'Selected User does not exist'
             self.error_code = 404
             ok = False
 

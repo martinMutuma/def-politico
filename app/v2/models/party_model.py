@@ -1,5 +1,5 @@
 from app.v2.utils.validator import validate_ints
-from app.v2.utils.validator import validate_strings
+from app.v2.utils.validator import validate_strings, validate_links
 from .base_model import BaseModel
 
 
@@ -56,15 +56,14 @@ class Party(BaseModel):
 
         ok = True
 
-        if not validate_strings(
-                self.name, self.hq_address, self.logo_url, self.slogan,
-                self.manifesto):
-            self.error_message = (
-                "Invalid or empty string")
-            self.error_code = 400
-            ok = False
+        validate_strings(
+            self.as_json(), 'name', 'hq_address', 'logo_url', 'slogan',
+            'manifesto')
 
-        elif len(self.name) < 3:
+        validate_links(
+            self.as_json(), 'logo_url')
+
+        if len(self.name) < 3:
             self.error_message = "The {} name provided is too short".format(
                 self.object_name)
             self.error_code = 400

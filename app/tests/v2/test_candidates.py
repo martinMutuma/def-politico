@@ -17,7 +17,7 @@ class TestCandidate(Base):
             "name": "NARC",
             "slogan": "Pamoja tujengane",
             "hq_address": "Nairobe",
-            "logo_url": "url",
+            "logo_url": "https://kurayangu.herokuapp.com",
             "manifesto": "We will bring change"
         }
         self.new_office = {
@@ -30,7 +30,7 @@ class TestCandidate(Base):
             "othername": "Kamau",
             "email": "james@gmail.com",
             "phoneNumber": "0700000000",
-            "passportUrl": "passport_url",
+            "passportUrl": "https://kurayangu.herokuapp.com",
             "isAdmin": True,
             "password": "jivunie"
         }
@@ -153,10 +153,10 @@ class TestCandidate(Base):
             headers=self.headers)
         data = res.get_json()
 
-        self.assertEqual(data['status'], 400)
+        self.assertEqual(data['status'], 422)
         self.assertEqual(
-            data['error'], 'String types are not allowed for all fields')
-        self.assertEqual(res.status_code, 400)
+            data['error'], 'Invalid integer for candidate')
+        self.assertEqual(res.status_code, 422)
 
     # tests for GET candidates
     def test_get_all_candidates(self):
@@ -209,4 +209,66 @@ class TestCandidate(Base):
 
         self.assertEqual(data['status'], 404)
         self.assertEqual(data['error'], 'Candidate not found')
+        self.assertEqual(res.status_code, 404)
+
+    def test_get_office_candidates(self):
+        """ Tests when get request made to api/v2/candidates """
+
+        res = self.client.post(
+            '/api/v2/office/1/register', json=self.new_candidate,
+            headers=self.headers)
+
+        res = self.client.get(
+            '/api/v2/office/1/candidates', headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(len(data['data']), 1)
+        self.assertEqual(res.status_code, 200)
+
+    def test_get_party_candidates(self):
+        """ Tests when get request made to api/v2/candidates """
+
+        res = self.client.post(
+            '/api/v2/office/1/register', json=self.new_candidate,
+            headers=self.headers)
+
+        res = self.client.get(
+            '/api/v2/party/1/candidates', headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(len(data['data']), 1)
+        self.assertEqual(res.status_code, 200)
+
+    def test_get_party_candidates_no_party(self):
+        """ Tests when get all candidates and party does not exist """
+
+        res = self.client.post(
+            '/api/v2/office/1/register', json=self.new_candidate,
+            headers=self.headers)
+
+        res = self.client.get(
+            '/api/v2/party/4/candidates', headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['error'], 'Selected Party does not exist')
+        self.assertEqual(data['status'], 404)
+        self.assertEqual(res.status_code, 404)
+
+    def test_get_office_candidates_no_office(self):
+        """ Tests when get all candidates and office does not exist """
+
+        res = self.client.post(
+            '/api/v2/office/1/register', json=self.new_candidate,
+            headers=self.headers)
+
+        res = self.client.get(
+            '/api/v2/office/4/candidates', headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['error'], 'Selected Office does not exist')
+        self.assertEqual(data['status'], 404)
         self.assertEqual(res.status_code, 404)

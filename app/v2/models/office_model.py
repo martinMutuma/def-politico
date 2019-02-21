@@ -40,13 +40,9 @@ class Office(BaseModel):
         ok = True
         types = ['federal', 'state', 'legislative', 'local']
 
-        if not validate_strings(self.name, self.type):
-            self.error_message = (
-                "Invalid or empty string")
-            self.error_code = 422
-            ok = False
+        validate_strings(self.as_json(), 'name', 'type')
 
-        elif len(self.name) < 3:
+        if len(self.name) < 3:
             self.error_message = "The {} name provided is too short".format(
                 self.object_name)
             self.error_code = 422
