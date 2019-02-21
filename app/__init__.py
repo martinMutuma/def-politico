@@ -10,6 +10,7 @@ from .v2.views import users as v2_users, parties as v2_parties
 from .v2.db.database_config import Database
 from app.blueprints import bp, v2
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 
 def create_app(config_name):
@@ -30,8 +31,9 @@ def create_app(config_name):
     app.register_blueprint(v2)
     app.register_blueprint(bp)
 
+    CORS(app)
     jwt = JWTManager(app)
-    
+
     @app.route('/')
     @app.route('/index')
     def index():
