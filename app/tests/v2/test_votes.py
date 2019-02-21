@@ -22,7 +22,7 @@ class TestVotes(Base):
             "name": "NARC",
             "slogan": "Pamoja tujengane",
             "hq_address": "Nairobe",
-            "logo_url": "url",
+            "logo_url": "https://kurayangu.herokuapp.com",
             "manifesto": "We will bring change"
         }
         self.new_office = {
@@ -35,7 +35,7 @@ class TestVotes(Base):
             "othername": "Kamau",
             "email": "james@gmail.com",
             "phoneNumber": "0700000000",
-            "passportUrl": "passport_url",
+            "passportUrl": "https://kurayangu.herokuapp.com",
             "isAdmin": True,
             "password": "jikakamue"
         }
@@ -129,6 +129,24 @@ class TestVotes(Base):
         self.assertEqual(data['error'], 'You can only vote once per office')
         self.assertEqual(res.status_code, 409)
 
+    def test_create_vote_misplaced_candidate(self):
+        """ Tests when user attempts to vote twice for same candidate """
+
+        self.new_office['name'] = 'Vice President'
+        self.client.post(
+            '/api/v2/offices', json=self.new_office, headers=self.headers)
+        
+        self.new_vote['office'] = 2
+
+        res = self.client.post(
+            '/api/v2/votes', json=self.new_vote, headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(
+            data['error'], 'Candidate not registered under selected Office')
+        self.assertEqual(data['status'], 404)
+        self.assertEqual(res.status_code, 404)
+
     def test_create_vote_string_candidate(self):
         """ Tests when string is provided for candidate """
 
@@ -139,7 +157,7 @@ class TestVotes(Base):
 
         self.assertEqual(data['status'], 422)
         self.assertEqual(
-            data['error'], 'String types are not allowed for all fields')
+            data['error'], 'Invalid integer for candidate')
         self.assertEqual(res.status_code, 422)
 
     # tests for GET votes
@@ -177,6 +195,21 @@ class TestVotes(Base):
 
         res = self.client.get(
             '/api/v2/office/1/result', headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(len(data['data']), 1)
+        self.assertEqual(res.status_code, 200)
+
+    def test_all_election_results(self):
+        """ Tests GET request to get election results """
+
+        self.client.post(
+            '/api/v2/votes', json=self.new_vote, headers=self.headers)
+
+        res = self.client.get(
+            '/api/v2/results', headers=self.headers)
         data = res.get_json()
 
         self.assertEqual(data['message'], 'Success')

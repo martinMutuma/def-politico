@@ -12,7 +12,7 @@ class TestParties(Base):
             "name": "NARC KENYA",
             "slogan": "Pamoja tujengane",
             "hq_address": "Nairobe",
-            "logo_url": "urlkljkj",
+            "logo_url": "https://kurayangu.herokuapp.com",
             "manifesto": "We will bring change"
         }
 
@@ -38,7 +38,7 @@ class TestParties(Base):
         res = self.client.post('/api/v2/parties', json={
             "slogan": "Pamoja tujengane",
             "hq_address": "Nairobe",
-            "logo_url": "url"
+            "logo_url": "https://kurayangu.herokuapp.com"
         }, headers=self.headers)
         data = res.get_json()
 
@@ -77,9 +77,9 @@ class TestParties(Base):
             '/api/v2/parties', json=self.new_party, headers=self.headers)
         data = res.get_json()
 
-        self.assertEqual(data['status'], 400)
-        self.assertEqual(data['error'], "Invalid or empty string")
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(data['status'], 422)
+        self.assertEqual(data['error'], "Invalid or empty string for name")
+        self.assertEqual(res.status_code, 422)
 
     def test_create_party_long_slogan(self):
         """ Tests when slogan exceeds limit """
@@ -96,6 +96,19 @@ class TestParties(Base):
         self.assertEqual(
             data['error'], "Slogan should not exceed 30 characters")
         self.assertEqual(res.status_code, 400)
+
+    def test_create_party_invalid_link(self):
+        """ Tests when an invalid link is provided """
+
+        self.new_party['logo_url'] = 'cansd'
+        res = self.client.post('/api/v2/parties', json=self.new_party,
+        headers=self.headers)
+        data = res.get_json()
+        print(data)
+        self.assertEqual(data['status'], 422)
+        self.assertEqual(
+            data['error'], 'Invalid link for logo_url')
+        self.assertEqual(res.status_code, 422)
 
     def test_create_party_long_manifesto(self):
         """ Tests when slogan exceeds limit """
@@ -142,7 +155,7 @@ class TestParties(Base):
             "othername": "Kamau",
             "email": "andrew@gmail.com",
             "phoneNumber": "0700000000",
-            "passportUrl": "passport_url",
+            "passportUrl": "https://kurayangu.herokuapp.com",
             "isAdmin": False,
             "password": "jivunie"
         })

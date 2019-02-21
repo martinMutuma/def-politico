@@ -53,6 +53,20 @@ class Candidate(BaseModel):
         """.format(key, value)
         return self.get_one(query)
 
+    def find_all(self, key, value):
+        """ Inner joins all relevant tables to create a candidate object """
+
+        query = """
+        SELECT concat_ws(' ', firstname, lastname) AS candidate,
+         offices.name as office,parties.name as party, candidates.id
+         FROM candidates
+         INNER JOIN users ON users.id = candidates.candidate
+         INNER JOIN parties ON parties.id = candidates.party
+         INNER JOIN offices ON offices.id = candidates.office
+         WHERE candidates.{} = '{}'
+        """.format(key, value)
+        return self.get_all(query)
+
     def as_json(self):
         # get the object as a json
         return {
@@ -72,12 +86,9 @@ class Candidate(BaseModel):
 
         ok = True
 
-        if not validate_ints(self.party, self.candidate, self.office):
-            self.error_message = "String types are not allowed for all fields"
-            self.error_code = 400
-            ok = False
+        validate_ints(self.as_json(), 'party', 'office', 'candidate')
 
-        elif self.find_by('candidate', self.candidate):
+        if self.find_by('candidate', self.candidate):
             self.error_message = "{} already exists".format(self.object_name)
             self.error_code = 409
             ok = False

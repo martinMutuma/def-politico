@@ -128,7 +128,7 @@ table_queries = [
         id SERIAL PRIMARY KEY NOT NULL,
         name VARCHAR(250) NOT NULL,
         type VARCHAR(250) NOT NULL,
-        UNIQUE(name)
+        UNIQUE(name, type)
     )
     """,
     """

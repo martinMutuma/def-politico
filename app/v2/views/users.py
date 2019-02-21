@@ -1,10 +1,11 @@
 from flask import Blueprint
 from flask import request, jsonify
 from flask import make_response
-from app.v2.utils.validator import response, response_error, not_admin
+from app.v2.utils.validator import response, response_error
 from app.v2.utils.validator import validate_strings
 from app.v2.models.user_model import User
 from app.blueprints import v2
+from app.v2.utils.jwt_utils import not_admin
 from werkzeug.security import check_password_hash
 from app.v2.utils.jwt_utils import admin_optional
 from flask_jwt_extended import get_jwt_identity
@@ -109,11 +110,9 @@ def login():
 
     user = User().find_by('email', email)
 
-    if not validate_strings(email, password):
-        message = ("Invalid or empty string")
-        status = 422
+    validate_strings(data, 'email', 'password')
 
-    elif not re.match(
+    if not re.match(
             r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
         message = ("Invalid email")
         status = 422

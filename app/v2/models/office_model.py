@@ -38,22 +38,30 @@ class Office(BaseModel):
         """ validates the object """
 
         ok = True
+        types = ['federal', 'state', 'legislative', 'local']
 
-        if not validate_strings(self.name, self.type):
-            self.error_message = (
-                "Invalid or empty string")
-            self.error_code = 422
-            ok = False
+        validate_strings(self.as_json(), 'name', 'type')
 
-        elif len(self.name) < 3:
+        if len(self.name) < 3:
             self.error_message = "The {} name provided is too short".format(
                 self.object_name)
             self.error_code = 422
             ok = False
 
-        elif self.find_by('name', self.name):
+        elif Office().get_one(
+                """
+                    SELECT * FROM offices WHERE name = '{}'
+                    AND type = '{}'
+                """.format(self.name, self.type)
+                ):
             self.error_message = "{} already exists".format(self.object_name)
             self.error_code = 409
+            ok = False
+
+        elif self.type not in types:
+            self.error_message = "'{}' is not a supported office type".format(
+                self.type)
+            self.error_code = 422
             ok = False
 
         return ok
