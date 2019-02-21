@@ -98,12 +98,6 @@ class User(BaseModel):
             self.error_code = 422
             ok = False
 
-        elif self.find_by('email', self.email):
-            self.error_message = "A {} with that email already exists".format(
-                self.object_name)
-            self.error_code = 409
-            ok = False
-
         elif not re.match('^[0-9]*$', self.phone_number):
             self.error_message = "Invalid phone number"
             self.error_code = 422
@@ -112,6 +106,12 @@ class User(BaseModel):
         elif len(self.password) < 6:
             self.error_message = "Password must be at least 6 characters long"
             self.error_code = 422
+            ok = False
+
+        elif self.find_by('email', self.email):
+            self.error_message = "A {} with that email already exists".format(
+                self.object_name)
+            self.error_code = 409
             ok = False
 
         return ok

@@ -60,7 +60,12 @@ def get_results(office_id):
             FROM votes AS p
             WHERE p.candidate = e.candidate
             GROUP BY p.candidate
-         ) AS results
+         ) AS results,
+         (
+             SELECT parties.name FROM candidates as h
+             INNER JOIN parties ON parties.id = h.party
+             WHERE h.id = e.candidate
+         ) as party
          FROM votes AS e
          INNER JOIN users ON users.id = e.candidate
          INNER JOIN offices ON offices.id = e.office
@@ -85,7 +90,12 @@ def get_all_results():
             WHERE p.candidate = e.candidate
             GROUP BY p.candidate
          ) AS results,
-         offices.name as office
+         offices.name as office,
+         (
+             SELECT parties.name FROM candidates as h
+             INNER JOIN parties ON parties.id = h.party
+             WHERE h.id = e.candidate
+         ) as party
          FROM votes AS e
          INNER JOIN users ON users.id = e.candidate
          INNER JOIN offices ON offices.id = e.office

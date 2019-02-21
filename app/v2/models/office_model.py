@@ -48,7 +48,12 @@ class Office(BaseModel):
             self.error_code = 422
             ok = False
 
-        elif self.find_by('name', self.name):
+        elif Office().get_one(
+                """
+                    SELECT * FROM offices WHERE name = '{}'
+                    AND type = '{}'
+                """.format(self.name, self.type)
+                ):
             self.error_message = "{} already exists".format(self.object_name)
             self.error_code = 409
             ok = False
