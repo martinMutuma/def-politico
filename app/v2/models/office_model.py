@@ -38,6 +38,7 @@ class Office(BaseModel):
         """ validates the object """
 
         ok = True
+        types = ['federal', 'state', 'legislative', 'local']
 
         if not validate_strings(self.name, self.type):
             self.error_message = (
@@ -54,6 +55,12 @@ class Office(BaseModel):
         elif self.find_by('name', self.name):
             self.error_message = "{} already exists".format(self.object_name)
             self.error_code = 409
+            ok = False
+
+        elif self.type not in types:
+            self.error_message = "'{}' is not a supported office type".format(
+                self.type)
+            self.error_code = 422
             ok = False
 
         return ok

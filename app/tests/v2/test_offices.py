@@ -54,6 +54,19 @@ class TestOffices(Base):
         self.assertEqual(data['error'], 'name field is required')
         self.assertEqual(res.status_code, 400)
 
+    def test_create_office_incorrect_type(self):
+        """ Tests when incorrect type is provided """
+
+        res = self.client.post('/api/v2/offices', json={
+            "name": "Governor",
+            "type": "random"
+        }, headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 422)
+        self.assertEqual(data['error'], "'random' is not a supported office type")
+        self.assertEqual(res.status_code, 422)
+
     def test_create_office_no_data(self):
         """ Tests when no data is provided """
 

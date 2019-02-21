@@ -77,7 +77,7 @@ class User(BaseModel):
 
         if not validate_strings(
                 self.first_name, self.last_name, self.email,
-                self.passport_url, self.password):
+                self.passport_url, self.password, self.phone_number):
             self.error_message = ("Invalid or empty string")
             self.error_code = 422
             ok = False

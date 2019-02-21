@@ -3,6 +3,9 @@ from flask_jwt_extended import (jwt_required, get_jwt_identity)
 from app.v2.models.user_model import User
 
 
+error_value = None
+
+
 def not_admin():
     current_user = User().find_by('id', get_jwt_identity())
 
