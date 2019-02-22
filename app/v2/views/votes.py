@@ -71,6 +71,7 @@ def get_results(office_id):
          INNER JOIN offices ON offices.id = e.office
          WHERE office = '{}'
          GROUP BY e.candidate, users.firstname, users.lastname, offices.name
+         ORDER BY results DESC
         """.format(office_id)
     )
 
@@ -100,6 +101,7 @@ def get_all_results():
          INNER JOIN users ON users.id = e.candidate
          INNER JOIN offices ON offices.id = e.office
          GROUP BY e.candidate, users.firstname, users.lastname, offices.name
+         ORDER BY results DESC
         """
     )
 
