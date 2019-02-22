@@ -36,9 +36,10 @@ class User(BaseModel):
 
         data = super().save(
             'firstname, lastname, othername, email, phonenumber, password, \
-            admin', self.first_name, self.last_name,
+            passport_url, admin', self.first_name, self.last_name,
             self.other_name, self.email, self.phone_number,
-            generate_password_hash(self.password), self.is_admin)
+            generate_password_hash(self.password), self.passport_url,
+            self.is_admin)
 
         self.id = data.get('id')
         self.create_tokens()
