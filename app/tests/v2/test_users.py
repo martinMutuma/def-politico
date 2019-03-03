@@ -101,9 +101,9 @@ class TestUsers(Base):
         res = self.client.post('/api/v2/auth/signup', json=self.new_user)
         data = res.get_json()
 
-        self.assertEqual(data['status'], 422)
         self.assertEqual(
-            data['error'], 'Invalid link for passportUrl')
+            data['error'], 'Invalid link for passport_url')
+        self.assertEqual(data['status'], 422)
         self.assertEqual(res.status_code, 422)
 
     def test_register_user_int_name(self):

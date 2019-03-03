@@ -47,6 +47,45 @@ def vote():
         return response('Success', 200, Vote().load_all())
 
 
+@bp.route('/voting-history', methods=['GET'])
+@jwt_required
+def voting_history():
+    """ Gets my voting history """
+
+    current_user = get_jwt_identity()
+
+    filtered = Vote().get_all(
+        """
+        SELECT concat_ws(' ', users.firstname, users.lastname) AS candidate,
+        offices.name as office,
+         (SELECT COUNT(*)
+            FROM votes AS p
+            WHERE p.candidate = e.candidate
+            GROUP BY p.candidate
+         ) AS results,
+         (
+             SELECT parties.name FROM candidates as h
+             INNER JOIN parties ON parties.id = h.party
+             WHERE h.id = e.candidate
+         ) as party,
+         (SELECT COUNT(*)
+            FROM votes AS p
+            WHERE p.office = e.office
+            GROUP BY p.office
+         ) AS total_votes,
+         users.passport_url
+         FROM votes AS e
+         INNER JOIN users ON users.id = e.candidate
+         INNER JOIN offices ON offices.id = e.office
+         WHERE createdBy = '{}'
+         GROUP BY e.candidate, users.firstname, users.lastname, offices.name,
+         e.office, users.passport_url
+        """.format(current_user)
+    )
+
+    return response('Success', 200, filtered)
+
+
 @bp.route('/office/<int:office_id>/result', methods=['GET'])
 @jwt_required
 def get_results(office_id):
@@ -70,7 +109,8 @@ def get_results(office_id):
          INNER JOIN users ON users.id = e.candidate
          INNER JOIN offices ON offices.id = e.office
          WHERE office = '{}'
-         GROUP BY e.candidate, users.firstname, users.lastname, offices.name, users.passport_url
+         GROUP BY e.candidate, users.firstname, users.lastname, offices.name,
+         users.passport_url
          ORDER BY results DESC
         """.format(office_id)
     )
@@ -96,11 +136,13 @@ def get_all_results():
              SELECT parties.name FROM candidates as h
              INNER JOIN parties ON parties.id = h.party
              WHERE h.id = e.candidate
-         ) as party, passport_url
+         ) as party,
+         users.passport_url
          FROM votes AS e
          INNER JOIN users ON users.id = e.candidate
          INNER JOIN offices ON offices.id = e.office
-         GROUP BY e.candidate, users.firstname, users.lastname, offices.name, users.passport_url
+         GROUP BY e.candidate, users.firstname, users.lastname, offices.name,
+         users.passport_url
          ORDER BY results DESC
         """
     )

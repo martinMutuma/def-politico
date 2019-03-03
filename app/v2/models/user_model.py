@@ -38,8 +38,8 @@ class User(BaseModel):
             'firstname, lastname, othername, email, phonenumber, password, \
             passport_url, admin', self.first_name, self.last_name,
             self.other_name, self.email, self.phone_number,
-            generate_password_hash(self.password), self.passport_url,
-            self.is_admin)
+            generate_password_hash(self.password),
+            self.passport_url, self.is_admin)
 
         self.id = data.get('id')
         self.create_tokens()
@@ -60,7 +60,7 @@ class User(BaseModel):
             "othername": self.other_name,
             "email": self.email,
             "phoneNumber": self.phone_number,
-            "passportUrl": self.passport_url,
+            "passport_url": self.passport_url,
             "isAdmin": self.is_admin
         }
 
@@ -82,7 +82,7 @@ class User(BaseModel):
             'phoneNumber')
 
         validate_links(
-            self.as_json(), 'passportUrl')
+            self.as_json(), 'passport_url')
 
         if not valid_email(self.email):
             self.error_message = "Invalid email"
