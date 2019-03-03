@@ -140,7 +140,7 @@ def login():
         response_data = {
             'token': model.access_token,
             'user': user,
-            'voting-history': voting_history
+            'voting_history': voting_history
         }
 
     # return registered user

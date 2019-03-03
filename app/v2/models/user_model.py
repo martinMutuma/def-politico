@@ -82,7 +82,7 @@ class User(BaseModel):
             'phoneNumber')
 
         validate_links(
-            self.as_json(), 'passportUrl')
+            self.as_json(), 'passport_url')
 
         if not valid_email(self.email):
             self.error_message = "Invalid email"
