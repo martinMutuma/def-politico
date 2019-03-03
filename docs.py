@@ -598,5 +598,30 @@ def get_votes(office_id):
     """
 
 
+@app.route('/api/v2/voting-history', methods=['GET'])
+def get_voting_history():
+    """ Endpoint for getting voting history
+    ---
+    tags:
+        - Votes
+    parameters:
+      -
+          name: authorization
+          in: header
+          type: string
+          required: true
+          example: Bearer
+    responses:
+      '200':
+        description: Success
+      '404':
+        description: Not Found
+      '422':
+        description: Unprocessable
+      '400':
+        description: Bad Request
+    """
+
+
 if __name__ == '__main__':
     app.run()

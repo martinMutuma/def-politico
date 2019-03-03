@@ -216,3 +216,18 @@ class TestVotes(Base):
         self.assertEqual(data['status'], 200)
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(res.status_code, 200)
+
+    def test_get_voting_history(self):
+        """ Tests GET request to get current user election history """
+
+        self.client.post(
+            '/api/v2/votes', json=self.new_vote, headers=self.headers)
+
+        res = self.client.get(
+            '/api/v2/voting-history', headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(len(data['data']), 1)
+        self.assertEqual(res.status_code, 200)
