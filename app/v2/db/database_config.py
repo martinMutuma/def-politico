@@ -56,10 +56,12 @@ class Database:
         user = cur.fetchone()
 
         if not user:
-            cur.execute("INSERT INTO users (firstname, lastname, phonenumber, email, \
-                password, admin) VALUES ('Bedan', 'Kimani', '0712068754', \
-                '{}', '{}', True)\
-            ".format(
+            cur.execute("""INSERT INTO users (firstname, lastname, phonenumber,
+            email, password, passport_url, admin) VALUES ('Bedan', 'Kimani',
+            '0712068754', '{}', '{}',
+            'https://cdn2.iconfinder.com/data/icons/avatar-2/512/kan_boy-512.png',
+            True)
+            """.format(
                 self.admin_email, generate_password_hash(self.admin_password)))
             conn.commit()
 

@@ -104,14 +104,14 @@ def get_results(office_id):
              SELECT parties.name FROM candidates as h
              INNER JOIN parties ON parties.id = h.party
              WHERE h.id = e.candidate
-         ) as party,
-         users.passport_url
+         ) as party, passport_url
          FROM votes AS e
          INNER JOIN users ON users.id = e.candidate
          INNER JOIN offices ON offices.id = e.office
          WHERE office = '{}'
          GROUP BY e.candidate, users.firstname, users.lastname, offices.name,
          users.passport_url
+         ORDER BY results DESC
         """.format(office_id)
     )
 
@@ -143,6 +143,7 @@ def get_all_results():
          INNER JOIN offices ON offices.id = e.office
          GROUP BY e.candidate, users.firstname, users.lastname, offices.name,
          users.passport_url
+         ORDER BY results DESC
         """
     )
 
