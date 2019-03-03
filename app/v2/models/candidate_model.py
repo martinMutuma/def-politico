@@ -31,7 +31,8 @@ class Candidate(BaseModel):
 
         query = """
         SELECT concat_ws(' ', firstname, lastname) AS candidate,
-         offices.name as office,parties.name as party, candidates.id
+         offices.name as office,parties.name as party, candidates.id,
+         users.passport_url
          FROM candidates
          INNER JOIN users ON users.id = candidates.candidate
          INNER JOIN parties ON parties.id = candidates.party
@@ -44,7 +45,8 @@ class Candidate(BaseModel):
 
         query = """
         SELECT concat_ws(' ', firstname, lastname) AS candidate,
-         offices.name as office,parties.name as party, candidates.id
+         offices.name as office,parties.name as party, candidates.id,
+         users.passport_url
          FROM candidates
          INNER JOIN users ON users.id = candidates.candidate
          INNER JOIN parties ON parties.id = candidates.party
@@ -58,7 +60,8 @@ class Candidate(BaseModel):
 
         query = """
         SELECT concat_ws(' ', firstname, lastname) AS candidate,
-         offices.name as office,parties.name as party, candidates.id
+         offices.name as office,parties.name as party, candidates.id,
+         users.passport_url
          FROM candidates
          INNER JOIN users ON users.id = candidates.candidate
          INNER JOIN parties ON parties.id = candidates.party

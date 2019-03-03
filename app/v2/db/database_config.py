@@ -108,6 +108,7 @@ table_queries = [
         email VARCHAR(250) NOT NULL,
         phonenumber VARCHAR(250) NULL,
         password VARCHAR(250) NOT NULL,
+        passport_url VARCHAR(250) NOT NULL DEFAULT 'https://cdn2.iconfinder.com/data/icons/avatar-2/512/kan_boy-512.png',
         admin BOOLEAN NOT NULL DEFAULT FALSE,
         UNIQUE(email)
     )

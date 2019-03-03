@@ -4,6 +4,7 @@ from flask import make_response
 from app.v2.utils.validator import response, response_error
 from app.v2.utils.validator import validate_strings
 from app.v2.models.user_model import User
+from app.v2.models.vote_model import Vote
 from app.blueprints import v2
 from app.v2.utils.jwt_utils import not_admin
 from werkzeug.security import check_password_hash
@@ -134,9 +135,12 @@ def login():
 
         del user['password']
 
+        voting_history = Vote().find_all_by('createdby', user['id'])
+
         response_data = {
             'token': model.access_token,
-            'user': user
+            'user': user,
+            'voting-history': voting_history
         }
 
     # return registered user
