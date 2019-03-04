@@ -11,7 +11,7 @@ from flask_jwt_extended import (jwt_required)
 from app.v2.utils.jwt_utils import admin_required
 
 
-@bp.route('/parties', methods=['POST', 'GET'])
+@bp.route('/parties', methods=['POST', 'GET', 'PUT'])
 @jwt_required
 def create_party():
     if request.method == 'POST':
@@ -43,6 +43,44 @@ def create_party():
 
         # append new party to list
         party.save()
+
+        # return added party
+        return response("Success", 201, [party.as_json()])
+
+    elif request.method == 'PUT':
+        """ Create party end point """
+
+        restricted = not_admin()
+        if restricted:
+            return restricted
+
+        data = request.get_json()
+
+        if not data:
+            return response_error("No data was provided", 400)
+
+        try:
+            name = data['name']
+            hq_address = data['hq_address']
+            logo_url = data['logo_url']
+            slogan = data['slogan']
+            manifesto = data['manifesto']
+            id = data['id']
+        except KeyError as e:
+            return response_error(
+                "{} field is required".format(e.args[0]), 400)
+
+        party = Party(name, hq_address, logo_url, slogan, manifesto, id)
+        data = party.find_by('id', id)
+
+        if not data:
+            return response_error('Party not found', 404)
+
+        if not party.validate_object():
+            return response_error(party.error_message, party.error_code)
+
+        # append new party to list
+        party.update()
 
         # return added party
         return response("Success", 201, [party.as_json()])

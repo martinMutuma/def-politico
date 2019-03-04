@@ -52,7 +52,7 @@ class Office(BaseModel):
                 """
                     SELECT * FROM offices WHERE name = '{}'
                     AND type = '{}'
-                """.format(self.name, self.type)
+                """.format(self.escapedString(self.name), self.type)
                 ):
             self.error_message = "{} already exists".format(self.object_name)
             self.error_code = 409
