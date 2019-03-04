@@ -15,8 +15,13 @@ class BaseModel(Database):
         pass
 
     def params_to_values(self, params):
-        f = ["'{}'".format(i) for i in params]
+        f = ["'{}'".format(self.escapedString(i)) for i in params]
         return ", ".join(f)
+
+    def escapedString(self, value):
+        if isinstance(value, str):
+            return value.replace("'", "''")
+        return value
 
     def save(self, fields, *values):
         """ save the object to table """
@@ -32,7 +37,8 @@ class BaseModel(Database):
         """ edits a certain column of a table """
 
         query = "UPDATE {} SET {} = '{}' WHERE id = '{}' \
-            RETURNING *".format(self.table_name, key, value, id)
+            RETURNING *".format(
+                self.table_name, key, self.escapedString(value), id)
 
         return self.insert(query)
 
@@ -59,7 +65,7 @@ class BaseModel(Database):
         """ Find object from table and return """
 
         query = "SELECT * FROM {} WHERE {} = '{}'".format(
-            self.table_name, key, value)
+            self.table_name, key, self.escapedString(value))
 
         data = self.get_one(query)
         if data:
@@ -70,7 +76,7 @@ class BaseModel(Database):
         """ Find objects from table and return """
 
         query = "SELECT * FROM {} WHERE {} = '{}'".format(
-            self.table_name, key, value)
+            self.table_name, key, self.escapedString(value))
 
         data = self.get_all(query)
         return data

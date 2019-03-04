@@ -39,6 +39,21 @@ class Party(BaseModel):
         self.id = data.get('id')
         return data
 
+    def update(self):
+        """update party in db  """
+
+        super().execute(
+            """
+            UPDATE {} SET name='{}', hq_address='{}', logo_url='{}',
+            slogan='{}',manifesto='{}' WHERE id = '{}'
+            """.format(
+                self.table_name, self.escapedString(self.name),
+                self.escapedString(self.hq_address),
+                self.escapedString(self.logo_url),
+                self.escapedString(self.slogan),
+                self.escapedString(self.manifesto), self.id)
+        )
+
     def from_json(self, json):
         self.__init__(
             json['name'], json['hq_address'], json['logo_url'], json['slogan'],
