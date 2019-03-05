@@ -192,9 +192,9 @@ def reset_password():
 
     mail.send_email(
         from_email='admin@politico.com',
-        to_email=user['email'],
+        to_email=email,
         subject='Password reset link',
-        text=text
+        html=text
     )
 
     response_data = {
