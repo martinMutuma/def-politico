@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, current_app
 from flask import request, jsonify, abort
 from flask import make_response
 from app.v2.utils.validator import response, response_error
@@ -12,6 +12,7 @@ from app.v2.utils.jwt_utils import admin_optional
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash
 import re
+from flask_sendgrid import SendGrid
 
 
 @v2.route('/auth/signup', methods=['POST', 'PUT'])
@@ -170,8 +171,31 @@ def reset_password():
     if not valid_email(email):
         return response_error('Please provide a valid email', 422)
 
-    if not model.find_by('email', email):
+    user = model.find_by('email', email)
+
+    if not user:
             return response_error('User not found', 404)
+
+    mail = SendGrid(current_app)
+
+    model = User(id=user['id'])
+    model.create_tokens()
+
+    action_url = """
+    https://bedann.github.io/Politico/UI/password-reset.html?token={}
+    """.format(model.access_token)
+
+    with open('reset_mail.txt', 'r') as reset_format:
+        text = reset_format.read().replace('\n', '')
+        text = text.replace('action_url', action_url)
+        text = text.replace('username', user['firstname'])
+
+    mail.send_email(
+        from_email='admin@politico.com',
+        to_email=user['email'],
+        subject='Password reset link',
+        text=text
+    )
 
     response_data = {
         'status': 200,
