@@ -153,6 +153,34 @@ def login():
     """
 
 
+@app.route('/api/v2/auth/reset', methods=['POST'])
+def reset():
+    """ Endpoint for resetting password.
+    ---
+    tags:
+        - Users
+    parameters:
+      - in: body
+        name: Users
+        required: true
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+              example: "bedank6@gmail.com"
+    responses:
+      '200':
+        description: Created
+      '409':
+        description: Duplicate
+      '422':
+        description: Unprocessable
+      '400':
+        description: Bad Request
+    """
+
+
 @app.route('/api/v2/offices', methods=['POST'])
 def offices():
     """ Endpoint for creating an office.

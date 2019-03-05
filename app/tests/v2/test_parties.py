@@ -102,7 +102,7 @@ class TestParties(Base):
 
         self.new_party['logo_url'] = 'cansd'
         res = self.client.post('/api/v2/parties', json=self.new_party,
-        headers=self.headers)
+            headers=self.headers)
         data = res.get_json()
         print(data)
         self.assertEqual(data['status'], 422)

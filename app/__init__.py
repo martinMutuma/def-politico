@@ -11,6 +11,7 @@ from .v2.db.database_config import Database
 from app.blueprints import bp, v2
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from flask_sendgrid import SendGrid
 
 
 def create_app(config_name):
@@ -23,6 +24,8 @@ def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
+    # app.config['SENDGRID_API_KEY'] = 
+    # app.config['SENDGRID_DEFAULT_FROM'] = 
 
     # create the database
     create_db(config_name)

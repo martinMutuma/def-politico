@@ -247,6 +247,18 @@ class TestUsers(Base):
         self.assertEqual(data['error'], 'email field is required')
         self.assertEqual(res.status_code, 400)
 
+    def test_reset_pwd_invalid_email(self):
+        """ Tests when some fields are missing e.g email """
+
+        res = self.client.post('/api/v2/auth/reset', json={
+            "email": "beda"
+        })
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 422)
+        self.assertEqual(data['error'], 'Please provide a valid email')
+        self.assertEqual(res.status_code, 422)
+
     def test_reset_pwd_no_user(self):
         """ Tests when user does not exist"""
 
@@ -282,6 +294,73 @@ class TestUsers(Base):
             data['data'][0]['message'],
             'Check your email for password reset link')
         self.assertEqual(res.status_code, 200)
+
+    # change password
+    def test_change_pwd(self):
+        """ Tests when some fields are missing e.g email """
+
+        res = self.client.post('/api/v2/reset-password', json={
+            "password": "bedank6"
+        }, headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(
+            data['data'][0]['message'],
+            'Your password has been updated')
+        self.assertEqual(res.status_code, 200)
+
+        res = self.client.post('/api/v2/auth/login', json={
+            'email': 'bedank6@gmail.com',
+            'password': 'bedank6'
+        })
+        data = res.get_json()
+
+        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['data'][0]['user']['firstname'], 'Bedan')
+        self.assertIn('token', data['data'][0])
+        self.assertEqual(res.status_code, 200)
+
+    def test_change_pwd_short(self):
+        """ Tests when some fields are missing e.g email """
+
+        res = self.client.post('/api/v2/reset-password', json={
+            "password": "beda"
+        }, headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 422)
+        self.assertEqual(
+            data['error'],
+            'Password must be at least 6 characters long')
+        self.assertEqual(res.status_code, 422)
+
+    def test_change_pwd_no_data(self):
+        """ Tests when some fields are missing e.g email """
+
+        res = self.client.post('/api/v2/reset-password', headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(
+            data['error'],
+            'No data was provided')
+        self.assertEqual(res.status_code, 400)
+
+    def test_change_pwd_no_pwd(self):
+        """ Tests when some fields are missing e.g email """
+
+        res = self.client.post('/api/v2/reset-password', json={
+            "passwordss": "beda"
+        }, headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 400)
+        self.assertEqual(
+            data['error'],
+            'password field is required')
+        self.assertEqual(res.status_code, 400)
 
     # test update Admin
     def test_demote_user(self):
