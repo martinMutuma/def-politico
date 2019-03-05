@@ -1,15 +1,16 @@
 from flask import Blueprint
-from flask import request, jsonify
+from flask import request, jsonify, abort
 from flask import make_response
 from app.v2.utils.validator import response, response_error
-from app.v2.utils.validator import validate_strings
+from app.v2.utils.validator import validate_strings, valid_email
 from app.v2.models.user_model import User
 from app.v2.models.vote_model import Vote
 from app.blueprints import v2
 from app.v2.utils.jwt_utils import not_admin
 from werkzeug.security import check_password_hash
 from app.v2.utils.jwt_utils import admin_optional
-from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import get_jwt_identity, jwt_required
+from werkzeug.security import generate_password_hash
 import re
 
 
@@ -166,6 +167,9 @@ def reset_password():
 
     model = User()
 
+    if not valid_email(email):
+        return response_error('Please provide a valid email', 422)
+
     if not model.find_by('email', email):
             return response_error('User not found', 404)
 
@@ -175,6 +179,48 @@ def reset_password():
             {
                 "message": "Check your email for password reset link",
                 "email": email
+            }
+        ]
+    }
+
+    return make_response(jsonify(response_data), 200)
+
+
+@v2.route('/reset-password', methods=['POST'])
+@jwt_required
+def change_password():
+    """ Change user password end point """
+
+    data = request.get_json()
+
+    if not data:
+        return response_error("No data was provided", 400)
+
+    try:
+        new_password = data['password']
+    except KeyError as e:
+        return response_error("{} field is required".format(e.args[0]), 400)
+
+    if len(new_password) < 6:
+        abort(
+            response_error("Password must be at least 6 characters long", 422))
+
+    model = User()
+
+    user = model.find_by('id', get_jwt_identity())
+
+    if not user:
+        abort(
+            response_error(
+                "We could not find your account. Please sign up", 404))
+
+    model.edit('password', generate_password_hash(new_password), user['id'])
+
+    response_data = {
+        'status': 200,
+        'data': [
+            {
+                "message": "Your password has been updated",
             }
         ]
     }
