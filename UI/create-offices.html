@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Politico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/main.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body>
+    
+        <div class="topnav" id="myTopnav">
+                <a href="index.html" class="active app-name"><i class="fa fa-home"></i>  POLITICO</a>
+              </div>
+
+
+        <div class="main-forms main">
+
+
+            <div class="forms">
+                <h1>CREATE NEW OFFICE</h1>
+
+                <form onsubmit="createOffice(); return false;">
+                      <input id="office-name" type="text" name="name" placeholder="Office name"><br>
+                      <select id="office-type">
+                        <option value="type">Select Office Type</option>
+                        <option value="federal">Federal</option>
+                        <option value="legislative">Legislative</option>
+                        <option value="state">State</option>
+                        <option value="local">Local government</option>
+                      </select>
+                      <input type="submit" value="SUBMIT"/>
+                </form>
+            
+                    </div>
+
+        </div>
+
+        <div id="load-modal" class="load-modal">
+          <div class="load-container">
+              <div class="loader"></div>
+          </div>
+      </div>
+
+      <div id="snackbar">Some text some message..</div>
+
+</body>
+</html>

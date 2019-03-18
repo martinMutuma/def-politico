@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Politico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/main.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body>
+
+    <script>
+        var token = getToken();
+        console.log(token);
+    </script>
+    
+    <div class="topnav" id="myTopnav">
+        <a href="#home" class="active app-name"><i class="fa fa-home"></i>  POLITICO</a>
+        <a href="profile.html"><i class="fa fa-user"></i>  My Profile</a>
+        <a href="results.html"><i class="fa fa-pie-chart"></i>  Results</a>
+        <a id="new-office-button" href="create-offices.html"><i class="fa fa-plus"></i>  New Office</a>
+        <a id="new-party-button" href="create-party.html"><i class="fa fa-plus"></i>  New Party</a>
+        <a href="javascript:void(0);" class="icon" onclick="showNav()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+
+      <div class="main">
+
+        <div class="page-header">
+
+            <h1>POLITICO!!</h1>
+            <span>Openness . Transparency</span>
+
+            <div id="office-list" class="offices">
+            </div>
+
+        </div>
+        
+        <div id="party-list" class="cards">
+
+            <!--  <div class="icon-card" onclick="showParty()">
+                <img src="images/samples/logo2.png"/>
+
+                <div class="icon-card-content">
+                    <span class="icon-card-title">ORANGE DEMOCRATIC PARTY</span>
+                    <span class="icon-card-slogan">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam cupiditate maiores accusamus. Odit perferendis dolores architecto iste repellendus aut quod sunt nostrum aliquam, sed quae! Pariatur maiores numquam similique architecto.</span>
+                    <button>JOIN PARTY</button>
+                </div>
+            </div> -->
+
+
+            <!-- <div class="icon-card" onclick="showParty()">
+                    <img src="images/samples/logo3.png"/>
+    
+                    <div class="icon-card-content">
+                        <span class="icon-card-title">ORANGE DEMOCRATIC PARTY</span>
+                        <span class="icon-card-slogan">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam cupiditate maiores accusamus. Odit perferendis dolores architecto iste repellendus aut quod sunt nostrum aliquam, sed quae! Pariatur maiores numquam similique architecto.</span>
+                        <button>JOIN PARTY</button>
+                    </div>
+                </div>
+
+
+            <div class="icon-card" onclick="showParty()">
+                    <img src="images/samples/logo4.gif"/>
+    
+                    <div class="icon-card-content">
+                        <span class="icon-card-title">ORANGE DEMOCRATIC PARTY</span>
+                        <span class="icon-card-slogan">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam cupiditate maiores accusamus. Odit perferendis dolores architecto iste repellendus aut quod sunt nostrum aliquam, sed quae! Pariatur maiores numquam similique architecto.</span>
+                        <button>JOIN PARTY</button>
+                    </div>
+                </div>
+
+
+            <div class="icon-card" onclick="showParty()">
+                    <img src="images/samples/logo1.png"/>
+    
+                    <div class="icon-card-content">
+                        <span class="icon-card-title">ORANGE DEMOCRATIC PARTY</span>
+                        <span class="icon-card-slogan">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam cupiditate maiores accusamus. Odit perferendis dolores architecto iste repellendus aut quod sunt nostrum aliquam, sed quae! Pariatur maiores numquam similique architecto.</span>
+                        <button>JOIN PARTY</button>
+                    </div>
+                </div>
+
+
+            <div class="icon-card" onclick="showParty()">
+                    <img src="images/samples/logo2.png"/>
+    
+                    <div class="icon-card-content">
+                        <span class="icon-card-title">ORANGE DEMOCRATIC PARTY</span>
+                        <span class="icon-card-slogan">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam cupiditate maiores accusamus. Odit perferendis dolores architecto iste repellendus aut quod sunt nostrum aliquam, sed quae! Pariatur maiores numquam similique architecto.</span>
+                        <button>JOIN PARTY</button>
+                    </div>
+                </div>
+
+
+
+            <div class="icon-card" onclick="showParty()">
+                    <img src="images/samples/logo2.png"/>
+    
+                    <div class="icon-card-content">
+                        <span class="icon-card-title">ORANGE DEMOCRATIC PARTY</span>
+                        <span class="icon-card-slogan">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam cupiditate maiores accusamus. Odit perferendis dolores architecto iste repellendus aut quod sunt nostrum aliquam, sed quae! Pariatur maiores numquam similique architecto.</span>
+                        <button>JOIN PARTY</button>
+                    </div>
+                </div> --> 
+
+        </div>
+
+        <div id="loader" class="loader outer-loader bottom-loader"></div>
+
+      </div>
+
+
+    <div id="vote-modal" class="modal" onclick="this.style.display='none'">
+        <span class="close" onclick="closeModal('vote-modal')">&times;</span>
+        <div class="modal-content">
+            <h2 id="office-name">Secretary General</h2>
+            <div id="candidate-list" class="candidates">
+
+                    
+                <!-- <div class="candidate">
+                        <img src="images/samples/user4.png"/>
+                        <div class="candidate-details">
+                            <span class="candidate-name">MATHENGE MBUGUA</span>
+                            <span class="candidate-position">Governor</span>
+                            <span class="candidate-party">ORANGE DEMOCRATIC Party (ODM)</span>
+                        </div>
+                        <button class="vote-button" onclick="onVote()">VOTE</button>
+                    </div>
+
+                    <div class="candidate">
+                            <img src="images/samples/user2.jpg"/>
+                            <div class="candidate-details">
+                                <span class="candidate-name">MARK KARIUKI</span>
+                                <span class="candidate-position">Governor</span>
+                                <span class="candidate-party">ORANGE DEMOCRATIC Party (ODM)</span>
+                            </div>
+                            <button class="vote-button" onclick="onVote()">VOTE</button>
+                        </div> -->
+
+
+            </div>
+            <div id="vote-loader" class="loader outer-loader center-loader"></div>
+        </div>
+    </div>
+    
+    <div id="snackbar">Some text some message..</div>
+
+    <script>
+        initHomePage();
+    </script>
+
+</body>
+</html>

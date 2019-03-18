@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Politico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/main.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body class="profile-body">
+
+        <script>
+            var token = getToken();
+        </script>
+
+        <div class="topnav inprofile" id="myTopnav">
+                <a href="index.html" class="active app-name"><i class="fa fa-home"></i>  POLITICO</a>
+                <a href="results.html"><i class="fa fa-pie-chart"></i>  Results</a>
+                <a id="new-office-button" href="create-offices.html"><i class="fa fa-plus"></i>  New Office</a>
+                <a id="new-party-button" href="create-party.html"><i class="fa fa-plus"></i>  New Party</a>
+                <a href="javascript:void(0);" class="icon" onclick="showNav()">
+                  <i class="fa fa-bars"></i>
+                </a>
+              </div>
+        
+              <div class="main-profile">
+
+
+                <div class="profile-info">
+                    <div class="img-container">
+                            <img id="photo" src="images/samples/user1.png"/>
+                    </div>
+                    <div class="account-details">
+                            <span class="profile-name" id="username">User's Username</span>
+                            <br>
+                            <br>
+                            <span class="profile-email" id="email">bedank6@gmail.com</span>
+                            <br>
+                            <span class="profile-logged" id="phone">Since Jan 2018</span>
+                    </div>
+                    <button id="logout" onclick="on_logout();">LOG OUT</button>
+                </div>
+
+                <div class="history">
+                        <h2>My Voting History</h2>
+                        <div id="voting-history" class="candidates">
+            
+                            <!-- <h1 id="current-year">2018</h1> -->
+                            <!-- <div class="candidate">
+                                <img src="images/samples/user1.png" class="profile"/>
+                                <div class="candidate-details">
+                                    <span class="candidate-name">JAMES MATHENGE</span>
+                                    <span class="candidate-position">Governor</span>
+                                    <span class="candidate-party">ORANGE DEMOCRATIC Party (ODM)</span>
+                                    <span class="candidate-results">Votes: <span class="outof">2/3</span>   <span class="vote-perc">50%</span></span>
+                                </div>
+                                <img src="images/won.png" class="win-icon"/>
+                            </div> -->
+
+            
+                        </div>
+                        <div id="loader" class="loader outer-loader center-loader"></div>
+                </div>
+
+                
+                
+              </div>
+
+              <script>
+                  loadUserProfile();
+                  loadVotingHistory();
+              </script>
+    <div id="snackbar">Some text some message..</div>
+    
+</body>
+</html>
