@@ -1,4 +1,5 @@
 # Politico-API
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5dfc74de9408456384dbd2102d07cf08)](https://app.codacy.com/app/martinMutuma/def-politico?utm_source=github.com&utm_medium=referral&utm_content=martinMutuma/def-politico&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://travis-ci.org/bedann/Politico-API.svg?branch=develop)](https://travis-ci.org/bedann/Politico-API)
 [![Coverage Status](https://coveralls.io/repos/github/bedann/Politico-API/badge.svg?branch=develop)](https://coveralls.io/github/bedann/Politico-API?branch=develop&kill_cache=1&service=github")
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9e8482450e2c433db8a78376915840cf)](https://app.codacy.com/app/bedann/Politico-API?utm_source=github.com&utm_medium=referral&utm_content=bedann/Politico-API&utm_campaign=Badge_Grade_Dashboard)
