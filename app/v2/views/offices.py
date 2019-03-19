@@ -73,3 +73,36 @@ def delete_office(office_id):
     office = model.from_json(data)
     office.delete(office.id)
     return response('Success', 200, [data])
+
+
+@bp.route('/offices/<int:id>/name', methods=['PATCH'])
+@admin_required
+def edit_office(id):
+
+    data = request.get_json()
+
+    if not data:
+        return response_error("No data was provided", 400)
+
+    try:
+        name = data['name']
+    except KeyError as e:
+        return response_error(
+            "{} field is required".format(e.args[0]), 400)
+
+    model = Office()
+    data = model.find_by('id', id)
+
+    if not data:
+        return response_error('Office not found', 404)
+
+    office = model.from_json(data)
+    office.name = name
+
+    if not office.validate_object():
+        return response_error(office.error_message, office.error_code)
+
+    office.edit(name)
+
+    return response(
+        'Success', 200, [office.as_json()])

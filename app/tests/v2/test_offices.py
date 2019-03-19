@@ -209,3 +209,36 @@ class TestOffices(Base):
         self.assertEqual(data['status'], 404)
         self.assertEqual(data['error'], 'Office not found')
         self.assertEqual(res.status_code, 404)
+
+    # tests for PATCH office
+    def test_patch_office(self):
+        """ Tests when PATCH request made to /offices/<int:id>/name """
+
+        self.client.post(
+            '/api/v2/offices', json=self.new_office, headers=self.headers)
+
+        res = self.client.patch(
+            '/api/v2/offices/1/name', json={
+                "name": "New name"
+            }, headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(len(data['data']), 1)
+        self.assertEqual(data['data'][0]['id'], 1)
+        self.assertEqual(data['data'][0]['name'], 'New name')
+        self.assertEqual(res.status_code, 200)
+
+    def test_patch_office_id_not_found(self):
+        """ Tests PATCH request made with id that does not exist """
+
+        res = self.client.patch(
+            '/api/v2/offices/14/name', json={
+                "name": "New name"
+            }, headers=self.headers)
+        data = res.get_json()
+
+        self.assertEqual(data['status'], 404)
+        self.assertEqual(data['error'], 'Office not found')
+        self.assertEqual(res.status_code, 404)
