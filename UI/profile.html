@@ -6,6 +6,7 @@
     <title>Politico</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/profile.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/main.js"></script>
     <script src="js/app.js"></script>
@@ -30,9 +31,28 @@
 
 
                 <div class="profile-info">
-                    <div class="img-container">
-                            <img id="photo" src="images/samples/user1.png"/>
+                    <div class="profile-details">
+                        <details>
+
+                            <summary>
+                                    <img id="photo" src="images/user.svg"/>
+                                    <div class="img-container" id="img-cont">
+                                           
+                                            <div class="edit-image">
+                                                    <svg height="16" width="16" class="edit-icon" viewBox="0 0 14 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"></path></svg>
+                                             Edit   
+                                            </div>
+                                    </div>
+                            </summary>
+                            <details-menu class="dropdown-menu">
+                              <label for="input-field">Upload an image</label>
+                              
+                              <button id="rm-btn">Remove image</button>
+                            </details-menu>
+                            <input type="file" id="input-field">
+                        </details>
                     </div>
+                    
                     <div class="account-details">
                             <span class="profile-name" id="username">User's Username</span>
                             <br>
