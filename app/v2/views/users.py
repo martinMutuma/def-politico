@@ -250,3 +250,61 @@ def change_password():
     }
 
     return make_response(jsonify(response_data), 200)
+
+@v2.route('/auth/update', methods=['PATCH'])
+@jwt_required
+def update_user():
+    """Update user endpoint"""
+
+   
+
+    data = request.get_json()
+
+    if not data:
+        return response_error("No data was provided", 400)
+
+    if request.method == 'PATCH':
+        try:
+            first_name = data['firstname']
+            last_name = data['lastname']
+            other_name = data['othername']
+            email = data['email']
+            phone_number = data['phoneNumber']
+            passport_url = data['passportUrl']
+            is_admin = data['isAdmin']
+            password = data['password']
+        except KeyError as e:
+            return response_error(
+                "{} field is required".format(e.args[0]), 400)
+
+        if not get_jwt_identity():
+            return response_error("Missing Authorization Header", 400)
+
+        model = User()
+        user_id= get_jwt_identity()
+        data = model.find_by('id',user_id)
+
+        if not data:
+            return response_error('User not found', 404)
+
+        user = User(
+            first_name, last_name, other_name,email, phone_number,
+            passport_url,
+            is_admin, password,update_email=email,id=user_id)
+
+        if not user.validate_object():
+                return response_error(user.error_message, user.error_code)
+
+        if not get_jwt_identity() or not_admin():
+            user.is_admin = False
+
+
+        # update user
+        user.update()
+
+        response_data = {
+            'user': user.as_json()
+        }
+
+        # return registered user
+        return response("Success", 200, [response_data])
