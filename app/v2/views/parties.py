@@ -21,8 +21,10 @@ def create_party():
 
         data = request.get_json()
 
-        validator.validate_data(data,status="data")
-       
+        validate=validator.validate_data(data,status="data")
+        if validate:
+            return validate
+            
         try:
             name = data['name']
             hq_address = data['hq_address']
@@ -52,8 +54,9 @@ def create_party():
             return restricted
        
         data = request.get_json()
-        validator.validate_data(data,status="data")
-       
+        validate=validator.validate_data(data,status="data")
+        if validate:
+            return validate
         try:
             name = data['name']
             hq_address = data['hq_address']
@@ -93,9 +96,11 @@ def get_party(id):
     model = Party()
     data = model.find_by('id', id)
     
-    validator.validate_data(data,status="party")
+    validate=validator.validate_data(data,status="party")
 
-    if request.method == 'GET':
+    if validate:
+        return validate
+    elif request.method == 'GET':
         return response('Success', 200, [data])
     else:
         restricted = not_admin()
@@ -112,7 +117,9 @@ def edit_party(id):
 
     data = request.get_json()
 
-    validator.validate_data(data,status="data")
+    validate=validator.validate_data(data,status="data")
+    if validate:
+        return validate
 
     try:
         name = data['name']
@@ -123,7 +130,9 @@ def edit_party(id):
     model = Party()
     party_data = model.find_by('id', id)
     
-    validator.validate_data(party_data,status="party")
+    validate=validator.validate_data(party_data,status="party")
+    if validate:
+        return validate
 
     party = model.from_json(data)
     party.name = name
