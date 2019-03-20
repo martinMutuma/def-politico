@@ -93,3 +93,11 @@ def valid_link(value):
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
     return re.match(regex, value)
+
+def validate_data(data,status):
+    if not data:
+        if status =="party":
+            return response_error('Party not found', 404)
+        if status =="data":
+            return response_error("No data was provided", 400)
+
