@@ -421,3 +421,13 @@ class TestUsers(Base):
         self.assertEqual(data['status'], 400)
         self.assertEqual(data['error'], 'No data was provided')
         self.assertEqual(res.status_code, 400)
+
+    def test_list_users(self):
+        """ Tests when get request made to api/v2/users """
+
+        res = self.client.get('/api/v2/users', headers=self.headers)
+        data = res.get_json()
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['message'], 'OK')
+        self.assertGreater(len(data['data']), 0)
+        self.assertEqual(res.status_code, 200)
