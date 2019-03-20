@@ -19,6 +19,19 @@ class TestUsers(Base):
             "password": "jivunie"
         }
 
+        self.update_user = {
+            "firstname": "Benson",
+            "lastname": "Kimani",
+            "othername": "Kamau",
+            "email": "andrew@gmail.com",
+            "phoneNumber": "0700000000",
+            "passportUrl": "https://kurayangu.herokuapp.com",
+            "isAdmin": True,
+            "password": "jivunie"
+        }
+
+        
+
     # clear all lists after tests
     def tearDown(self):
         super().tearDown()
@@ -35,6 +48,16 @@ class TestUsers(Base):
         self.assertEqual(data['data'][0]['user']['firstname'], 'Andrew')
         self.assertIn('token', data['data'][0])
         self.assertEqual(res.status_code, 201)
+
+    def test_update_user(self):
+        """ Tests update user data """
+
+        res = self.client.patch('/api/v2/auth/update', json=self.update_user,headers=self.headers )
+        data = res.get_json()
+
+        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['data'][0]['user']['firstname'], 'Benson')
+        self.assertEqual(res.status_code, 200)
 
     def test_register_user_duplicate(self):
         """ Tests that a user is not created twice with same email """
