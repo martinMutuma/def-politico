@@ -98,7 +98,6 @@ def get_party(id):
 
     model = Party()
     data = model.find_by('id', id)
-    
     validate=validator.validate_data(data,status="party")
 
     if validate:
