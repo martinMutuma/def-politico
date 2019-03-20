@@ -131,8 +131,7 @@ def edit_party(id):
             "{} field is required".format(e.args[0]), 400)
 
     model = Party()
-    party_data = model.find_by('id', id)
-    
+    party_data = model.find_by('id',id)
     validate=validator.validate_data(party_data,status="party")
     if validate:
         return validate
