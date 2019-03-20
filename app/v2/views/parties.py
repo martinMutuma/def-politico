@@ -66,10 +66,8 @@ def create_party():
 
         party = Party(name, hq_address, logo_url, slogan, manifesto, id)
         data = party.find_by('id', id)
-
-        if not data:
-            return response_error('Party not found', 404)
-
+        validator.validate_data(data,status="party")
+        
         if not party.validate_object():
             return response_error(party.error_message, party.error_code)
 
@@ -121,9 +119,7 @@ def edit_party(id):
 
     model = Party()
     party_data = model.find_by('id', id)
-    
     validator.validate_data(party_data,status="party")
-
     party = model.from_json(data)
     party.name = name
 
