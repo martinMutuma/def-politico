@@ -24,7 +24,7 @@ def create_party():
         validate=validator.validate_data(data,status="data")
         if validate:
             return validate
-            
+
         try:
             name = data['name']
             hq_address = data['hq_address']
@@ -57,6 +57,7 @@ def create_party():
         validate=validator.validate_data(data,status="data")
         if validate:
             return validate
+
         try:
             name = data['name']
             hq_address = data['hq_address']
@@ -71,9 +72,11 @@ def create_party():
         party = Party(name, hq_address, logo_url, slogan, manifesto, id)
         data = party.find_by('id', id)
 
-        if not data:
-            return response_error('Party not found', 404)
+        validate=validator.validate_data(data,status="party")
 
+        if validate:
+            return validate
+       
         if not party.validate_object():
             return response_error(party.error_message, party.error_code)
 
