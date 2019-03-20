@@ -137,7 +137,7 @@ def edit_party(id):
     if validate:
         return validate
 
-    party = model.from_json(data)
+    party = model.from_json(party_data)
     party.name = name
 
     if not party.validate_object():
