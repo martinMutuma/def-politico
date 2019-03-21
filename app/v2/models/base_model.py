@@ -47,7 +47,8 @@ class BaseModel(Database):
         query = "SELECT * FROM {}".format(self.table_name)
         if (isinstance(fields, list)):
             fields_string = ','.join(fields)
-            query = "SELECT {} FROM {}".format(fields_string, self.table_name)
+            query = "SELECT {} FROM {}"
+            query = query.format(fields_string, self.table_name)
         return self.get_all(query)
 
     def delete(self, id):
