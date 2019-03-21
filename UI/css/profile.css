@@ -1,0 +1,83 @@
+.profile-details{
+  position: relative;
+  margin-bottom: 2em;
+}
+
+.profile-info{
+  background-color: transparent;
+}
+
+#img-cont{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 0;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.edit-image {
+  background-color: #24292e;
+  color: #ffffff;
+  border-radius: 6px;
+  position: relative;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.edit-icon{
+    fill: currentColor;
+    display: inline-block;
+    vertical-align: text-bottom;
+}
+
+details summary::-webkit-details-marker {
+  display:none;
+}
+
+.dropdown-menu{
+  background-clip: padding-box;
+  background-color: #fff;
+  border: 1px solid rgba(27,31,35,.15);
+  border-radius: 4px;
+  box-shadow: 0 3px 12px rgba(27,31,35,.15);
+  left: 0;
+  list-style: none;
+  margin-top: 2px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  position: absolute;
+  top: 100%;
+  width: 160px;
+}
+.dropdown-menu:before {
+  left: 9px;
+  top: -16px;
+  border: 8px solid transparent;
+  border-bottom-color: rgba(27,31,35,.15);
+}
+
+.profile-info img{
+  width: 100%;
+}
+
+summary:focus{
+  outline: none;
+}
+
+#input-field{
+  display: none;
+}
+
+label{
+  font-size: 1em;
+  padding: 5px 5px;
+}
+
+#rm-btn{
+  background: none;
+  border: none;
+  font-family: 'Politico';
+  padding: 5px 5px;
+  font-size: 1em; 
+  outline: none;
+}
