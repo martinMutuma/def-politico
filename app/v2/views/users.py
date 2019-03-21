@@ -45,7 +45,7 @@ def register_user():
             is_admin, password)
 
         if not user.validate_object():
-                return response_error(user.error_message, user.error_code)
+            return response_error(user.error_message, user.error_code)
 
         if not get_jwt_identity() or not_admin():
             user.is_admin = False
@@ -59,7 +59,7 @@ def register_user():
         }
 
         # return registered user
-        return response("Success", 201, [response_data])
+        return response("User created successfully", 201, [response_data])
     else:
 
         try:
@@ -133,7 +133,7 @@ def login():
         model.create_tokens()
 
         status = 200
-        message = 'Success'
+        message = 'Successfully logged in'
 
         del user['password']
 
@@ -174,7 +174,7 @@ def reset_password():
     user = model.find_by('email', email)
 
     if not user:
-            return response_error('User not found', 404)
+        return response_error('User not found', 404)
 
     mail = SendGrid(current_app)
 

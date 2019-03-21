@@ -29,9 +29,8 @@ class TestUsers(Base):
 
         res = self.client.post('/api/v2/auth/signup', json=self.new_user)
         data = res.get_json()
-
         self.assertEqual(data['status'], 201)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'User created successfully')
         self.assertEqual(data['data'][0]['user']['firstname'], 'Andrew')
         self.assertIn('token', data['data'][0])
         self.assertEqual(res.status_code, 201)
@@ -151,7 +150,7 @@ class TestUsers(Base):
         })
         data = res.get_json()
 
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'Successfully logged in')
         self.assertEqual(data['status'], 200)
         self.assertEqual(data['data'][0]['user']['firstname'], 'Bedan')
         self.assertIn('token', data['data'][0])
@@ -316,7 +315,7 @@ class TestUsers(Base):
         })
         data = res.get_json()
 
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'Successfully logged in')
         self.assertEqual(data['status'], 200)
         self.assertEqual(data['data'][0]['user']['firstname'], 'Bedan')
         self.assertIn('token', data['data'][0])
@@ -390,7 +389,7 @@ class TestUsers(Base):
             "isAdmin": True,
             "password": "jikakamue"
         })
-        
+
         res = self.client.put('/api/v2/auth/signup', json={
             "email": "james@gmail.com"
         }, headers=self.headers)
