@@ -35,7 +35,7 @@ def post_candidate(id):
                 item.save()
 
                 # return added candidate
-                message = "Success"
+                message = "Successfully created candidate"
                 response_data = [item.as_json()]
                 status = 201
                 error = False
@@ -61,7 +61,7 @@ def post_candidate(id):
 def get_candidates():
     """ Get all candidates end point """
 
-    return response('Success', 200, Candidate().load_all())
+    return response('Successfully retreived all candidates', 200, Candidate().load_all())
 
 
 @bp.route('/candidates/<int:id>', methods=['GET'])
@@ -75,7 +75,7 @@ def get_candidate(id):
     if not data:
         return response_error('Candidate not found', 404)
 
-    return response('Success', 200, [data])
+    return response('Successfully retreived single candidate', 200, [data])
 
 
 @bp.route('/office/<int:office_id>/candidates', methods=['GET'])
@@ -86,7 +86,7 @@ def get_office_candidates(office_id):
     if not Office().find_by('id', office_id):
         return response_error('Selected Office does not exist', 404)
 
-    return response('Success', 200, Candidate().find_all('office', office_id))
+    return response('Successfully retreived all office candidates', 200, Candidate().find_all('office', office_id))
 
 
 @bp.route('/party/<int:party_id>/candidates', methods=['GET'])
@@ -97,4 +97,4 @@ def get_party_candidates(party_id):
     if not Party().find_by('id', party_id):
         return response_error('Selected Party does not exist', 404)
 
-    return response('Success', 200, Candidate().find_all('party', party_id))
+    return response('Successfully retreived party candidates', 200, Candidate().find_all('party', party_id))

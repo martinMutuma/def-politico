@@ -60,7 +60,7 @@ class TestCandidate(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 201)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'Successfully created candidate')
         self.assertEqual(res.status_code, 201)
 
     def test_register_candidate_twice(self):
@@ -169,7 +169,8 @@ class TestCandidate(Base):
         res = self.client.get('/api/v2/candidates', headers=self.headers)
         data = res.get_json()
 
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(
+            data['message'], 'Successfully retreived all candidates')
         self.assertEqual(data['status'], 200)
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(res.status_code, 200)
@@ -181,7 +182,8 @@ class TestCandidate(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(
+            data['message'], 'Successfully retreived all candidates')
         self.assertEqual(len(data['data']), 0)
         self.assertEqual(res.status_code, 200)
 
@@ -222,7 +224,8 @@ class TestCandidate(Base):
             '/api/v2/office/1/candidates', headers=self.headers)
         data = res.get_json()
 
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(
+            data['message'], 'Successfully retreived all office candidates')
         self.assertEqual(data['status'], 200)
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(res.status_code, 200)
@@ -238,7 +241,8 @@ class TestCandidate(Base):
             '/api/v2/party/1/candidates', headers=self.headers)
         data = res.get_json()
 
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(
+            data['message'], 'Successfully retreived party candidates')
         self.assertEqual(data['status'], 200)
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(res.status_code, 200)
