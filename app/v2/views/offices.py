@@ -105,4 +105,4 @@ def edit_office(office_id):
     office.edit_office(name)
 
     return response(
-        'Success', 200, [office.as_json()])
+        'Successfully updated office name', 200, [office.as_json()])

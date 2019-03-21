@@ -226,7 +226,7 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'Successfully updated office name')
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(data['data'][0]['id'], 1)
         self.assertEqual(data['data'][0]['name'], 'New name')
