@@ -1,13 +1,13 @@
 # Politico-API
+
+[![Build Status](https://travis-ci.org/martinMutuma/def-politico.svg?branch=develop)](https://travis-ci.org/martinMutuma/def-politico)
+[![Coverage Status](https://coveralls.io/repos/github/martinMutuma/def-politico/badge.svg)](https://coveralls.io/github/martinMutuma/def-politico)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5dfc74de9408456384dbd2102d07cf08)](https://app.codacy.com/app/martinMutuma/def-politico?utm_source=github.com&utm_medium=referral&utm_content=martinMutuma/def-politico&utm_campaign=Badge_Grade_Settings)
-[![Build Status](https://travis-ci.org/bedann/Politico-API.svg?branch=develop)](https://travis-ci.org/bedann/Politico-API)
-[![Coverage Status](https://coveralls.io/repos/github/bedann/Politico-API/badge.svg?branch=develop)](https://coveralls.io/github/bedann/Politico-API?branch=develop&kill_cache=1&service=github")
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9e8482450e2c433db8a78376915840cf)](https://app.codacy.com/app/bedann/Politico-API?utm_source=github.com&utm_medium=referral&utm_content=bedann/Politico-API&utm_campaign=Badge_Grade_Dashboard)
 
 The general elections are around the corner, hence it’s a political season. Get into the mood of the season and help build a platform which both the politicians and citizens can use. Politico enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.
 
 ## Hosting
-The Politico API is hosted on Heroku. You can access it at [Kura Yangu](https://kurayangu.herokuapp.com)
+The Politico API is hosted on Heroku. You can access it at [Premier voting](https://premier-voting.herokuapp.com)
 
 ## Requirements
 - [VS code](https://code.visualstudio.com/)
@@ -22,11 +22,11 @@ The Politico API is hosted on Heroku. You can access it at [Kura Yangu](https://
 
 - clone the git repo
 ```
-$ git clone https://github.com/bedann/Politico-API.git
+$ git clone https://github.com/martinMutuma/def-politico.git
 ```
 - cd into the project directory
 ```
-$ cd Politico-API
+$ cd def-politico
 ```
 - create the virtual environment and activate it
 ```
@@ -64,11 +64,13 @@ $ pip install -r requirements.txt
 | **PATCH** /parties/`<party-id>`/name | Edit the name of a specific political party. | `/api/v2/parties/<int:party-id>/<string:name>` |
 | **DELETE** /parties/`<party-id>` | Delete a political party | `/api/v2/parties/<int:party-id>` |
 | **POST** /offices | Create a political office. | `/api/v2/offices/` |
-| **GEt** /offices | Fetch all political offices records | `api/v2/offices/` |
+| **GET** /offices | Fetch all political offices records | `api/v2/offices/` |
 | **GET** /offices/`<int:office_id>` | Fetch a specific political office record | `api/v2/offices/<int:office_id>` |
+| **PATCH** /offices/`<office_id>`/name | Edit the name of a specific political Office. | `/api/v2/offices/<int:office_id>/name` |
 | **POST** /office/`<int:office_id>`/register/ | Register a political candidate | `api/v2/office<int:office_id>/register` |
 | **POST** /votes/ | Cast a vote | `api/v2/votes/` |
 | **GET** /api/v2/office/`<int:office_id>`/result | Get election results for specific office| `/api/v2/office/<int:office_id>/result` |
+| **GET** /api/v2/users | Get list of users| `/api/v2/users` |
 
 ## Version 1
   | **Endpoint** | **Functionality** | **Route** |
@@ -79,7 +81,7 @@ $ pip install -r requirements.txt
 | **PATCH** /parties/`<party-id>`/name | Edit the name of a specific political party. | `/api/v1/parties/<int:party-id>/<string:name>` |
 | **DELETE** /parties/`<party-id>` | Delete a political party | `/api/v1/parties/<int:party-id>` |
 | **POST** /offices | Create a political office. | `/api/v1/offices/` |
-| **GEt** /offices | Fetch all political offices records | `api/v1/offices/` |
+| **GET** /offices | Fetch all political offices records | `api/v1/offices/` |
 | **GET** /offices/`<int:office_id>` | Fetch a specific political office record | `api/v1/offices/<int:office_id>` |
 | **POST** /register/ | Register user to the database | `api/v1/register/` |
 | **POST** /candidates/ | Create a political candidate | `api/v1/candidates/` |
@@ -89,6 +91,18 @@ $ pip install -r requirements.txt
 | **GET** /votes/office/`<int:office-id>` | Get all votes for a specific office | `api/v1/votes/office/<int:office-id>` |
 
 
-## Author
+## Authors / Creators
 [Bedan Kamau](https://github.com/bedann)
+
+[Tevin Thuku](https://github.com/Tevinthuku)
+
+[Brian Misocho](https://github.com/misocho)
+
+[Benson Njungé](https://github.com/bencyn)
+
+[Antony Muriithi](https://github.com/justMuriithi)
+
+[Trevor](https://github.com/kburudi)
+
+[Martin Mutuma](https://github.com/martinMutuma)
 

@@ -1,11 +1,11 @@
 openapi: 3.0.0
 info:
-  title: Kura Yangu v2
-  description: "Welcome to the official documentation of KURA YANGU api. \nUse these endpoints to build an awesome voting system. \n\nThank you for visiting"
+  title: Premier Voting v2
+  description: "Welcome to the official documentation of Premier Voting api. \nUse these endpoints to build an awesome voting system. \n\nThank you for visiting"
   contact: {}
   version: '1.0'
 servers:
-- url: https://kurayangu.herokuapp.com/api/v2
+- url: https://premier-voting.herokuapp.com
   variables: {}
 - url: http://127.0.0.1:5000/api/v2
   variables: {}
@@ -41,7 +41,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
     get:
       tags:
@@ -65,7 +65,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
   /parties/1:
     get:
@@ -90,7 +90,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
     delete:
       tags:
@@ -114,7 +114,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
   /parties/2/OLLM%20PARTY:
     patch:
@@ -139,7 +139,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
   /offices:
     post:
@@ -172,7 +172,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
     get:
       tags:
@@ -196,7 +196,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
   /offices/1:
     get:
@@ -221,7 +221,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
     delete:
       tags:
@@ -245,7 +245,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
   /auth/signup:
     post:
@@ -279,7 +279,7 @@ paths:
       deprecated: false
       security: []
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
   /auth/login:
     post:
@@ -312,7 +312,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
   /auth/reset:
     post:
@@ -345,7 +345,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
   /office/2/register:
     post:
@@ -378,7 +378,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
   /votes:
     post:
@@ -411,7 +411,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
     get:
       tags:
@@ -510,7 +510,7 @@ paths:
           headers: {}
       deprecated: false
       servers:
-      - url: https://kurayangu.herokuapp.com/api/v2
+      - url: https://premier-voting.herokuapp.com/api/v2
         variables: {}
 components:
   schemas:
