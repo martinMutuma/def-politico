@@ -39,12 +39,12 @@ def vote():
         vote.save()
 
         # return added vote
-        return response("Success", 201, [vote.as_json()])
+        return response("Voted Successfully", 201, [vote.as_json()])
 
     elif request.method == 'GET':
         """ Get all votes end point """
 
-        return response('Success', 200, Vote().load_all())
+        return response('Successfully retreived voting data', 200, Vote().load_all())
 
 
 @bp.route('/voting-history', methods=['GET'])
@@ -83,7 +83,7 @@ def voting_history():
         """.format(current_user)
     )
 
-    return response('Success', 200, filtered)
+    return response('Successfully retreived voting history', 200, filtered)
 
 
 @bp.route('/office/<int:office_id>/result', methods=['GET'])
@@ -115,7 +115,7 @@ def get_results(office_id):
         """.format(office_id)
     )
 
-    return response('Success', 200, filtered)
+    return response('Successfully retreived office results', 200, filtered)
 
 
 @bp.route('/results', methods=['GET'])
@@ -147,4 +147,4 @@ def get_all_results():
         """
     )
 
-    return response('Success', 200, filtered)
+    return response('Successfully retreived all election results', 200, filtered)

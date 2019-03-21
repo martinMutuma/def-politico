@@ -60,7 +60,7 @@ def register_user():
         }
 
         # return registered user
-        return response("Success", 201, [response_data])
+        return response("User created successfully", 201, [response_data])
     else:
 
         try:
@@ -134,7 +134,7 @@ def login():
         model.create_tokens()
 
         status = 200
-        message = 'Success'
+        message = 'Successfully logged in'
 
         del user['password']
 

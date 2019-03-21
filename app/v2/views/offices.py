@@ -35,7 +35,7 @@ def create_office():
     office.save()
 
     # return added office
-    return response("Success", 201, [office.as_json()])
+    return response("Successfully created office", 201, [office.as_json()])
 
 
 @bp.route('/offices', methods=['GET'])
@@ -44,7 +44,7 @@ def get_offices():
     """ Get all offices end point """
 
     model = Office()
-    return response('Success', 200, model.load_all())
+    return response('Successfully retreived all offices', 200, model.load_all())
 
 
 @bp.route('/offices/<int:office_id>', methods=['GET'])
@@ -57,7 +57,7 @@ def get_office(office_id):
     if not data:
         return response_error('Office not found', 404)
 
-    return response('Success', 200, [data])
+    return response('Successfully retreived single office', 200, [data])
 
 
 @bp.route('/offices/<int:office_id>', methods=['DELETE'])
@@ -72,7 +72,7 @@ def delete_office(office_id):
 
     office = model.from_json(data)
     office.delete(office.id)
-    return response('Success', 200, [data])
+    return response('Successfully deleted office', 200, [data])
 
 
 @bp.route('/offices/<int:office_id>/name', methods=['PATCH'])
@@ -105,4 +105,4 @@ def edit_office(office_id):
     office.edit_office(name)
 
     return response(
-        'Success', 200, [office.as_json()])
+        'Successfully updated office name', 200, [office.as_json()])
