@@ -49,12 +49,10 @@ class User(BaseModel):
     def update(self):
         """update user detail"""
    
-        query = """ UPDATE users SET firstname = '%s' ,lastname ='%s',othername='%s',email='%s',phonenumber='%s',password='%s',passport_url='%s',admin='%s' WHERE id = '%s' 
-                RETURNING *;"""%(self.first_name,self.last_name,self.other_name,self.update_email,self.phone_number,self.password,self.passport_url,self.is_admin,self.id)
-
+        query = "UPDATE users SET firstname = '{}',lastname ='{}',othername='{}',email='{}',phonenumber='{}',password='{}',passport_url='{}',admin='{}' WHERE id = '{}' RETURNING *"
+        query = query.format(self.first_name,self.last_name,self.other_name,self.update_email,self.phone_number,self.password,self.passport_url,self.is_admin,self.id)
         return super().insert(query)
         
-
     def create_tokens(self):
         expires = datetime.timedelta(days=60)
         self.access_token = create_access_token(
