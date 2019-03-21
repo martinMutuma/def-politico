@@ -42,11 +42,13 @@ class BaseModel(Database):
 
         return self.insert(query)
 
-    def load_all(self):
+    def load_all(self, fields='all'):
         """  Get all items in table """
-
         query = "SELECT * FROM {}".format(self.table_name)
-
+        if (isinstance(fields, list)):
+            fields_string = ','.join(fields)
+            query = "SELECT {} FROM {}"
+            query = query.format(fields_string, self.table_name)
         return self.get_all(query)
 
     def delete(self, id):

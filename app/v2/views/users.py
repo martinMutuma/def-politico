@@ -13,6 +13,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash
 import re
 from flask_sendgrid import SendGrid
+from app.v2.utils.jwt_utils import admin_required
 
 
 @v2.route('/auth/signup', methods=['POST', 'PUT'])
@@ -45,7 +46,7 @@ def register_user():
             is_admin, password)
 
         if not user.validate_object():
-                return response_error(user.error_message, user.error_code)
+            return response_error(user.error_message, user.error_code)
 
         if not get_jwt_identity() or not_admin():
             user.is_admin = False
@@ -59,7 +60,7 @@ def register_user():
         }
 
         # return registered user
-        return response("Success", 201, [response_data])
+        return response("User created successfully", 201, [response_data])
     else:
 
         try:
@@ -133,7 +134,7 @@ def login():
         model.create_tokens()
 
         status = 200
-        message = 'Success'
+        message = 'Successfully logged in'
 
         del user['password']
 
@@ -174,7 +175,7 @@ def reset_password():
     user = model.find_by('email', email)
 
     if not user:
-            return response_error('User not found', 404)
+        return response_error('User not found', 404)
 
     mail = SendGrid(current_app)
 
@@ -251,6 +252,7 @@ def change_password():
 
     return make_response(jsonify(response_data), 200)
 
+
 @v2.route('/auth/update', methods=['PATCH'])
 @jwt_required
 def update_user():
@@ -304,3 +306,15 @@ def update_user():
 
         # return registered user
         return response("Success", 200, [response_data])
+
+@v2.route('/users', methods=['GET'])
+@admin_required
+def list_users():
+    """ List of Users
+    Returns:
+        [Httpresponse] -- [with a list of users]
+    """
+    fields = ['email', 'admin', 'firstname', 'id', 'lastname',
+              'othername', 'passport_url', 'phonenumber']
+    users = User().load_all(fields)
+    return response('OK', 200, users)

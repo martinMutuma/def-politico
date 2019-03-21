@@ -35,7 +35,7 @@ def create_office():
     office.save()
 
     # return added office
-    return response("Success", 201, [office.as_json()])
+    return response("Successfully created office", 201, [office.as_json()])
 
 
 @bp.route('/offices', methods=['GET'])
@@ -44,7 +44,7 @@ def get_offices():
     """ Get all offices end point """
 
     model = Office()
-    return response('Success', 200, model.load_all())
+    return response('Successfully retreived all offices', 200, model.load_all())
 
 
 @bp.route('/offices/<int:office_id>', methods=['GET'])
@@ -57,7 +57,7 @@ def get_office(office_id):
     if not data:
         return response_error('Office not found', 404)
 
-    return response('Success', 200, [data])
+    return response('Successfully retreived single office', 200, [data])
 
 
 @bp.route('/offices/<int:office_id>', methods=['DELETE'])
@@ -72,4 +72,37 @@ def delete_office(office_id):
 
     office = model.from_json(data)
     office.delete(office.id)
-    return response('Success', 200, [data])
+    return response('Successfully deleted office', 200, [data])
+
+
+@bp.route('/offices/<int:office_id>/name', methods=['PATCH'])
+@admin_required
+def edit_office(office_id):
+
+    data = request.get_json()
+
+    if not data:
+        return response_error("No data was provided", 400)
+
+    try:
+        name = data['name']
+    except KeyError as e:
+        return response_error(
+            "{} field is required".format(e.args[0]), 400)
+
+    model = Office()
+    data = model.find_by('id', office_id)
+
+    if not data:
+        return response_error('Office not found', 404)
+
+    office = model.from_json(data)
+    office.name = name
+
+    if not office.validate_object():
+        return response_error(office.error_message, office.error_code)
+
+    office.edit_office(name)
+
+    return response(
+        'Successfully updated office name', 200, [office.as_json()])

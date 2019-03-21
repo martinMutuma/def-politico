@@ -60,9 +60,8 @@ class TestVotes(Base):
         res = self.client.post(
             '/api/v2/votes', json=self.new_vote, headers=self.headers)
         data = res.get_json()
-
         self.assertEqual(data['status'], 201)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'Voted Successfully')
         self.assertEqual(res.status_code, 201)
 
     def test_create_vote_missing_fields(self):
@@ -135,7 +134,7 @@ class TestVotes(Base):
         self.new_office['name'] = 'Vice President'
         self.client.post(
             '/api/v2/offices', json=self.new_office, headers=self.headers)
-        
+
         self.new_vote['office'] = 2
 
         res = self.client.post(
@@ -171,7 +170,7 @@ class TestVotes(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'Successfully retreived voting data')
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(res.status_code, 200)
 
@@ -182,7 +181,7 @@ class TestVotes(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'Successfully retreived voting data')
         self.assertEqual(len(data['data']), 0)
         self.assertEqual(res.status_code, 200)
 
@@ -197,7 +196,8 @@ class TestVotes(Base):
             '/api/v2/office/1/result', headers=self.headers)
         data = res.get_json()
 
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(
+            data['message'], 'Successfully retreived office results')
         self.assertEqual(data['status'], 200)
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(res.status_code, 200)
@@ -212,7 +212,8 @@ class TestVotes(Base):
             '/api/v2/results', headers=self.headers)
         data = res.get_json()
 
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(
+            data['message'], 'Successfully retreived all election results')
         self.assertEqual(data['status'], 200)
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(res.status_code, 200)
@@ -227,7 +228,8 @@ class TestVotes(Base):
             '/api/v2/voting-history', headers=self.headers)
         data = res.get_json()
 
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(
+            data['message'], 'Successfully retreived voting history')
         self.assertEqual(data['status'], 200)
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(res.status_code, 200)

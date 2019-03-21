@@ -6,6 +6,7 @@ from .v1.views import offices, parties, candidates, votes, users
 from .v2.views import offices as v2_offices
 from .v2.views import candidates as v2_candidates
 from .v2.views import votes as v2_votes
+from .v2.views import upload as v2_upload
 from .v2.views import users as v2_users, parties as v2_parties
 from .v2.db.database_config import Database
 from app.blueprints import bp, v2
@@ -50,7 +51,7 @@ def create_app(config_name):
 
         return jsonify({
             'status': 500, 'error': 'We cannot process your request at this time'
-            })
+            }), 500
 
     @app.errorhandler(404)
     def page_not_found(error):
@@ -58,13 +59,13 @@ def create_app(config_name):
 
         return jsonify({
             'status': 404, 'error': 'The requested resource was not found'
-            })
+            }), 404
 
     @app.errorhandler(405)
     def method_not_allowed(error):
         """ Handler for error 405 """
 
-        return jsonify({'status': 405, 'error': 'Method not allowed'})
+        return jsonify({'status': 405, 'error': 'Method not allowed'}), 405
 
     @app.errorhandler(400)
     def bad_request(error):
@@ -73,7 +74,7 @@ def create_app(config_name):
         return jsonify({
             'status': 400,
             'error': 'Please review your request and try again'
-        })
+        }), 400
 
     @app.errorhandler(415)
     def unsuported_media_type(error):
@@ -82,7 +83,7 @@ def create_app(config_name):
         return jsonify({
             'status': 415,
             'error': 'Unsupported Media Type'
-        })
+        }), 415
 
     @jwt.expired_token_loader
     def my_expired_token_callback(expired_token):
