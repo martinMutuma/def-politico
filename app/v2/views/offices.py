@@ -102,7 +102,7 @@ def edit_office(office_id):
     if not office.validate_object():
         return response_error(office.error_message, office.error_code)
 
-    office.edit(name, office_id)
+    office.edit_office(name)
 
     return response(
         'Success', 200, [office.as_json()])
