@@ -130,5 +130,4 @@ class User(BaseModel):
                 self.error_message = "Another user {} with that email already exists".format(self.object_name)
                 self.error_code = 409
                 ok = False
-                
         return ok
