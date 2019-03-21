@@ -76,7 +76,6 @@ def create_party():
 
         if validate:
             return validate
-       
         if not party.validate_object():
             return response_error(party.error_message, party.error_code)
 
