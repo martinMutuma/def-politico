@@ -26,7 +26,7 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 201)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'Successfully created office')
         self.assertEqual(res.status_code, 201)
 
     def test_create_office_same_name_different_type(self):
@@ -42,7 +42,7 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 201)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'Successfully created office')
         self.assertEqual(res.status_code, 201)
 
     def test_create_office_same_name_same_type(self):
@@ -138,7 +138,7 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'Successfully retreived all offices')
         self.assertEqual(len(data['data']), 3)
         self.assertEqual(res.status_code, 200)
 
@@ -150,7 +150,8 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(
+            data['message'], 'Successfully retreived all offices')
         self.assertEqual(len(data['data']), 0)
         self.assertEqual(res.status_code, 200)
 
@@ -166,7 +167,8 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(
+            data['message'], 'Successfully retreived single office')
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(data['data'][0]['id'], 1)
         self.assertEqual(res.status_code, 200)
@@ -194,7 +196,7 @@ class TestOffices(Base):
         data = res.get_json()
 
         self.assertEqual(data['status'], 200)
-        self.assertEqual(data['message'], 'Success')
+        self.assertEqual(data['message'], 'Successfully deleted office')
         self.assertEqual(len(data['data']), 1)
         self.assertEqual(data['data'][0]['id'], 1)
         self.assertEqual(res.status_code, 200)
