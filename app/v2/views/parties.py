@@ -45,7 +45,7 @@ def create_party():
         party.save()
 
         # return added party
-        return response("Success", 201, [party.as_json()])
+        return response("Successfully created party", 201, [party.as_json()])
 
     elif request.method == 'PUT':
         """ Create party end point """
@@ -83,12 +83,12 @@ def create_party():
         party.update()
 
         # return added party
-        return response("Success", 201, [party.as_json()])
+        return response("Successfully created part", 201, [party.as_json()])
 
     elif request.method == 'GET':
         """ Get all parties end point """
         model = Party()
-        return response('Success', 200, model.load_all())
+        return response('Successfully retreived all parties', 200, model.load_all())
 
 
 @bp.route('/parties/<int:id>', methods=['GET', 'DELETE'])
@@ -102,14 +102,14 @@ def get_party(id):
         return response_error('Party not found', 404)
 
     if request.method == 'GET':
-        return response('Success', 200, [data])
+        return response('Successfully retreived the party', 200, [data])
     else:
         restricted = not_admin()
         if restricted:
             return restricted
         party = model.from_json(data)
         party.delete(party.id)
-        return response('Success', 200, [data])
+        return response('Successfully deleted the party', 200, [data])
 
 
 @bp.route('/parties/<int:id>/name', methods=['PATCH'])
@@ -142,4 +142,4 @@ def edit_party(id):
     party.edit(name)
 
     return response(
-        'Success', 200, [party.as_json()])
+        'Successfully updated party info', 200, [party.as_json()])
