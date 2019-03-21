@@ -6,6 +6,7 @@ from .v1.views import offices, parties, candidates, votes, users
 from .v2.views import offices as v2_offices
 from .v2.views import candidates as v2_candidates
 from .v2.views import votes as v2_votes
+from .v2.views import upload as v2_upload
 from .v2.views import users as v2_users, parties as v2_parties
 from .v2.db.database_config import Database
 from app.blueprints import bp, v2
