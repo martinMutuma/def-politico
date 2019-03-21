@@ -6,13 +6,13 @@
 
 <!-- Outline the tasks completed by the pr -->
 
-- [x] first task
-- [x] second task
+-   [x] first task
+-   [x] second task
 
 **How should this be manually tested?**
 
-- Clone the repo
-- Check out to this branch ``
+-   Clone the repo
+-   Check out to this branch ``
 
 **Any background context you want to provide?**
 An reason behind the implementation.
@@ -22,6 +22,6 @@ An reason behind the implementation.
 <!-- Please note that the projectId(2320126) that has been hardcoded here represents the projectId
 of our PT board, -->
 
-[](https://www.pivotaltracker.com/n/projects/2320126/stories/story_id)
+[](https://www.pivotaltracker.com/n/projects/2320126/stories/storyid)
 
 **Screenshots (if appropriate)**
