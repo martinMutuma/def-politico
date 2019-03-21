@@ -34,21 +34,18 @@ class User(BaseModel):
 
     def save(self):
         """save user to db and generate tokens """
-
         data = super().save(
             'firstname, lastname, othername, email, phonenumber, password, \
             passport_url, admin', self.first_name, self.last_name,
             self.other_name, self.email, self.phone_number,
             generate_password_hash(self.password),
             self.passport_url, self.is_admin)
-
         self.id = data.get('id')
         self.create_tokens()
         return data
 
     def update(self):
         """update user detail"""
-   
         query = "UPDATE users SET firstname = '{}',lastname ='{}',othername='{}',email='{}',phonenumber='{}',password='{}',passport_url='{}',admin='{}' WHERE id = '{}' RETURNING *"
         query = query.format(self.first_name,self.last_name,self.other_name,self.update_email,self.phone_number,self.password,self.passport_url,self.is_admin,self.id)
         return super().insert(query)
