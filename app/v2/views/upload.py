@@ -1,8 +1,7 @@
-from flask import Blueprint, request, jsonify
-from flask import make_response
+from flask import request, jsonify
 from app.v2.models.upload_model import UploadImage
 from app.blueprints import v2
-from app.v2.utils.validator import response_error, response
+from app.v2.utils.validator import response_error
 from flask_jwt_extended import (jwt_required, get_jwt_identity)
 
 
@@ -18,20 +17,17 @@ def update_image():
         return response_error("No data was provided", 400)
 
     if request.method == 'PATCH':
-        try:
-            created_by = current_user
-            new_url = data['url']
-        except KeyError as e:
+        created_by = current_user
+        new_url = data['url']
+        if not new_url:
             return response_error(
-                "{} field is required".format(e.args[0]), 400
+                "{} field is required".format('url'), 400
             )
 
     upload = UploadImage(created_by, new_url)
 
     upload.updateimage()
- 
     msg = "Profile image was updated successfully"
-
     return jsonify({
         "message": msg,
         "status": 200
