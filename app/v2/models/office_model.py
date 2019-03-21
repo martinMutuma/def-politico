@@ -34,7 +34,7 @@ class Office(BaseModel):
         self.id = json['id']
         return self
 
-    def edit(self, new_name):
+    def edit(self, new_name, id):
         """ Edit office name """
         self.name = new_name
         return super().edit('name', new_name, self.id)
