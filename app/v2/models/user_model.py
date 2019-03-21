@@ -17,7 +17,7 @@ class User(BaseModel):
     def __init__(
             self, first_name=None, last_name=None, other_name=None, email=None,
             phone_number=None, passport_url=None, is_admin=False,
-            password=None, id=None):
+            password=None,update_email=None, id=None):
 
         super().__init__('User', 'users')
 
@@ -30,21 +30,26 @@ class User(BaseModel):
         self.is_admin = is_admin
         self.password = password
         self.id = id
+        self.update_email=update_email
 
     def save(self):
         """save user to db and generate tokens """
-
         data = super().save(
             'firstname, lastname, othername, email, phonenumber, password, \
             passport_url, admin', self.first_name, self.last_name,
             self.other_name, self.email, self.phone_number,
             generate_password_hash(self.password),
             self.passport_url, self.is_admin)
-
         self.id = data.get('id')
         self.create_tokens()
         return data
 
+    def update(self):
+        """update user detail"""
+        query = "UPDATE users SET firstname = '{}',lastname ='{}',othername='{}',email='{}',phonenumber='{}',password='{}',passport_url='{}',admin='{}' WHERE id = '{}' RETURNING *"
+        query = query.format(self.first_name,self.last_name,self.other_name,self.update_email,self.phone_number,self.password,self.passport_url,self.is_admin,self.id)
+        return super().insert(query)
+        
     def create_tokens(self):
         expires = datetime.timedelta(days=60)
         self.access_token = create_access_token(
@@ -76,10 +81,10 @@ class User(BaseModel):
         """ validates the object """
 
         ok = True
-
-        validate_strings(
-            self.as_json(), 'firstname', 'lastname', 'othername', 'email',
-            'phoneNumber')
+        if not self.update_email:
+            validate_strings(
+                self.as_json(), 'firstname', 'lastname', 'othername', 'email',
+                'phoneNumber')
 
         validate_links(
             self.as_json(), 'passport_url')
@@ -109,10 +114,15 @@ class User(BaseModel):
             self.error_code = 422
             ok = False
 
-        elif self.find_by('email', self.email):
+        elif self.find_by('email', self.email) and not self.update_email:
             self.error_message = "A {} with that email already exists".format(
                 self.object_name)
             self.error_code = 409
             ok = False
 
+        if self.update_email:
+            if self.update_find_by('email', self.update_email,self.id):
+                self.error_message = "Another user {} with that email already exists".format(self.object_name)
+                self.error_code = 409
+                ok = False
         return ok

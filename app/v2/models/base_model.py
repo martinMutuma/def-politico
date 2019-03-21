@@ -68,7 +68,15 @@ class BaseModel(Database):
 
         query = "SELECT * FROM {} WHERE {} = '{}'".format(
             self.table_name, key, self.escapedString(value))
+        data = self.get_one(query)
+        if data:
+            data[key] = value
+        return data
+    def update_find_by(self, key, value,value_id):
+        """ Find object from table and return """
 
+        query = "SELECT * FROM {} WHERE {} = '{}' AND id != {}"
+        query=query.format(self.table_name, key, self.escapedString(value),value_id)
         data = self.get_one(query)
         if data:
             data[key] = value
