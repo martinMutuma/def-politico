@@ -18,13 +18,10 @@ def create_party():
         restricted = not_admin()
         if restricted:
             return restricted
-
         data = request.get_json()
-
         validate=validator.validate_data(data,status="data")
         if validate:
             return validate
-
         try:
             name = data['name']
             hq_address = data['hq_address']
@@ -52,7 +49,6 @@ def create_party():
         restricted = not_admin()
         if restricted:
             return restricted
-       
         data = request.get_json()
         validate=validator.validate_data(data,status="data")
         if validate:
