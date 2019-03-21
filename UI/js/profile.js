@@ -4,53 +4,56 @@ function uploadImage(event) {
   let reader = new FileReader();
 
   reader.onload = function() {
-    if (reader.readyState == 2) {
+    if (reader.readyState === 2) {
       let image = reader.result;
-      function uploadImgur() {
-        event.preventDefault();
-        var strImage = image.replace(/^data:image\/[a-z]+;base64,/, "");
-        data = new FormData();
-        data.append("image", strImage);
-        fetch("https://api.imgur.com/3/image", {
-          method: "POST",
-          headers: {
-            Authorization: "Client-ID 6c78ded85463291"
-          },
-          body: data
-        })
-          .then(resp => resp.json())
-          .then(data => {
-            let image_url = data.data.link;
-            document.getElementById('photo').src = image_url;
-
-            fetch(
-              `https://premier-voting.herokuapp.com/api/v2/user/update_image`,
-              {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                  url: image_url
-                })
-              }
-            )
-              .then(resp => resp.json())
-              .then(data => {
-                if (data.status !== 200) {
-                  console.log(data.error);
-                } else {
-                  console.log(data.message);
-                }
-              });
-          });
-      }
-      uploadImgur();
+      uploadImgur(image);
     }
   };
 
   reader.readAsDataURL(event.target.files[0]);
+  
+}
+
+function uploadImgur(image) {
+  event.preventDefault();
+  var strImage = image.replace(/^data:image\/[a-z]+;base64,/, "");
+  let data = new FormData();
+  data.append("image", strImage);
+  fetch("https://api.imgur.com/3/image", {
+    method: "POST",
+    headers: {
+      Authorization: "Client-ID 6c78ded85463291"
+    },
+    body: data
+  })
+    .then((resp) => resp.json())
+    .then((data) => {
+      let imageUrl = data.data.link;
+      let token = localStorage.getItem('token');
+      localStorage.setItem("passport_url", imageUrl);
+      
+      fetch(
+        "https://premier-voting.herokuapp.com/api/v2/user/update_image",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            url: imageUrl
+          })
+        }
+        
+      )
+        .then((resp) => resp.json())
+        .then((data) => {
+          if (data.status !== 200) {
+          } else {
+            location.reload()
+          }
+        });
+    });
 }
 
 inputImage.addEventListener("change", uploadImage);
