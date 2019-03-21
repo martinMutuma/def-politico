@@ -1,7 +1,4 @@
-from flask import Blueprint
 from flask import request
-from flask import jsonify
-from flask import make_response
 from app.v2.models.party_model import Party
 from app.v2.models.user_model import User
 from app.v2.utils.validator import response, response_error
@@ -9,6 +6,7 @@ from app.v2.utils.jwt_utils import not_admin
 from app.blueprints import v2 as bp
 from flask_jwt_extended import (jwt_required)
 from app.v2.utils.jwt_utils import admin_required
+from app.v2.utils import validator
 
 
 @bp.route('/parties', methods=['POST', 'GET', 'PUT'])
@@ -20,12 +18,10 @@ def create_party():
         restricted = not_admin()
         if restricted:
             return restricted
-
         data = request.get_json()
-
-        if not data:
-            return response_error("No data was provided", 400)
-
+        validate=validator.validate_data(data,status="data")
+        if validate:
+            return validate
         try:
             name = data['name']
             hq_address = data['hq_address']
@@ -53,11 +49,10 @@ def create_party():
         restricted = not_admin()
         if restricted:
             return restricted
-
         data = request.get_json()
-
-        if not data:
-            return response_error("No data was provided", 400)
+        validate=validator.validate_data(data,status="data")
+        if validate:
+            return validate
 
         try:
             name = data['name']
@@ -73,9 +68,10 @@ def create_party():
         party = Party(name, hq_address, logo_url, slogan, manifesto, id)
         data = party.find_by('id', id)
 
-        if not data:
-            return response_error('Party not found', 404)
+        validate=validator.validate_data(data,status="party")
 
+        if validate:
+            return validate
         if not party.validate_object():
             return response_error(party.error_message, party.error_code)
 
@@ -97,11 +93,13 @@ def get_party(id):
 
     model = Party()
     data = model.find_by('id', id)
+    validate=validator.validate_data(data,status="party")
 
     if not data:
         return response_error('Party not found', 404)
-
-    if request.method == 'GET':
+    if validate:
+        return validate
+    elif request.method == 'GET':
         return response('Successfully retreived the party', 200, [data])
     else:
         restricted = not_admin()
@@ -118,8 +116,9 @@ def edit_party(id):
 
     data = request.get_json()
 
-    if not data:
-        return response_error("No data was provided", 400)
+    validate=validator.validate_data(data,status="data")
+    if validate:
+        return validate
 
     try:
         name = data['name']
@@ -128,12 +127,12 @@ def edit_party(id):
             "{} field is required".format(e.args[0]), 400)
 
     model = Party()
-    data = model.find_by('id', id)
+    party_data = model.find_by('id',id)
+    validate=validator.validate_data(party_data,status="party")
+    if validate:
+        return validate
 
-    if not data:
-        return response_error('Party not found', 404)
-
-    party = model.from_json(data)
+    party = model.from_json(party_data)
     party.name = name
 
     if not party.validate_object():

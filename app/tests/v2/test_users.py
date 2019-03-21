@@ -420,3 +420,31 @@ class TestUsers(Base):
         self.assertEqual(data['status'], 400)
         self.assertEqual(data['error'], 'No data was provided')
         self.assertEqual(res.status_code, 400)
+
+    def test_list_users(self):
+        """ Tests when get request made to api/v2/users """
+
+        res = self.client.get('/api/v2/users', headers=self.headers)
+        data = res.get_json()
+        self.assertEqual(data['status'], 200)
+        self.assertEqual(data['message'], 'OK')
+        self.assertGreater(len(data['data']), 0)
+        self.assertEqual(res.status_code, 200)
+
+    def test_list_users_after_new_registration(self):
+        """ Tests when get request made to api/v2/users """
+        resb = self.client.get('/api/v2/users', headers=self.headers)
+        datab = resb.get_json()
+
+        res = self.client.post('/api/v2/auth/signup', json=self.new_user)
+        data = res.get_json()
+        self.assertEqual(data['status'], 201)
+        self.assertEqual(data['message'], 'Success')
+        
+        res1 = self.client.get('/api/v2/users', headers=self.headers)
+        data1 = res1.get_json()
+        diff = len(data1['data']) - len(datab['data'])
+        self.assertEqual(data1['status'], 200)
+        self.assertEqual(data1['message'], 'OK')
+        self.assertEqual(diff, 1)
+        self.assertEqual(res1.status_code, 200)

@@ -13,6 +13,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash
 import re
 from flask_sendgrid import SendGrid
+from app.v2.utils.jwt_utils import admin_required
 
 
 @v2.route('/auth/signup', methods=['POST', 'PUT'])
@@ -250,3 +251,16 @@ def change_password():
     }
 
     return make_response(jsonify(response_data), 200)
+
+
+@v2.route('/users', methods=['GET'])
+@admin_required
+def list_users():
+    """ List of Users
+    Returns:
+        [Httpresponse] -- [with a list of users]
+    """
+    fields = ['email', 'admin', 'firstname', 'id', 'lastname',
+              'othername', 'passport_url', 'phonenumber']
+    users = User().load_all(fields)
+    return response('OK', 200, users)
