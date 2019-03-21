@@ -255,11 +255,7 @@ def change_password():
 @jwt_required
 def update_user():
     """Update user endpoint"""
-
-   
-
     data = request.get_json()
-
     if not data:
         return response_error("No data was provided", 400)
 
