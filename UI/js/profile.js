@@ -21,6 +21,7 @@ function uploadImage(event) {
           .then(resp => resp.json())
           .then(data => {
             let image_url = data.data.link;
+            document.getElementById('photo').src = image_url;
 
             fetch(
               `https://premier-voting.herokuapp.com/api/v2/user/update_image`,
