@@ -439,8 +439,8 @@ class TestUsers(Base):
         res = self.client.post('/api/v2/auth/signup', json=self.new_user)
         data = res.get_json()
         self.assertEqual(data['status'], 201)
-        self.assertEqual(data['message'], 'Success')
-        
+        self.assertEqual(data['message'], 'User created successfully')
+
         res1 = self.client.get('/api/v2/users', headers=self.headers)
         data1 = res1.get_json()
         diff = len(data1['data']) - len(datab['data'])
