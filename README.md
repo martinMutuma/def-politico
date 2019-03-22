@@ -53,24 +53,24 @@ $ pip install -r requirements.txt
 <p></p>
 
 ## Version 2
- | **Endpoint** | **Functionality** | **Route** |
-| --- | --- | --- |
-| **POST** /auth/signup/ | Register user to the database | `api/v2/auth/signup/` |
-| **POST** /auth/login/ | Login to the system | `api/v2/auth/login/` |
-| **POST** /auth/reset | Reset password | `api/v2/auth/reset` |
-| **POST** /parties | Creates a political party | `/api/v2/parties/` |
-| **GET** /parties/`<int:party-id>` | Gets a specific political party | `/api/v2/parties/<int:party_id>` |
-| **GET** /parties | Gets all political parties | `/api/v2/parties/` |
-| **PATCH** /parties/`<party-id>`/name | Edit the name of a specific political party. | `/api/v2/parties/<int:party-id>/<string:name>` |
-| **DELETE** /parties/`<party-id>` | Delete a political party | `/api/v2/parties/<int:party-id>` |
-| **POST** /offices | Create a political office. | `/api/v2/offices/` |
-| **GET** /offices | Fetch all political offices records | `api/v2/offices/` |
-| **GET** /offices/`<int:office_id>` | Fetch a specific political office record | `api/v2/offices/<int:office_id>` |
-| **PATCH** /offices/`<office_id>`/name | Edit the name of a specific political Office. | `/api/v2/offices/<int:office_id>/name` |
-| **POST** /office/`<int:office_id>`/register/ | Register a political candidate | `api/v2/office<int:office_id>/register` |
-| **POST** /votes/ | Cast a vote | `api/v2/votes/` |
-| **GET** /api/v2/office/`<int:office_id>`/result | Get election results for specific office| `/api/v2/office/<int:office_id>/result` |
-| **GET** /api/v2/users | Get list of users| `/api/v2/users` |
+| **Endpoint**                                  | **Functionality**                               | **Route**                                       |
+| ---                                           | ---                                             | ---                                             |
+| **POST** /auth/signup/                        | Register user to the database                   | `api/v2/auth/signup/`                           |
+| **POST** /auth/login/                         | Login to the system                             | `api/v2/auth/login/`                            |
+| **POST** /auth/reset                          | Reset password                                  | `api/v2/auth/reset`                             |
+| **POST** /parties                             | Creates a political party                       | `/api/v2/parties/`                              |
+| **GET** /parties/`<int:party-id>`             | Gets a specific political party                 | `/api/v2/parties/<int:party_id>`                |
+| **GET** /parties                              | Gets all political parties                      | `/api/v2/parties/`                              |
+| **PATCH** /parties/`<party-id>`/name          | Edit the name of a specific political party.    | `/api/v2/parties/<int:party-id>/<string:name>` |
+| **DELETE** /parties/`<party-id>`              | Delete a political party                        | `/api/v2/parties/<int:party-id>` |
+| **POST** /offices                             | Create a political office.                      | `/api/v2/offices/`                              |
+| **GET** /offices                              | Fetch all political offices records             | `api/v2/offices/`                               |
+| **GET** /offices/`<int:office_id>`            | Fetch a specific political office record        | `api/v2/offices/<int:office_id>`                |
+| **PATCH** /offices/`<office_id>`/name         | Edit the name of a specific political Office.   | `/api/v2/offices/<int:office_id>/name`          |
+| **POST** /office/`<int:office_id>`/register/  | Register a political candidate                  | `api/v2/office<int:office_id>/register`      |
+| **POST** /votes/                              | Cast a vote                                     | `api/v2/votes/`                                 |
+| **GET**/api/v2/office/`<int:office_id>`/result| Get election results for specific office        | `/api/v2/office/<int:office_id>/result`        |
+| **GET** /api/v2/users                         | Get list of users                               | `/api/v2/users`                                 |
 
 ## Version 1
   | **Endpoint** | **Functionality** | **Route** |
@@ -90,7 +90,6 @@ $ pip install -r requirements.txt
 | **GET** /votes/candidate/`<int:candidate-id>` | Get all votes for specific candidate | `api/v1/votes/canidate/<int:candidate-id>` |
 | **GET** /votes/office/`<int:office-id>` | Get all votes for a specific office | `api/v1/votes/office/<int:office-id>` |
 
-
 ## Authors / Creators
 [Bedan Kamau](https://github.com/bedann)
 
@@ -105,4 +104,3 @@ $ pip install -r requirements.txt
 [Trevor](https://github.com/kburudi)
 
 [Martin Mutuma](https://github.com/martinMutuma)
-
