@@ -34,7 +34,7 @@ function uploadImgur(image) {
       )
         .then((resp) => resp.json())
         .then((data) => {
-          if (data.status == 200) {
+          if (data.status === 200) {
          location.reload();
           }
         });
