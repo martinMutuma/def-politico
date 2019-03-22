@@ -58,6 +58,7 @@ $ pip install -r requirements.txt
 | **POST** /auth/signup/                        | Register user to the database                   | `api/v2/auth/signup/`                           |
 | **POST** /auth/login/                         | Login to the system                             | `api/v2/auth/login/`                            |
 | **POST** /auth/reset                          | Reset password                                  | `api/v2/auth/reset`                             |
+| **POST** /auth/update                         | Update User Details                             | `api/v2/auth/update`                            |
 | **POST** /parties                             | Creates a political party                       | `/api/v2/parties/`                              |
 | **GET** /parties/`<int:party-id>`             | Gets a specific political party                 | `/api/v2/parties/<int:party_id>`                |
 | **GET** /parties                              | Gets all political parties                      | `/api/v2/parties/`                              |
