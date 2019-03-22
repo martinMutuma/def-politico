@@ -73,22 +73,22 @@ $ pip install -r requirements.txt
 | **GET** /api/v2/users                         | Get list of users                               | `/api/v2/users`                                 |
 
 ## Version 1
-  | **Endpoint** | **Functionality** | **Route** |
-| --- | --- | --- |
-| **POST** /parties | Creates a political party | `/api/v1/parties/` |
-| **GET** /parties/`<int:party-id>` | Gets a specific political party | `/api/v1/parties/<int:party_id>` |
-| **GET** /parties | Gets all political parties | `/api/v1/parties/` |
-| **PATCH** /parties/`<party-id>`/name | Edit the name of a specific political party. | `/api/v1/parties/<int:party-id>/<string:name>` |
-| **DELETE** /parties/`<party-id>` | Delete a political party | `/api/v1/parties/<int:party-id>` |
-| **POST** /offices | Create a political office. | `/api/v1/offices/` |
-| **GET** /offices | Fetch all political offices records | `api/v1/offices/` |
-| **GET** /offices/`<int:office_id>` | Fetch a specific political office record | `api/v1/offices/<int:office_id>` |
-| **POST** /register/ | Register user to the database | `api/v1/register/` |
-| **POST** /candidates/ | Create a political candidate | `api/v1/candidates/` |
-| **POST** /votes/ | Cast a vote | `api/v1/votes/` |
-| **GET** /votes/user/`<int:user-id>` | Get all votes by a specific user | `api/v1/votes/user/<int:user-id>` |
-| **GET** /votes/candidate/`<int:candidate-id>` | Get all votes for specific candidate | `api/v1/votes/canidate/<int:candidate-id>` |
-| **GET** /votes/office/`<int:office-id>` | Get all votes for a specific office | `api/v1/votes/office/<int:office-id>` |
+| **Endpoint**                                    | **Functionality**                               | **Route**                                                       |
+| ---                                             | ---                                             | ---                                                             |
+| **POST** /parties                               | Creates a political party                       | `/api/v1/parties/`                                              |
+| **GET** /parties/`<int:party-id>`               | Gets a specific political party                 | `/api/v1/parties/<int:party_id>`                  |
+| **GET** /parties                                | Gets all political parties                      | `/api/v1/parties/`                                              |
+| **PATCH** /parties/`<party-id>`/name            | Edit the name of a specific political party.    | `/api/v1/parties/<int:party-id>/<string:name>`    |
+| **DELETE** /parties/`<party-id>`                | Delete a political party                        | `/api/v1/parties/<int:party-id>`                  |
+| **POST** /offices                               | Create a political office.                      | `/api/v1/offices/`                                              |
+| **GET** /offices                                | Fetch all political offices records             | `api/v1/offices/`                                               |
+| **GET** /offices/`<int:office_id>`              | Fetch a specific political office record        | `api/v1/offices/<int:office_id>`                 |
+| **POST** /register/                             | Register user to the database                   | `api/v1/register/`                                              |
+| **POST** /candidates/                           | Create a political candidate                    | `api/v1/candidates/`                                            |
+| **POST** /votes/                                | Cast a vote                                     | `api/v1/votes/`                                                 |
+| **GET** /votes/user/`<int:user-id>`             | Get all votes by a specific user                | `api/v1/votes/user/<int:user-id>`                   |
+| **GET** /votes/candidate/`<int:candidate-id>`   | Get all votes for specific candidate            | `api/v1/votes/canidate/<int:candidate-id>`              |
+| **GET** /votes/office/`<int:office-id>`         | Get all votes for a specific office             | `api/v1/votes/office/<int:office-id>`                 |
 
 ## Authors / Creators
 [Bedan Kamau](https://github.com/bedann)
