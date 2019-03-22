@@ -1,19 +1,19 @@
-.profile-details{
+.profile-details {
   position: relative;
   margin-bottom: 2em;
 }
 
-.profile-info{
+.profile-info {
   background-color: transparent;
 }
 
-#img-cont{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    margin-bottom: 0;
-    margin-left: 10px;
-    margin-bottom: 10px;
+#img-cont {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 0;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 .edit-image {
   background-color: #24292e;
@@ -24,22 +24,22 @@
   cursor: pointer;
 }
 
-.edit-icon{
-    fill: currentColor;
-    display: inline-block;
-    vertical-align: text-bottom;
+.edit-icon {
+  fill: currentColor;
+  display: inline-block;
+  vertical-align: text-bottom;
 }
 
 details summary::-webkit-details-marker {
-  display:none;
+  display: none;
 }
 
-.dropdown-menu{
+.dropdown-menu {
   background-clip: padding-box;
   background-color: #fff;
-  border: 1px solid rgba(27,31,35,.15);
+  border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 4px;
-  box-shadow: 0 3px 12px rgba(27,31,35,.15);
+  box-shadow: 0 3px 12px rgba(27, 31, 35, 0.15);
   left: 0;
   list-style: none;
   margin-top: 2px;
@@ -53,31 +53,45 @@ details summary::-webkit-details-marker {
   left: 9px;
   top: -16px;
   border: 8px solid transparent;
-  border-bottom-color: rgba(27,31,35,.15);
+  border-bottom-color: rgba(27, 31, 35, 0.15);
 }
 
-.profile-info img{
+.profile-info img {
   width: 100%;
 }
 
-summary:focus{
+summary:focus {
   outline: none;
 }
 
-#input-field{
+#input-field {
   display: none;
 }
 
-label{
+label {
   font-size: 1em;
   padding: 5px 5px;
+  cursor: pointer;
+  text-align: justify;
+  display: block;
 }
 
-#rm-btn{
+label:hover{
+  background-color: #88bdbc;
+}
+
+#rm-btn {
   background: none;
   border: none;
-  font-family: 'Politico';
+  font-family: "Politico";
   padding: 5px 5px;
-  font-size: 1em; 
+  font-size: 1em;
   outline: none;
+  width: 100%;
+  text-align: justify;
+  cursor: pointer;
+}
+
+#rm-btn:hover {
+  background-color: #88bdbc;
 }

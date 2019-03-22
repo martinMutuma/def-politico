@@ -5,7 +5,9 @@
 /**
  * Convinience methods and properties
  */
-const BASE_URL = "https://premier-voting.herokuapp.com/api/v2";
+
+const BASE_URL = 'https://premier-voting.herokuapp.com/api/v2';
+
 var office_ids = [];
 
 function getToken() {
