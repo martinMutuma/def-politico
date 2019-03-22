@@ -8,10 +8,7 @@ app.config['SWAGGER'] = {
     "swagger": "2.0",
     "uiversion": "3",
     "info": {
-        "title": "Kura Yangu",
-        "contact": {
-            "email": "bedank6@gmail.com"
-        },
+        "title": "Premier voting",
         "description": """
         This is the official documentation of the Kura Yangu API.
         Use these endpoints to create a voting system
